@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import inspect
+import json
 from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
@@ -468,9 +469,12 @@ class NetBoxTuiApp(App[None]):
         parsed = parse_response_rows(response.text)
         if not parsed:
             panel.set_object(fallback_row)
+            panel.set_trace(None)
             return
 
-        panel.set_object(parsed[0])
+        obj = parsed[0]
+        panel.set_object(obj)
+        await self._load_trace_for_object(obj)
 
     @work(group="detail_refresh", exclusive=True, thread=False)
     async def _load_object_details(self, row: dict[str, Any]) -> None:
@@ -479,22 +483,56 @@ class NetBoxTuiApp(App[None]):
         if not group or not resource:
             panel = self.query_one("#detail_panel", ObjectAttributesPanel)
             panel.set_object(row)
+            panel.set_trace(None)
             return
 
         object_id = row.get("id")
         if object_id is None:
             panel = self.query_one("#detail_panel", ObjectAttributesPanel)
             panel.set_object(row)
+            panel.set_trace(None)
             return
 
         paths = self.index.resource_paths(group, resource)
         if paths is None or paths.detail_path is None:
             panel = self.query_one("#detail_panel", ObjectAttributesPanel)
             panel.set_object(row)
+            panel.set_trace(None)
             return
 
         detail_path = paths.detail_path.replace("{id}", str(object_id))
         await self._show_detail_for_path(detail_path, row)
+
+    async def _load_trace_for_object(self, obj: dict[str, Any]) -> None:
+        panel = self.query_one("#detail_panel", ObjectAttributesPanel)
+        if self.current_group != "dcim" or self.current_resource != "interfaces":
+            panel.set_trace(None)
+            return
+
+        object_id = obj.get("id")
+        cable = obj.get("cable")
+        if object_id is None or not cable:
+            panel.set_trace(None)
+            return
+
+        trace_path = f"/api/dcim/interfaces/{object_id}/trace/"
+        try:
+            response = await self.client.request("GET", trace_path)
+        except Exception:
+            panel.set_trace(None)
+            return
+
+        if response.status >= 400:
+            panel.set_trace(None)
+            return
+
+        try:
+            trace_payload = json.loads(response.text)
+        except json.JSONDecodeError:
+            panel.set_trace(None)
+            return
+
+        panel.set_trace(trace_payload)
 
     def _build_navigation_tree(self) -> None:
         tree = self.query_one("#nav_tree", Tree)
