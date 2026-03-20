@@ -13,6 +13,10 @@ Screen {
     background: $background;
 }
 
+.hidden {
+    display: none;
+}
+
 /* ---- Scrollbars ----------------------------------------------------- */
 /* Slim, low-contrast rails by default; accent only on interaction. */
 
@@ -548,6 +552,20 @@ ObjectAttributesPanel.-loading #detail_status {
 
 #detail_table:focus {
     background-tint: transparent;
+}
+
+#detail_trace_title {
+    margin: 1 0 0 0;
+}
+
+#detail_trace {
+    margin: 1 0 0 0;
+    padding: 1;
+    border: round $nb-border-subtle;
+    background: $panel;
+    color: $foreground;
+    height: auto;
+    text-wrap: nowrap;
 }
 
 
