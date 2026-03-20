@@ -22,6 +22,7 @@ from netbox_cli.theme_registry import load_theme_catalog
 from netbox_cli.ui.app import FilterModal, NetBoxTuiApp
 from netbox_cli.ui.formatting import configure_semantic_styles, semantic_cell
 from netbox_cli.ui.navigation import build_navigation_menus
+from netbox_cli.ui.panels import render_cable_trace_ascii
 from netbox_cli.ui.state import TuiState, ViewState
 
 # ---------------------------------------------------------------------------
@@ -63,6 +64,57 @@ FAKE_DEVICE_TYPE_DETAIL = {
         "display_url": "/dcim/manufacturers/88/",
     },
 }
+
+FAKE_INTERFACE_ROW = {
+    "id": 4,
+    "name": "GigabitEthernet0/1/1",
+    "display": "GigabitEthernet0/1/1",
+    "status": "active",
+    "cable": {"id": 36, "display": "#36"},
+}
+
+FAKE_INTERFACE_DETAIL = {
+    "id": 4,
+    "name": "GigabitEthernet0/1/1",
+    "display": "GigabitEthernet0/1/1",
+    "status": "active",
+    "device": {
+        "id": 1,
+        "display": "dmi01-akron-rtr01",
+        "name": "dmi01-akron-rtr01",
+    },
+    "cable": {"id": 36, "display": "#36"},
+}
+
+FAKE_INTERFACE_TRACE = [
+    [
+        [
+            {
+                "id": 4,
+                "display": "GigabitEthernet0/1/1",
+                "name": "GigabitEthernet0/1/1",
+                "device": {
+                    "id": 1,
+                    "display": "dmi01-akron-rtr01",
+                    "name": "dmi01-akron-rtr01",
+                },
+            }
+        ],
+        {"id": 36, "display": "Cable #36", "status": "connected"},
+        [
+            {
+                "id": 171,
+                "display": "GigabitEthernet1/0/2",
+                "name": "GigabitEthernet1/0/2",
+                "device": {
+                    "id": 14,
+                    "display": "dmi01-akron-sw01",
+                    "name": "dmi01-akron-sw01",
+                },
+            }
+        ],
+    ]
+]
 
 
 def _list_response(items: list) -> ApiResponse:
@@ -282,6 +334,18 @@ def test_semantic_cells_use_neutral_chip_background() -> None:
     assert " on " not in semantic_cell("tenant", "Tenant A").style
 
 
+def test_render_cable_trace_ascii_formats_segment() -> None:
+    rendered = render_cable_trace_ascii(FAKE_INTERFACE_TRACE)
+
+    assert rendered is not None
+    assert "dmi01-akron-rtr01" in rendered
+    assert "GigabitEthernet0/1/1" in rendered
+    assert "Cable #36" in rendered
+    assert "Connected" in rendered
+    assert "dmi01-akron-sw01" in rendered
+    assert "Trace Completed - 1 segment(s)" in rendered
+
+
 @pytest.mark.asyncio
 async def test_detail_link_click_redirects_to_linked_object(real_index):
     client = MagicMock()
@@ -354,6 +418,50 @@ async def test_detail_link_click_redirects_to_linked_object(real_index):
         ctx = app.query_one("#context_line", Static)
         assert "device types" in _static_text(ctx)
         client.request.assert_any_call("GET", "/api/dcim/device-types/10/")
+
+
+@pytest.mark.asyncio
+async def test_interface_detail_shows_ascii_cable_trace(real_index):
+    client = MagicMock()
+
+    async def _request(method: str, path: str, **kwargs):
+        if method != "GET":
+            raise AssertionError(f"unexpected method: {method}")
+        if path == "/api/dcim/interfaces/":
+            return _list_response([FAKE_INTERFACE_ROW])
+        if path == "/api/dcim/interfaces/4/":
+            return _detail_response(FAKE_INTERFACE_DETAIL)
+        if path == "/api/dcim/interfaces/4/trace/":
+            return ApiResponse(status=200, text=json.dumps(FAKE_INTERFACE_TRACE))
+        raise AssertionError(f"unexpected path: {path}")
+
+    client.request = AsyncMock(side_effect=_request)
+    client.probe_connection = AsyncMock(return_value=_PROBE_OK)
+
+    app = _make_app(client, real_index, theme="dracula")
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await pilot.pause()
+
+        tree = app.query_one("#nav_tree", Tree)
+        leaf = None
+        stack = list(tree.root.children)
+        while stack:
+            node = stack.pop(0)
+            if node.data == ("dcim", "interfaces"):
+                leaf = node
+                break
+            stack.extend(node.children)
+        assert leaf is not None
+        tree.post_message(Tree.NodeSelected(leaf))
+        await pilot.pause()
+        await pilot.pause()
+
+        trace = app.query_one("#detail_trace", Static)
+        trace_text = str(trace.content)
+        assert "dmi01-akron-rtr01" in trace_text
+        assert "Cable #36" in trace_text
+        assert "Trace Completed - 1 segment(s)" in trace_text
 
 
 # ---------------------------------------------------------------------------
