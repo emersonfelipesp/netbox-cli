@@ -59,6 +59,7 @@ class ObjectAttributesPanel(PanelCard):
         self._spinner_index = 0
         self._spinner_tick(label)
         self._spinner_timer = self.set_interval(0.12, lambda: self._spinner_tick(label))
+        self.add_class("-loading")  # CSS state machine: drives teal status color
 
         table = self.query_one("#detail_table", DataTable)
         table.clear(columns=True)
@@ -67,6 +68,7 @@ class ObjectAttributesPanel(PanelCard):
 
     def set_object(self, obj: dict[str, Any] | None) -> None:
         self._stop_spinner()
+        self.remove_class("-loading")  # Clear CSS loading state
         table = self.query_one("#detail_table", DataTable)
         table.clear(columns=True)
         table.add_columns("Field", "Value")
