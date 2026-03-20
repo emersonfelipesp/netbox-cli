@@ -1,43 +1,284 @@
+/* =====================================================================
+   netbox-cli — Visual Design
+   Priority 1: reference/design/NETBOX-DARK-PATTERNS.md
+   Priority 2: reference/textual/TOAD-DESIGN-GUIDE.md
+   All colors via $semantic-variable — no hardcoded hex in TCSS.
+   ===================================================================== */
+
+
+/* ---- Screen --------------------------------------------------------- */
+
 Screen {
     layout: vertical;
+    background: $background;
 }
 
-#layout {
+
+/* ---- Header --------------------------------------------------------- */
+/* Textual's built-in Header uses $primary / $background automatically. */
+
+
+/* ---- Top Bar -------------------------------------------------------- */
+/* border: tall transparent reserves focus-ring space (no layout shift).  */
+/* On :focus-within the border lights up — Toad PromptContainer pattern.  */
+
+#topbar {
+    height: auto;
+    background: $background;
+    border: tall transparent;
+    border-bottom: solid $foreground 10%;
+    padding: 0 1;
+    align: left middle;
+}
+
+#topbar:focus-within {
+    border: tall $secondary;
+}
+
+#global_search {
+    width: 1fr;
+    border: tall transparent;
+    background: transparent;
+}
+
+#global_search:focus {
+    border: tall $primary;
+    background: $primary 7%;
+}
+
+#context_line {
+    width: 42;
+    content-align: right middle;
+    color: $text-muted;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+#close_tui_button {
+    width: auto;
+    min-width: 0;
+    margin-left: 1;
+    background: $error;
+    color: $background;
+    border: none;
+    text-style: bold;
+}
+
+
+/* ---- Shell Layout --------------------------------------------------- */
+
+#shell {
     height: 1fr;
 }
 
+
+/* ---- Sidebar -------------------------------------------------------- */
+/* NetBox sidebar: dark navy base, right separator, teal section labels.  */
+/* Toad pattern: scrollbar hidden, overflow scroll, no visual border box. */
+
 #sidebar {
-    width: 34;
-    border: round $panel;
+    width: 38;
+    max-width: 40%;
+    min-width: 24;
+    background: $background;
+    border-right: tall $foreground 10%;
     padding: 0 1;
+    overflow: hidden scroll;
+    scrollbar-size: 0 0;
 }
 
-#content {
-    width: 1fr;
-    border: round $panel;
-    padding: 0 1;
-}
-
-.panel_title {
+#nav_title,
+.panel-title {
+    color: $primary;
+    text-style: bold;
     margin: 1 0 0 0;
-    color: $accent;
-    text-style: bold;
 }
 
-#selection {
-    margin: 1 0;
-    text-style: bold;
-}
-
-#filter {
+.panel-subtitle {
+    color: $text-muted;
+    text-style: italic;
     margin: 0 0 1 0;
 }
 
-#result_table {
+#nav_tree {
+    height: 1fr;
+    margin-top: 1;
+    background: transparent;
+}
+
+#nav_tree:focus {
+    background: transparent;
+    background-tint: transparent;
+}
+
+#nav_help {
+    color: $text-muted;
+    text-style: dim;
+    margin: 1 0;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* ---- Main Content Area ---------------------------------------------- */
+/* NetBox page body uses the slightly lighter surface bg (#081B2A).       */
+
+#main {
+    width: 1fr;
+    background: $surface;
+    padding: 0 1;
+}
+
+#main_tabs {
     height: 1fr;
 }
 
-#status {
-    margin: 1 0;
+#results_tab,
+#details_tab,
+#filters_tab {
+    padding: 0;
+    background: $surface;
+}
+
+
+/* ---- Results Tab ---------------------------------------------------- */
+/* border-left: blank $primary — left-stripe categorization (Toad).       */
+/* Margin rhythm: 1 1 1 0 (Toad block-content pattern).                   */
+
+#results_controls {
+    height: auto;
+    margin: 1 1 1 0;
+    border-left: blank $primary;
+    padding: 0 1;
     color: $text-muted;
+}
+
+#results_table {
+    height: 1fr;
+}
+
+#results_status {
+    height: auto;
+    margin: 1 1 1 0;
+    color: $text-muted;
+    text-style: dim;
+}
+
+
+/* ---- Filters Tab ---------------------------------------------------- */
+/* border-left: blank $secondary — different category stripe from results. */
+
+#filters_help {
+    margin: 1 1 1 0;
+    border-left: blank $secondary;
+    padding: 0 1;
+    color: $text-muted;
+}
+
+#filters_list {
+    height: 1fr;
+}
+
+
+/* ---- Details Tab ---------------------------------------------------- */
+
+#detail_panel {
+    height: 1fr;
+}
+
+
+/* ---- Object Attributes Panel ---------------------------------------- */
+/* Left-stripe in primary color — same category as results (DCIM/main).  */
+/* .-loading CSS class drives status indicator color (Toad state machine). */
+
+ObjectAttributesPanel {
+    border-left: blank $primary;
+    padding: 0 1;
+    margin: 1 1 1 0;
+    height: 1fr;
+}
+
+#detail_status {
+    height: 1;
+    color: $text-muted;
+    text-style: dim;
+    margin: 0 0 1 0;
+}
+
+ObjectAttributesPanel.-loading #detail_status {
+    color: $primary;
+    text-style: bold;
+}
+
+#detail_table {
+    height: 1fr;
+}
+
+
+/* ---- Filter Modal --------------------------------------------------- */
+/* Toad modal pattern: align center middle, thick $primary 20% border.    */
+
+FilterModal {
+    align: center middle;
+}
+
+#filter_dialog {
+    width: 72;
+    height: auto;
+    border: thick $primary 20%;
+    background: $background;
+    padding: 1 2;
+}
+
+#filter_dialog:focus-within {
+    border: thick $primary;
+}
+
+#filter_dialog .panel-title {
+    margin: 0 0 1 0;
+}
+
+#filter_buttons {
+    height: auto;
+    margin: 1 0 0 0;
+}
+
+
+/* ---- Focus & Interactive States ------------------------------------- */
+/* Textual Input/Button use theme colors; override where needed.          */
+
+Button.-primary,
+Button.primary {
+    background: $primary;
+    color: $background;
+    border: none;
+    text-style: bold;
+}
+
+Button.-primary:hover,
+Button.primary:hover {
+    background: $primary;
+    text-style: bold underline;
+}
+
+ListView > ListItem {
+    border: tall transparent;
+}
+
+ListView > ListItem:hover {
+    background: $panel;
+}
+
+ListView > ListItem.-highlighted {
+    background: $primary 10%;
+    border: tall transparent;
+}
+
+
+/* ---- Footer --------------------------------------------------------- */
+/* Transparent footer bg; key labels use theme text colors.               */
+
+Footer {
+    background: $background;
+    border-top: solid $foreground 10%;
 }

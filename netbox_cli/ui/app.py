@@ -9,7 +9,42 @@ from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
 from textual.css.query import NoMatches
 from textual.screen import ModalScreen
+from textual.theme import Theme
 from textual.widgets import Button, DataTable, Footer, Header, Input, Label, ListItem, ListView, Static, TabbedContent, TabPane, Tree
+
+# NetBox dark mode palette mapped to Textual semantic tokens.
+# Source: reference/design/NETBOX-DARK-PATTERNS.md (higher priority)
+NETBOX_DARK = Theme(
+    name="netbox-dark",
+    dark=True,
+    primary="#00F2D4",       # bright-teal — links, active nav, focus rings
+    secondary="#00857D",     # dark-teal — secondary accent
+    warning="#F59F00",       # NetBox warning
+    error="#D63939",         # NetBox danger/error
+    success="#2FB344",       # NetBox success/connected
+    accent="#00F2D4",        # same as primary
+    background="#001423",    # rich-black — outermost: html, navbar, cards
+    surface="#081B2A",       # rich-black-light — page content area
+    panel="#18212F",         # surface-tertiary — card headers, nested panels
+    boost="#1F2937",         # gray-800 — elevated surfaces, dropdowns
+    variables={
+        # NetBox status badge colors (text on dark bg)
+        "nb-success-text":   "#82D18E",
+        "nb-info-text":      "#8DC1ED",
+        "nb-warning-text":   "#F9C566",
+        "nb-danger-text":    "#E68888",
+        "nb-secondary-text": "#A6AAB2",
+        # NetBox subtle status backgrounds
+        "nb-success-bg":     "#09230D",
+        "nb-info-bg":        "#0D1E2D",
+        "nb-warning-bg":     "#311F00",
+        "nb-danger-bg":      "#2B0B0B",
+        "nb-secondary-bg":   "#151720",
+        # NetBox border tones
+        "nb-border":         "#2D3C51",
+        "nb-border-subtle":  "#374151",
+    },
+)
 
 from netbox_cli.api import NetBoxApiClient
 from netbox_cli.schema import SchemaIndex
@@ -34,23 +69,6 @@ class FilterFieldItem(ListItem):
 
 
 class FilterModal(ModalScreen[tuple[str, str] | None]):
-    CSS = """
-    FilterModal {
-        align: center middle;
-    }
-    #filter_dialog {
-        width: 72;
-        height: auto;
-        border: round $accent;
-        background: $surface;
-        padding: 1 2;
-    }
-    #filter_buttons {
-        height: auto;
-        margin-top: 1;
-    }
-    """
-
     BINDINGS = [Binding("escape", "cancel", "Cancel", show=False)]
 
     def __init__(self, default_key: str = ""):
@@ -89,119 +107,7 @@ class FilterModal(ModalScreen[tuple[str, str] | None]):
 class NetBoxTuiApp(App[None]):
     TITLE = "NetBox CLI"
     SUB_TITLE = "NetBox UI-style shell for terminal"
-
-    CSS = """
-    Screen {
-        layout: vertical;
-        background: $surface;
-    }
-
-    #topbar {
-        height: auto;
-        border: round $panel;
-        margin: 0 1;
-        padding: 0 1;
-        align: left middle;
-    }
-
-    #global_search {
-        width: 1fr;
-    }
-
-    #context_line {
-        width: 42;
-        content-align: right middle;
-        color: $text-muted;
-    }
-
-    #close_tui_button {
-        width: auto;
-        min-width: 0;
-        margin-left: 1;
-        background: $error;
-        color: $text;
-        border: none;
-        text-style: bold;
-    }
-
-    #shell {
-        height: 1fr;
-        margin: 1;
-    }
-
-    #sidebar {
-        width: 38;
-        border: round $panel;
-        padding: 0 1;
-    }
-
-    #main {
-        width: 1fr;
-        border: round $panel;
-        padding: 0 1;
-    }
-
-    #nav_title,
-    .panel-title {
-        color: $accent;
-        text-style: bold;
-        margin: 1 0 0 0;
-    }
-
-    .panel-subtitle {
-        color: $text-muted;
-        margin: 0 0 1 0;
-    }
-
-    #nav_tree {
-        height: 1fr;
-        margin-top: 1;
-    }
-
-    #nav_help {
-        color: $text-muted;
-        margin: 1 0;
-    }
-
-    #main_tabs {
-        height: 1fr;
-    }
-
-    #results_tab,
-    #details_tab,
-    #filters_tab {
-        padding: 0;
-    }
-
-    #results_controls {
-        height: auto;
-        margin: 1 0;
-        color: $text-muted;
-    }
-
-    #results_table {
-        height: 1fr;
-    }
-
-    #results_status {
-        height: auto;
-        margin: 1 0;
-        color: $text-muted;
-    }
-
-    #filters_help {
-        margin: 1 0;
-        color: $text-muted;
-    }
-
-    #filters_list {
-        height: 1fr;
-    }
-
-    #detail_panel {
-        height: 1fr;
-    }
-    """
+    CSS_PATH = "../tui.tcss"
 
     BINDINGS = [
         Binding("q", "quit", "Quit"),
@@ -262,6 +168,10 @@ class NetBoxTuiApp(App[None]):
                         yield ListView(id="filters_list")
 
         yield Footer()
+
+    def on_load(self) -> None:
+        self.register_theme(NETBOX_DARK)
+        self.theme = "netbox-dark"
 
     def on_mount(self) -> None:
         self._build_navigation_tree()

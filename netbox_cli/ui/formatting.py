@@ -154,17 +154,26 @@ def compact_cell(value: Any, max_len: int = 180) -> str:
     return humanize_value(value, max_len=max_len)
 
 
+# NetBox dark mode status palette — source: NETBOX-DARK-PATTERNS.md
+# Dark subtle bg + lightened text for readability on dark terminals.
+_STATUS_STYLES: dict[frozenset[str], tuple[str, str]] = {
+    frozenset({"active", "up", "enabled", "online", "true"}):
+        ("●", "#82D18E on #09230D"),          # success: green text / dark green bg
+    frozenset({"planned", "staged", "provisioning", "standby"}):
+        ("◐", "#8DC1ED on #0D1E2D"),          # info: blue text / dark blue bg
+    frozenset({"offline", "disabled", "down", "decommissioning"}):
+        ("◌", "#F9C566 on #311F00"),          # warning: amber text / dark amber bg
+    frozenset({"failed", "error", "deprecated"}):
+        ("✖", "#E68888 on #2B0B0B"),          # danger: red text / dark red bg
+}
+
+
 def _status_meta(value: str) -> tuple[str, str]:
     text = value.strip().lower()
-    if text in {"active", "up", "enabled", "online", "true"}:
-        return ("●", "bold black on #4ec9a5")
-    if text in {"planned", "staged", "provisioning", "standby"}:
-        return ("◐", "bold black on #7dcfff")
-    if text in {"offline", "disabled", "down", "decommissioning"}:
-        return ("◌", "bold black on #ffd166")
-    if text in {"failed", "error", "deprecated"}:
-        return ("✖", "bold white on #e76f51")
-    return ("•", "bold black on #d9e1e8")
+    for states, style in _STATUS_STYLES.items():
+        if text in states:
+            return style
+    return ("•", "#A6AAB2 on #151720")       # secondary: gray text / dark gray bg
 
 
 def status_badge(value: str) -> Text:
@@ -174,18 +183,22 @@ def status_badge(value: str) -> Text:
     return Text(f" {icon} {label} ", style=style)
 
 
+# NetBox dark mode label chip palette — maps semantic tone to status family.
+# role → warning (orange-amber), type → info (blue), tenant → success (green).
+_CHIP_STYLES: dict[str, str] = {
+    "role":    "#F9C566 on #311F00",     # warning palette — orange-amber
+    "type":    "#8DC1ED on #0D1E2D",     # info palette — blue
+    "tenant":  "#82D18E on #09230D",     # success palette — green
+    "neutral": "#A6AAB2 on #151720",     # secondary palette — gray
+}
+
+
 def label_chip(value: str, *, tone: str = "neutral") -> Text:
     label = value.strip()
     if not label:
         label = "—"
     label = label.replace("_", " ").replace("-", " ").title()
-    tone_styles = {
-        "role": "bold black on #f4a261",
-        "type": "bold black on #90caf9",
-        "tenant": "bold black on #c7f9cc",
-        "neutral": "bold black on #d9e1e8",
-    }
-    style = tone_styles.get(tone, tone_styles["neutral"])
+    style = _CHIP_STYLES.get(tone, _CHIP_STYLES["neutral"])
     return Text(f" {label} ", style=style)
 
 
