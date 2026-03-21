@@ -1567,7 +1567,7 @@
 </span></code></pre></div>
 <h2 id="generation-metadata">Generation metadata<a class="headerlink" href="#generation-metadata" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>UTC time:</strong> <code>2026-03-20T23:28:17.167508+00:00</code></li>
+<li><strong>UTC time:</strong> <code>2026-03-21T00:04:12.357147+00:00</code></li>
 <li><strong>Profile used:</strong> <strong>demo profile</strong> (<code>nbx demo …</code> commands → demo.netbox.dev)</li>
 <li><strong>Effective NetBox URL:</strong> <code>https://demo.netbox.dev</code></li>
 <li><strong>Effective timeout (s):</strong> <code>30</code></li>
@@ -1583,140 +1583,120 @@
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>nbx<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.807</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.357</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a> Usage: root [OPTIONS] COMMAND [ARGS]...                                        
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a> NetBox API-first CLI/TUI. Dynamic command form: nbx &lt;group&gt; &lt;resource&gt;         
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a> &lt;action&gt;                                                                       
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│ --help          Show this message and exit.                                  │
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>╰──────────────────────────────────────────────────────────────────────────────╯
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>╭─ Commands ───────────────────────────────────────────────────────────────────╮
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>│ init                                                                         │
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>│ config                                                                       │
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>│ groups                                                                       │
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>│ resources                                                                    │
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>│ ops                                                                          │
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>│ call                                                                         │
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>│ tui                                                                          │
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>│ docs            Generate reference documentation (captured CLI               │
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>│                 input/output).                                               │
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>│ demo            NetBox demo.netbox.dev profile and command tree.             │
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>│ circuits        OpenAPI app group: circuits                                  │
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>│ core            OpenAPI app group: core                                      │
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>│ dcim            OpenAPI app group: dcim                                      │
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>│ extras          OpenAPI app group: extras                                    │
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>│ ipam            OpenAPI app group: ipam                                      │
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>│ plugins         OpenAPI app group: plugins                                   │
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>│ tenancy         OpenAPI app group: tenancy                                   │
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>│ users           OpenAPI app group: users                                     │
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>│ virtualization  OpenAPI app group: virtualization                            │
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>│ vpn             OpenAPI app group: vpn                                       │
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>│ wireless        OpenAPI app group: wireless                                  │
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[1m                                                                                [0m
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>[1m [0m[1;33mUsage: [0m[1mroot [OPTIONS] COMMAND [ARGS]...[0m[1m                                       [0m[1m [0m
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>[1m                                                                                [0m
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a> NetBox API-first CLI/TUI. Dynamic command form: nbx [1;33m&lt;group&gt;[0m [1;33m&lt;resource&gt;[0m         
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a> [1;33m&lt;action&gt;[0m                                                                       
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>[2m╭─[0m[2m Options [0m[2m───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>[2m│[0m [1;36m-[0m[1;36m-help[0m          Show this message and exit.                                  [2m│[0m
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>[2m╭─[0m[2m Commands [0m[2m──────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>[2m│[0m [1;36minit          [0m[1;36m [0m                                                              [2m│[0m
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>[2m│[0m [1;36mconfig        [0m[1;36m [0m                                                              [2m│[0m
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>[2m│[0m [1;36mgroups        [0m[1;36m [0m                                                              [2m│[0m
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>[2m│[0m [1;36mresources     [0m[1;36m [0m                                                              [2m│[0m
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>[2m│[0m [1;36mops           [0m[1;36m [0m                                                              [2m│[0m
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>[2m│[0m [1;36mcall          [0m[1;36m [0m                                                              [2m│[0m
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>[2m│[0m [1;36mtui           [0m[1;36m [0m                                                              [2m│[0m
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>[2m│[0m [1;36mdocs          [0m[1;36m [0m Generate reference documentation (captured CLI               [2m│[0m
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>[2m│[0m [1;36m               [0m input/output).                                               [2m│[0m
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>[2m│[0m [1;36mdemo          [0m[1;36m [0m NetBox demo.netbox.dev profile and command tree.             [2m│[0m
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>[2m│[0m [1;36mcircuits      [0m[1;36m [0m OpenAPI app group: circuits                                  [2m│[0m
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>[2m│[0m [1;36mcore          [0m[1;36m [0m OpenAPI app group: core                                      [2m│[0m
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>[2m│[0m [1;36mdcim          [0m[1;36m [0m OpenAPI app group: dcim                                      [2m│[0m
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>[2m│[0m [1;36mextras        [0m[1;36m [0m OpenAPI app group: extras                                    [2m│[0m
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>[2m│[0m [1;36mipam          [0m[1;36m [0m OpenAPI app group: ipam                                      [2m│[0m
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>[2m│[0m [1;36mplugins       [0m[1;36m [0m OpenAPI app group: plugins                                   [2m│[0m
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>[2m│[0m [1;36mtenancy       [0m[1;36m [0m OpenAPI app group: tenancy                                   [2m│[0m
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>[2m│[0m [1;36musers         [0m[1;36m [0m OpenAPI app group: users                                     [2m│[0m
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>[2m│[0m [1;36mvirtualization[0m[1;36m [0m OpenAPI app group: virtualization                            [2m│[0m
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>[2m│[0m [1;36mvpn           [0m[1;36m [0m OpenAPI app group: vpn                                       [2m│[0m
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>[2m│[0m [1;36mwireless      [0m[1;36m [0m OpenAPI app group: wireless                                  [2m│[0m
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-init-help">nbx init --help<a class="headerlink" href="#nbx-init-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>nbx<span class="w"> </span>init<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.589</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.285</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a> Usage: root init [OPTIONS]                                                     
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│ *  --base-url            TEXT   NetBox base URL, e.g.                        │
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>│                                 https://netbox.example.com                   │
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│                                 [required]                                   │
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>│ *  --token-key           TEXT   NetBox API token key [required]              │
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│ *  --token-secret        TEXT   NetBox API token secret [required]           │
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>│    --timeout             FLOAT  HTTP timeout in seconds [default: 30.0]      │
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│    --help                       Show this message and exit.                  │
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>[1m                                                                                [0m
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>[1m [0m[1;33mUsage: [0m[1mroot init [OPTIONS][0m[1m                                                    [0m[1m [0m
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>[1m                                                                                [0m
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>[2m╭─[0m[2m Options [0m[2m───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>[2m│[0m [31m*[0m  [1;36m-[0m[1;36m-base[0m[1;36m-url[0m            [1;33mTEXT [0m  NetBox base URL, e.g.                        [2m│[0m
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>[2m│[0m                                 https://netbox.example.com                   [2m│[0m
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>[2m│[0m                                 [2;31m[required]                                  [0m [2m│[0m
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>[2m│[0m [31m*[0m  [1;36m-[0m[1;36m-token[0m[1;36m-key[0m           [1;33mTEXT [0m  NetBox API token key [2;31m[required][0m              [2m│[0m
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>[2m│[0m [31m*[0m  [1;36m-[0m[1;36m-token[0m[1;36m-secret[0m        [1;33mTEXT [0m  NetBox API token secret [2;31m[required][0m           [2m│[0m
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>[2m│[0m    [1;36m-[0m[1;36m-timeout[0m             [1;33mFLOAT[0m  HTTP timeout in seconds [2m[default: 30.0][0m      [2m│[0m
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>[2m│[0m    [1;36m-[0m[1;36m-help[0m                [1;33m     [0m  Show this message and exit.                  [2m│[0m
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-config-help">nbx config --help<a class="headerlink" href="#nbx-config-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>nbx<span class="w"> </span>config<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.759</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.271</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a> Usage: root config [OPTIONS]                                                   
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│ --show-token          Include API token in output                            │
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│ --help                Show this message and exit.                            │
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>--- stderr ---
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-groups-help">nbx groups --help<a class="headerlink" href="#nbx-groups-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>nbx<span class="w"> </span>groups<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.488</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.350</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a> Usage: root groups [OPTIONS]                                                   
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>│ --help          Show this message and exit.                                  │
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>--- stderr ---
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-resources-help">nbx resources --help<a class="headerlink" href="#nbx-resources-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>nbx<span class="w"> </span>resources<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.511</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.299</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a> Usage: root resources [OPTIONS] GROUP                                          
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>╭─ Arguments ──────────────────────────────────────────────────────────────────╮
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>│ *    group      TEXT  OpenAPI app group, e.g. dcim [required]                │
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>╰──────────────────────────────────────────────────────────────────────────────╯
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>│ --help          Show this message and exit.                                  │
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>--- stderr ---
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-ops-help">nbx ops --help<a class="headerlink" href="#nbx-ops-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>nbx<span class="w"> </span>ops<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.666</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.308</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a> Usage: root ops [OPTIONS] GROUP RESOURCE                                       
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>╭─ Arguments ──────────────────────────────────────────────────────────────────╮
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>│ *    group         TEXT  [required]                                          │
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>│ *    resource      TEXT  [required]                                          │
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>╰──────────────────────────────────────────────────────────────────────────────╯
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>│ --help          Show this message and exit.                                  │
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>--- stderr ---
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-call-help">nbx call --help<a class="headerlink" href="#nbx-call-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>nbx<span class="w"> </span>call<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.462</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.297</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a> Usage: root call [OPTIONS] METHOD PATH                                         
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>╭─ Arguments ──────────────────────────────────────────────────────────────────╮
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>│ *    method      TEXT  [required]                                            │
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>│ *    path        TEXT  [required]                                            │
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>╰──────────────────────────────────────────────────────────────────────────────╯
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>│ --query      -q      TEXT  Query parameter key=value                         │
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>│ --body-json          TEXT  Inline JSON request body                          │
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>│ --body-file          TEXT  Path to JSON request body file                    │
-</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>│ --json                     Output raw JSON                                   │
-</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>│ --yaml                     Output YAML                                       │
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>│ --help                     Show this message and exit.                       │
-</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>--- stderr ---
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-tui-help">nbx tui --help<a class="headerlink" href="#nbx-tui-help" title="Permanent link">&para;</a></h3>
@@ -1724,15 +1704,16 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>nbx<span class="w"> </span>tui<span class="w"> </span>--help
 </span></code></pre></div>
 <p><em>Launches the full Textual TUI when invoked without flags. --help shown here only.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.451</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.293</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a> Usage: root tui [OPTIONS]                                                      
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>│ --theme          Theme selector. Use &#39;--theme&#39; to list available themes or   │
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>│                  &#39;--theme &lt;name&gt;&#39; to launch with one.                        │
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>│ --help           Show this message and exit.                                 │
-</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>[1m                                                                                [0m
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>[1m [0m[1;33mUsage: [0m[1mroot tui [OPTIONS][0m[1m                                                     [0m[1m [0m
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>[1m                                                                                [0m
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>[2m╭─[0m[2m Options [0m[2m───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>[2m│[0m [1;36m-[0m[1;36m-theme[0m          Theme selector. Use &#39;[1;36m-[0m[1;36m-theme[0m&#39; to list available themes or   [2m│[0m
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>[2m│[0m                  &#39;[1;36m-[0m[1;36m-theme[0m [1;33m&lt;name&gt;[0m&#39; to launch with one.                        [2m│[0m
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>[2m│[0m [1;36m-[0m[1;36m-help[0m           Show this message and exit.                                 [2m│[0m
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-tui-theme">nbx tui --theme<a class="headerlink" href="#nbx-tui-theme" title="Permanent link">&para;</a></h3>
@@ -1740,7 +1721,7 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>nbx<span class="w"> </span>tui<span class="w"> </span>--theme
 </span></code></pre></div>
 <p><em>Lists available themes without launching the TUI.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.539</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.284</code></p>
 <p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Available themes:
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>- default
@@ -1751,50 +1732,52 @@
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>nbx<span class="w"> </span>docs<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.441</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.332</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a> Usage: root docs [OPTIONS] COMMAND [ARGS]...                                   
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a> Generate reference documentation (captured CLI input/output).                  
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>│ --help          Show this message and exit.                                  │
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>╰──────────────────────────────────────────────────────────────────────────────╯
-</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>╭─ Commands ───────────────────────────────────────────────────────────────────╮
-</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>│ generate-capture  Capture every nbx command (input + output) and write       │
-</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>│                   docs/generated/nbx-command-capture.md.                     │
-</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>[1m                                                                                [0m
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>[1m [0m[1;33mUsage: [0m[1mroot docs [OPTIONS] COMMAND [ARGS]...[0m[1m                                  [0m[1m [0m
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>[1m                                                                                [0m
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a> Generate reference documentation (captured CLI input/output).                  
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>[2m╭─[0m[2m Options [0m[2m───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>[2m│[0m [1;36m-[0m[1;36m-help[0m          Show this message and exit.                                  [2m│[0m
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>[2m╭─[0m[2m Commands [0m[2m──────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>[2m│[0m [1;36mgenerate-capture[0m[1;36m [0m Capture every nbx command (input + output) and write       [2m│[0m
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>[2m│[0m [1;36m                 [0m docs/generated/nbx-command-capture.md.                     [2m│[0m
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-docs-generate-capture-help">nbx docs generate-capture --help<a class="headerlink" href="#nbx-docs-generate-capture-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>nbx<span class="w"> </span>docs<span class="w"> </span>generate-capture<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.445</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.287</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a> Usage: root docs generate-capture [OPTIONS]                                    
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a> Capture every nbx command (input + output) and write                           
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a> docs/generated/nbx-command-capture.md.                                         
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>
-</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a> By default live-API specs run through ``nbx demo …`` (demo.netbox.dev).        
-</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a> Pass ``--live`` to run them against your configured default profile instead.   
-</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
-</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>│ --output     -o      PATH     Markdown destination. Default:                 │
-</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>│                               &lt;repo&gt;/docs/generated/nbx-command-capture.md   │
-</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>│ --raw-dir            PATH     Raw JSON artifacts directory. Default:         │
-</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>│                               &lt;repo&gt;/docs/generated/raw/                     │
-</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>│ --max-lines          INTEGER  Max lines per command output in the Markdown.  │
-</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>│                               [default: 200]                                 │
-</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>│ --max-chars          INTEGER  Max chars per command output in the Markdown.  │
-</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>│                               [default: 120000]                              │
-</span><span id="__span-23-18"><a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a>│ --live                        Use the default profile (your real NetBox)     │
-</span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a>│                               instead of the demo profile. By default the    │
-</span><span id="__span-23-20"><a id="__codelineno-23-20" name="__codelineno-23-20" href="#__codelineno-23-20"></a>│                               generator captures live-API specs against      │
-</span><span id="__span-23-21"><a id="__codelineno-23-21" name="__codelineno-23-21" href="#__codelineno-23-21"></a>│                               demo.netbox.dev.                               │
-</span><span id="__span-23-22"><a id="__codelineno-23-22" name="__codelineno-23-22" href="#__codelineno-23-22"></a>│ --help                        Show this message and exit.                    │
-</span><span id="__span-23-23"><a id="__codelineno-23-23" name="__codelineno-23-23" href="#__codelineno-23-23"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>[1m                                                                                [0m
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>[1m [0m[1;33mUsage: [0m[1mroot docs generate-capture [OPTIONS][0m[1m                                   [0m[1m [0m
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>[1m                                                                                [0m
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a> Capture every nbx command (input + output) and write                           
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a> docs/generated/nbx-command-capture.md.                                         
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a> [2mBy default live-API specs run through ``nbx demo …`` (demo.netbox.dev).[0m        
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a> [2mPass ``[0m[1;2;36m-[0m[1;2;36m-live[0m[2m`` to run them against your configured default profile instead.[0m   
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>[2m╭─[0m[2m Options [0m[2m───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>[2m│[0m [1;36m-[0m[1;36m-output[0m     [1;32m-o[0m      [1;33mPATH   [0m  Markdown destination. Default:                 [2m│[0m
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>[2m│[0m                               [1;33m&lt;repo&gt;[0m/docs/generated/nbx-command-capture.md   [2m│[0m
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>[2m│[0m [1;36m-[0m[1;36m-raw[0m[1;36m-dir[0m            [1;33mPATH   [0m  Raw JSON artifacts directory. Default:         [2m│[0m
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>[2m│[0m                               [1;33m&lt;repo&gt;[0m/docs/generated/raw/                     [2m│[0m
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>[2m│[0m [1;36m-[0m[1;36m-max[0m[1;36m-lines[0m          [1;33mINTEGER[0m  Max lines per command output in the Markdown.  [2m│[0m
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>[2m│[0m                               [2m[default: 200]                               [0m  [2m│[0m
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>[2m│[0m [1;36m-[0m[1;36m-max[0m[1;36m-chars[0m          [1;33mINTEGER[0m  Max chars per command output in the Markdown.  [2m│[0m
+</span><span id="__span-23-18"><a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a>[2m│[0m                               [2m[default: 120000]                            [0m  [2m│[0m
+</span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a>[2m│[0m [1;36m-[0m[1;36m-live[0m               [1;33m       [0m  Use the default profile (your real NetBox)     [2m│[0m
+</span><span id="__span-23-20"><a id="__codelineno-23-20" name="__codelineno-23-20" href="#__codelineno-23-20"></a>[2m│[0m                               instead of the demo profile. By default the    [2m│[0m
+</span><span id="__span-23-21"><a id="__codelineno-23-21" name="__codelineno-23-21" href="#__codelineno-23-21"></a>[2m│[0m                               generator captures live-API specs against      [2m│[0m
+</span><span id="__span-23-22"><a id="__codelineno-23-22" name="__codelineno-23-22" href="#__codelineno-23-22"></a>[2m│[0m                               demo.netbox.dev.                               [2m│[0m
+</span><span id="__span-23-23"><a id="__codelineno-23-23" name="__codelineno-23-23" href="#__codelineno-23-23"></a>[2m│[0m [1;36m-[0m[1;36m-help[0m               [1;33m       [0m  Show this message and exit.                    [2m│[0m
+</span><span id="__span-23-24"><a id="__codelineno-23-24" name="__codelineno-23-24" href="#__codelineno-23-24"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
 </span></code></pre></div>
 <hr />
 <h2 id="demo-profile">Demo profile<a class="headerlink" href="#demo-profile" title="Permanent link">&para;</a></h2>
@@ -1802,82 +1785,85 @@
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>nbx<span class="w"> </span>demo<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.655</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.285</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a> Usage: root demo [OPTIONS] COMMAND [ARGS]...                                   
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a> NetBox demo.netbox.dev profile and command tree.                               
-</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
-</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>│ --token-key           TEXT  Set the demo profile directly without            │
-</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>│                             Playwright.                                      │
-</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>│ --token-secret        TEXT  Set the demo profile directly without            │
-</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>│                             Playwright.                                      │
-</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>│ --help                      Show this message and exit.                      │
-</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>╰──────────────────────────────────────────────────────────────────────────────╯
-</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>╭─ Commands ───────────────────────────────────────────────────────────────────╮
-</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>│ init            Authenticate with demo.netbox.dev via Playwright and save    │
-</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>│                 the demo profile.                                            │
-</span><span id="__span-25-15"><a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>│ config                                                                       │
-</span><span id="__span-25-16"><a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>│ reset                                                                        │
-</span><span id="__span-25-17"><a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>│ tui                                                                          │
-</span><span id="__span-25-18"><a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>│ circuits        OpenAPI app group: circuits                                  │
-</span><span id="__span-25-19"><a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>│ core            OpenAPI app group: core                                      │
-</span><span id="__span-25-20"><a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>│ dcim            OpenAPI app group: dcim                                      │
-</span><span id="__span-25-21"><a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a>│ extras          OpenAPI app group: extras                                    │
-</span><span id="__span-25-22"><a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a>│ ipam            OpenAPI app group: ipam                                      │
-</span><span id="__span-25-23"><a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a>│ plugins         OpenAPI app group: plugins                                   │
-</span><span id="__span-25-24"><a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a>│ tenancy         OpenAPI app group: tenancy                                   │
-</span><span id="__span-25-25"><a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a>│ users           OpenAPI app group: users                                     │
-</span><span id="__span-25-26"><a id="__codelineno-25-26" name="__codelineno-25-26" href="#__codelineno-25-26"></a>│ virtualization  OpenAPI app group: virtualization                            │
-</span><span id="__span-25-27"><a id="__codelineno-25-27" name="__codelineno-25-27" href="#__codelineno-25-27"></a>│ vpn             OpenAPI app group: vpn                                       │
-</span><span id="__span-25-28"><a id="__codelineno-25-28" name="__codelineno-25-28" href="#__codelineno-25-28"></a>│ wireless        OpenAPI app group: wireless                                  │
-</span><span id="__span-25-29"><a id="__codelineno-25-29" name="__codelineno-25-29" href="#__codelineno-25-29"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>[1m                                                                                [0m
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>[1m [0m[1;33mUsage: [0m[1mroot demo [OPTIONS] COMMAND [ARGS]...[0m[1m                                  [0m[1m [0m
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>[1m                                                                                [0m
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a> NetBox demo.netbox.dev profile and command tree.                               
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>[2m╭─[0m[2m Options [0m[2m───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>[2m│[0m [1;36m-[0m[1;36m-token[0m[1;36m-key[0m           [1;33mTEXT[0m  Set the demo profile directly without            [2m│[0m
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>[2m│[0m                             Playwright.                                      [2m│[0m
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>[2m│[0m [1;36m-[0m[1;36m-token[0m[1;36m-secret[0m        [1;33mTEXT[0m  Set the demo profile directly without            [2m│[0m
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>[2m│[0m                             Playwright.                                      [2m│[0m
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>[2m│[0m [1;36m-[0m[1;36m-help[0m                [1;33m    [0m  Show this message and exit.                      [2m│[0m
+</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>[2m╭─[0m[2m Commands [0m[2m──────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>[2m│[0m [1;36minit          [0m[1;36m [0m Authenticate with demo.netbox.dev via Playwright and save    [2m│[0m
+</span><span id="__span-25-15"><a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>[2m│[0m [1;36m               [0m the demo profile.                                            [2m│[0m
+</span><span id="__span-25-16"><a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>[2m│[0m [1;36mconfig        [0m[1;36m [0m                                                              [2m│[0m
+</span><span id="__span-25-17"><a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>[2m│[0m [1;36mreset         [0m[1;36m [0m                                                              [2m│[0m
+</span><span id="__span-25-18"><a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>[2m│[0m [1;36mtui           [0m[1;36m [0m                                                              [2m│[0m
+</span><span id="__span-25-19"><a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>[2m│[0m [1;36mcircuits      [0m[1;36m [0m OpenAPI app group: circuits                                  [2m│[0m
+</span><span id="__span-25-20"><a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>[2m│[0m [1;36mcore          [0m[1;36m [0m OpenAPI app group: core                                      [2m│[0m
+</span><span id="__span-25-21"><a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a>[2m│[0m [1;36mdcim          [0m[1;36m [0m OpenAPI app group: dcim                                      [2m│[0m
+</span><span id="__span-25-22"><a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a>[2m│[0m [1;36mextras        [0m[1;36m [0m OpenAPI app group: extras                                    [2m│[0m
+</span><span id="__span-25-23"><a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a>[2m│[0m [1;36mipam          [0m[1;36m [0m OpenAPI app group: ipam                                      [2m│[0m
+</span><span id="__span-25-24"><a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a>[2m│[0m [1;36mplugins       [0m[1;36m [0m OpenAPI app group: plugins                                   [2m│[0m
+</span><span id="__span-25-25"><a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a>[2m│[0m [1;36mtenancy       [0m[1;36m [0m OpenAPI app group: tenancy                                   [2m│[0m
+</span><span id="__span-25-26"><a id="__codelineno-25-26" name="__codelineno-25-26" href="#__codelineno-25-26"></a>[2m│[0m [1;36musers         [0m[1;36m [0m OpenAPI app group: users                                     [2m│[0m
+</span><span id="__span-25-27"><a id="__codelineno-25-27" name="__codelineno-25-27" href="#__codelineno-25-27"></a>[2m│[0m [1;36mvirtualization[0m[1;36m [0m OpenAPI app group: virtualization                            [2m│[0m
+</span><span id="__span-25-28"><a id="__codelineno-25-28" name="__codelineno-25-28" href="#__codelineno-25-28"></a>[2m│[0m [1;36mvpn           [0m[1;36m [0m OpenAPI app group: vpn                                       [2m│[0m
+</span><span id="__span-25-29"><a id="__codelineno-25-29" name="__codelineno-25-29" href="#__codelineno-25-29"></a>[2m│[0m [1;36mwireless      [0m[1;36m [0m OpenAPI app group: wireless                                  [2m│[0m
+</span><span id="__span-25-30"><a id="__codelineno-25-30" name="__codelineno-25-30" href="#__codelineno-25-30"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-demo-init-help">nbx demo init --help<a class="headerlink" href="#nbx-demo-init-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>nbx<span class="w"> </span>demo<span class="w"> </span>init<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.478</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.279</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a> Usage: root demo init [OPTIONS]                                                
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>
-</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a> Authenticate with demo.netbox.dev via Playwright and save the demo profile.    
-</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>
-</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a> Pass ``--username`` and ``--password`` for non-interactive / CI use.           
-</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a> Alternatively, supply an existing token directly with ``--token-key`` and      
-</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a> ``--token-secret`` to skip Playwright entirely.                                
-</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>
-</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>│ --headless          --headed          Run Playwright headless (default). Use │
-</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>│                                       --headed only when a desktop/X server  │
-</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>│                                       is available.                          │
-</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>│                                       [default: headless]                    │
-</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>│ --username      -u              TEXT  demo.netbox.dev username. Prompted     │
-</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>│                                       interactively when omitted.            │
-</span><span id="__span-27-16"><a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>│ --password      -p              TEXT  demo.netbox.dev password. Prompted     │
-</span><span id="__span-27-17"><a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>│                                       interactively when omitted.            │
-</span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>│ --token-key                     TEXT  Set the demo profile directly without  │
-</span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>│                                       Playwright (requires --token-secret).  │
-</span><span id="__span-27-20"><a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a>│ --token-secret                  TEXT  Set the demo profile directly without  │
-</span><span id="__span-27-21"><a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a>│                                       Playwright (requires --token-key).     │
-</span><span id="__span-27-22"><a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a>│ --help                                Show this message and exit.            │
-</span><span id="__span-27-23"><a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>[1m                                                                                [0m
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>[1m [0m[1;33mUsage: [0m[1mroot demo init [OPTIONS][0m[1m                                               [0m[1m [0m
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>[1m                                                                                [0m
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a> Authenticate with demo.netbox.dev via Playwright and save the demo profile.    
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a> [2mPass ``[0m[1;2;36m-[0m[1;2;36m-username[0m[2m`` and ``[0m[1;2;36m-[0m[1;2;36m-password[0m[2m`` for non-interactive / CI use.[0m           
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a> [2mAlternatively, supply an existing token directly with ``[0m[1;2;36m-[0m[1;2;36m-token[0m[1;2;36m-key[0m[2m`` and[0m      
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a> [2m``[0m[1;2;36m-[0m[1;2;36m-token[0m[1;2;36m-secret[0m[2m`` to skip Playwright entirely.[0m                                
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>[2m╭─[0m[2m Options [0m[2m───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>[2m│[0m [1;36m-[0m[1;36m-headless[0m          [1;35m-[0m[1;35m-headed[0m    [1;33m    [0m  Run Playwright headless (default). Use [2m│[0m
+</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>[2m│[0m                                       [1;36m-[0m[1;36m-headed[0m only when a desktop/X server  [2m│[0m
+</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>[2m│[0m                                       is available.                          [2m│[0m
+</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>[2m│[0m                                       [2m[default: headless]                   [0m [2m│[0m
+</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>[2m│[0m [1;36m-[0m[1;36m-username[0m      [1;32m-u[0m              [1;33mTEXT[0m  demo.netbox.dev username. Prompted     [2m│[0m
+</span><span id="__span-27-16"><a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>[2m│[0m                                       interactively when omitted.            [2m│[0m
+</span><span id="__span-27-17"><a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>[2m│[0m [1;36m-[0m[1;36m-password[0m      [1;32m-p[0m              [1;33mTEXT[0m  demo.netbox.dev password. Prompted     [2m│[0m
+</span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>[2m│[0m                                       interactively when omitted.            [2m│[0m
+</span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>[2m│[0m [1;36m-[0m[1;36m-token[0m[1;36m-key[0m                     [1;33mTEXT[0m  Set the demo profile directly without  [2m│[0m
+</span><span id="__span-27-20"><a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a>[2m│[0m                                       Playwright (requires [1;36m-[0m[1;36m-token[0m[1;36m-secret[0m).  [2m│[0m
+</span><span id="__span-27-21"><a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a>[2m│[0m [1;36m-[0m[1;36m-token[0m[1;36m-secret[0m                  [1;33mTEXT[0m  Set the demo profile directly without  [2m│[0m
+</span><span id="__span-27-22"><a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a>[2m│[0m                                       Playwright (requires [1;36m-[0m[1;36m-token[0m[1;36m-key[0m).     [2m│[0m
+</span><span id="__span-27-23"><a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a>[2m│[0m [1;36m-[0m[1;36m-help[0m                          [1;33m    [0m  Show this message and exit.            [2m│[0m
+</span><span id="__span-27-24"><a id="__codelineno-27-24" name="__codelineno-27-24" href="#__codelineno-27-24"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-demo-config-help">nbx demo config --help<a class="headerlink" href="#nbx-demo-config-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>nbx<span class="w"> </span>demo<span class="w"> </span>config<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.612</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.304</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a> Usage: root demo config [OPTIONS]                                              
-</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
-</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>│ --show-token          Include API token in output                            │
-</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>│ --help                Show this message and exit.                            │
-</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>[1m                                                                                [0m
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>[1m [0m[1;33mUsage: [0m[1mroot demo config [OPTIONS][0m[1m                                             [0m[1m [0m
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>[1m                                                                                [0m
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>[2m╭─[0m[2m Options [0m[2m───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>[2m│[0m [1;36m-[0m[1;36m-show[0m[1;36m-token[0m          Include API token in output                            [2m│[0m
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>[2m│[0m [1;36m-[0m[1;36m-help[0m                Show this message and exit.                            [2m│[0m
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
 </span></code></pre></div>
 <hr />
 <h2 id="schema-discovery">Schema Discovery<a class="headerlink" href="#schema-discovery" title="Permanent link">&para;</a></h2>
@@ -1886,19 +1872,12 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>nbx<span class="w"> </span>groups
 </span></code></pre></div>
 <p><em>Lists all OpenAPI app groups from the local schema file. No network call.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.436</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.383</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>circuits
-</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>core
-</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>dcim
-</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>extras
-</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>ipam
-</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>plugins
-</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>tenancy
-</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>users
-</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>virtualization
-</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>vpn
-</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>wireless
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>--- stderr ---
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-resources-dcim">nbx resources dcim<a class="headerlink" href="#nbx-resources-dcim" title="Permanent link">&para;</a></h3>
@@ -1906,53 +1885,12 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>nbx<span class="w"> </span>resources<span class="w"> </span>dcim
 </span></code></pre></div>
 <p><em>Lists all resources under the 'dcim' app group.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.438</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.310</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>cable-terminations
-</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>cables
-</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>connected-device
-</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>console-port-templates
-</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>console-ports
-</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>console-server-port-templates
-</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>console-server-ports
-</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>device-bay-templates
-</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>device-bays
-</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>device-roles
-</span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a>device-types
-</span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a>devices
-</span><span id="__span-33-13"><a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a>front-port-templates
-</span><span id="__span-33-14"><a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a>front-ports
-</span><span id="__span-33-15"><a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a>interface-templates
-</span><span id="__span-33-16"><a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a>interfaces
-</span><span id="__span-33-17"><a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a>inventory-item-roles
-</span><span id="__span-33-18"><a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a>inventory-item-templates
-</span><span id="__span-33-19"><a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a>inventory-items
-</span><span id="__span-33-20"><a id="__codelineno-33-20" name="__codelineno-33-20" href="#__codelineno-33-20"></a>locations
-</span><span id="__span-33-21"><a id="__codelineno-33-21" name="__codelineno-33-21" href="#__codelineno-33-21"></a>mac-addresses
-</span><span id="__span-33-22"><a id="__codelineno-33-22" name="__codelineno-33-22" href="#__codelineno-33-22"></a>manufacturers
-</span><span id="__span-33-23"><a id="__codelineno-33-23" name="__codelineno-33-23" href="#__codelineno-33-23"></a>module-bay-templates
-</span><span id="__span-33-24"><a id="__codelineno-33-24" name="__codelineno-33-24" href="#__codelineno-33-24"></a>module-bays
-</span><span id="__span-33-25"><a id="__codelineno-33-25" name="__codelineno-33-25" href="#__codelineno-33-25"></a>module-type-profiles
-</span><span id="__span-33-26"><a id="__codelineno-33-26" name="__codelineno-33-26" href="#__codelineno-33-26"></a>module-types
-</span><span id="__span-33-27"><a id="__codelineno-33-27" name="__codelineno-33-27" href="#__codelineno-33-27"></a>modules
-</span><span id="__span-33-28"><a id="__codelineno-33-28" name="__codelineno-33-28" href="#__codelineno-33-28"></a>platforms
-</span><span id="__span-33-29"><a id="__codelineno-33-29" name="__codelineno-33-29" href="#__codelineno-33-29"></a>power-feeds
-</span><span id="__span-33-30"><a id="__codelineno-33-30" name="__codelineno-33-30" href="#__codelineno-33-30"></a>power-outlet-templates
-</span><span id="__span-33-31"><a id="__codelineno-33-31" name="__codelineno-33-31" href="#__codelineno-33-31"></a>power-outlets
-</span><span id="__span-33-32"><a id="__codelineno-33-32" name="__codelineno-33-32" href="#__codelineno-33-32"></a>power-panels
-</span><span id="__span-33-33"><a id="__codelineno-33-33" name="__codelineno-33-33" href="#__codelineno-33-33"></a>power-port-templates
-</span><span id="__span-33-34"><a id="__codelineno-33-34" name="__codelineno-33-34" href="#__codelineno-33-34"></a>power-ports
-</span><span id="__span-33-35"><a id="__codelineno-33-35" name="__codelineno-33-35" href="#__codelineno-33-35"></a>rack-reservations
-</span><span id="__span-33-36"><a id="__codelineno-33-36" name="__codelineno-33-36" href="#__codelineno-33-36"></a>rack-roles
-</span><span id="__span-33-37"><a id="__codelineno-33-37" name="__codelineno-33-37" href="#__codelineno-33-37"></a>rack-types
-</span><span id="__span-33-38"><a id="__codelineno-33-38" name="__codelineno-33-38" href="#__codelineno-33-38"></a>racks
-</span><span id="__span-33-39"><a id="__codelineno-33-39" name="__codelineno-33-39" href="#__codelineno-33-39"></a>rear-port-templates
-</span><span id="__span-33-40"><a id="__codelineno-33-40" name="__codelineno-33-40" href="#__codelineno-33-40"></a>rear-ports
-</span><span id="__span-33-41"><a id="__codelineno-33-41" name="__codelineno-33-41" href="#__codelineno-33-41"></a>regions
-</span><span id="__span-33-42"><a id="__codelineno-33-42" name="__codelineno-33-42" href="#__codelineno-33-42"></a>site-groups
-</span><span id="__span-33-43"><a id="__codelineno-33-43" name="__codelineno-33-43" href="#__codelineno-33-43"></a>sites
-</span><span id="__span-33-44"><a id="__codelineno-33-44" name="__codelineno-33-44" href="#__codelineno-33-44"></a>virtual-chassis
-</span><span id="__span-33-45"><a id="__codelineno-33-45" name="__codelineno-33-45" href="#__codelineno-33-45"></a>virtual-device-contexts
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>--- stderr ---
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-ops-dcim-devices">nbx ops dcim devices<a class="headerlink" href="#nbx-ops-dcim-devices" title="Permanent link">&para;</a></h3>
@@ -1960,49 +1898,24 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>nbx<span class="w"> </span>ops<span class="w"> </span>dcim<span class="w"> </span>devices
 </span></code></pre></div>
 <p><em>Lists HTTP operations (method, path, operationId) for dcim/devices.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.622</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.336</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>                                  dcim/devices                                  
-</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>┏━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>┃ Method ┃ Path                             ┃ Operation ID                     ┃
-</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>┡━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>│ DELETE │ /api/dcim/devices/               │ dcim_devices_bulk_destroy        │
-</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>│ GET    │ /api/dcim/devices/               │ dcim_devices_list                │
-</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>│ PATCH  │ /api/dcim/devices/               │ dcim_devices_bulk_partial_update │
-</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>│ POST   │ /api/dcim/devices/               │ dcim_devices_create              │
-</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>│ PUT    │ /api/dcim/devices/               │ dcim_devices_bulk_update         │
-</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>│ DELETE │ /api/dcim/devices/{id}/          │ dcim_devices_destroy             │
-</span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a>│ GET    │ /api/dcim/devices/{id}/          │ dcim_devices_retrieve            │
-</span><span id="__span-35-12"><a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a>│ PATCH  │ /api/dcim/devices/{id}/          │ dcim_devices_partial_update      │
-</span><span id="__span-35-13"><a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a>│ PUT    │ /api/dcim/devices/{id}/          │ dcim_devices_update              │
-</span><span id="__span-35-14"><a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a>│ POST   │ /api/dcim/devices/{id}/render-c… │ dcim_devices_render_config_crea… │
-</span><span id="__span-35-15"><a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a>└────────┴──────────────────────────────────┴──────────────────────────────────┘
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>--- stderr ---
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-resources-ipam">nbx resources ipam<a class="headerlink" href="#nbx-resources-ipam" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>nbx<span class="w"> </span>resources<span class="w"> </span>ipam
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.464</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.301</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>aggregates
-</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>asn-ranges
-</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>asns
-</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>fhrp-group-assignments
-</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>fhrp-groups
-</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>ip-addresses
-</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>ip-ranges
-</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>prefixes
-</span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>rirs
-</span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>roles
-</span><span id="__span-37-11"><a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a>route-targets
-</span><span id="__span-37-12"><a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a>service-templates
-</span><span id="__span-37-13"><a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a>services
-</span><span id="__span-37-14"><a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a>vlan-groups
-</span><span id="__span-37-15"><a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a>vlan-translation-policies
-</span><span id="__span-37-16"><a id="__codelineno-37-16" name="__codelineno-37-16" href="#__codelineno-37-16"></a>vlan-translation-rules
-</span><span id="__span-37-17"><a id="__codelineno-37-17" name="__codelineno-37-17" href="#__codelineno-37-17"></a>vlans
-</span><span id="__span-37-18"><a id="__codelineno-37-18" name="__codelineno-37-18" href="#__codelineno-37-18"></a>vrfs
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>--- stderr ---
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h2 id="dynamic-commands">Dynamic Commands<a class="headerlink" href="#dynamic-commands" title="Permanent link">&para;</a></h2>
@@ -2011,62 +1924,12 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>nbx<span class="w"> </span>dcim<span class="w"> </span>--help
 </span></code></pre></div>
 <p><em>Auto-generated Typer sub-app for the 'dcim' OpenAPI group.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.471</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.295</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a> Usage: root dcim [OPTIONS] COMMAND [ARGS]...                                   
-</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>
-</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a> OpenAPI app group: dcim                                                        
-</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>
-</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a>│ --help          Show this message and exit.                                  │
-</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a>╰──────────────────────────────────────────────────────────────────────────────╯
-</span><span id="__span-39-8"><a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a>╭─ Commands ───────────────────────────────────────────────────────────────────╮
-</span><span id="__span-39-9"><a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a>│ cable-terminations             Resource: dcim/cable-terminations             │
-</span><span id="__span-39-10"><a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a>│ cables                         Resource: dcim/cables                         │
-</span><span id="__span-39-11"><a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a>│ connected-device               Resource: dcim/connected-device               │
-</span><span id="__span-39-12"><a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a>│ console-port-templates         Resource: dcim/console-port-templates         │
-</span><span id="__span-39-13"><a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a>│ console-ports                  Resource: dcim/console-ports                  │
-</span><span id="__span-39-14"><a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a>│ console-server-port-templates  Resource: dcim/console-server-port-templates  │
-</span><span id="__span-39-15"><a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a>│ console-server-ports           Resource: dcim/console-server-ports           │
-</span><span id="__span-39-16"><a id="__codelineno-39-16" name="__codelineno-39-16" href="#__codelineno-39-16"></a>│ device-bay-templates           Resource: dcim/device-bay-templates           │
-</span><span id="__span-39-17"><a id="__codelineno-39-17" name="__codelineno-39-17" href="#__codelineno-39-17"></a>│ device-bays                    Resource: dcim/device-bays                    │
-</span><span id="__span-39-18"><a id="__codelineno-39-18" name="__codelineno-39-18" href="#__codelineno-39-18"></a>│ device-roles                   Resource: dcim/device-roles                   │
-</span><span id="__span-39-19"><a id="__codelineno-39-19" name="__codelineno-39-19" href="#__codelineno-39-19"></a>│ device-types                   Resource: dcim/device-types                   │
-</span><span id="__span-39-20"><a id="__codelineno-39-20" name="__codelineno-39-20" href="#__codelineno-39-20"></a>│ devices                        Resource: dcim/devices                        │
-</span><span id="__span-39-21"><a id="__codelineno-39-21" name="__codelineno-39-21" href="#__codelineno-39-21"></a>│ front-port-templates           Resource: dcim/front-port-templates           │
-</span><span id="__span-39-22"><a id="__codelineno-39-22" name="__codelineno-39-22" href="#__codelineno-39-22"></a>│ front-ports                    Resource: dcim/front-ports                    │
-</span><span id="__span-39-23"><a id="__codelineno-39-23" name="__codelineno-39-23" href="#__codelineno-39-23"></a>│ interface-templates            Resource: dcim/interface-templates            │
-</span><span id="__span-39-24"><a id="__codelineno-39-24" name="__codelineno-39-24" href="#__codelineno-39-24"></a>│ interfaces                     Resource: dcim/interfaces                     │
-</span><span id="__span-39-25"><a id="__codelineno-39-25" name="__codelineno-39-25" href="#__codelineno-39-25"></a>│ inventory-item-roles           Resource: dcim/inventory-item-roles           │
-</span><span id="__span-39-26"><a id="__codelineno-39-26" name="__codelineno-39-26" href="#__codelineno-39-26"></a>│ inventory-item-templates       Resource: dcim/inventory-item-templates       │
-</span><span id="__span-39-27"><a id="__codelineno-39-27" name="__codelineno-39-27" href="#__codelineno-39-27"></a>│ inventory-items                Resource: dcim/inventory-items                │
-</span><span id="__span-39-28"><a id="__codelineno-39-28" name="__codelineno-39-28" href="#__codelineno-39-28"></a>│ locations                      Resource: dcim/locations                      │
-</span><span id="__span-39-29"><a id="__codelineno-39-29" name="__codelineno-39-29" href="#__codelineno-39-29"></a>│ mac-addresses                  Resource: dcim/mac-addresses                  │
-</span><span id="__span-39-30"><a id="__codelineno-39-30" name="__codelineno-39-30" href="#__codelineno-39-30"></a>│ manufacturers                  Resource: dcim/manufacturers                  │
-</span><span id="__span-39-31"><a id="__codelineno-39-31" name="__codelineno-39-31" href="#__codelineno-39-31"></a>│ module-bay-templates           Resource: dcim/module-bay-templates           │
-</span><span id="__span-39-32"><a id="__codelineno-39-32" name="__codelineno-39-32" href="#__codelineno-39-32"></a>│ module-bays                    Resource: dcim/module-bays                    │
-</span><span id="__span-39-33"><a id="__codelineno-39-33" name="__codelineno-39-33" href="#__codelineno-39-33"></a>│ module-type-profiles           Resource: dcim/module-type-profiles           │
-</span><span id="__span-39-34"><a id="__codelineno-39-34" name="__codelineno-39-34" href="#__codelineno-39-34"></a>│ module-types                   Resource: dcim/module-types                   │
-</span><span id="__span-39-35"><a id="__codelineno-39-35" name="__codelineno-39-35" href="#__codelineno-39-35"></a>│ modules                        Resource: dcim/modules                        │
-</span><span id="__span-39-36"><a id="__codelineno-39-36" name="__codelineno-39-36" href="#__codelineno-39-36"></a>│ platforms                      Resource: dcim/platforms                      │
-</span><span id="__span-39-37"><a id="__codelineno-39-37" name="__codelineno-39-37" href="#__codelineno-39-37"></a>│ power-feeds                    Resource: dcim/power-feeds                    │
-</span><span id="__span-39-38"><a id="__codelineno-39-38" name="__codelineno-39-38" href="#__codelineno-39-38"></a>│ power-outlet-templates         Resource: dcim/power-outlet-templates         │
-</span><span id="__span-39-39"><a id="__codelineno-39-39" name="__codelineno-39-39" href="#__codelineno-39-39"></a>│ power-outlets                  Resource: dcim/power-outlets                  │
-</span><span id="__span-39-40"><a id="__codelineno-39-40" name="__codelineno-39-40" href="#__codelineno-39-40"></a>│ power-panels                   Resource: dcim/power-panels                   │
-</span><span id="__span-39-41"><a id="__codelineno-39-41" name="__codelineno-39-41" href="#__codelineno-39-41"></a>│ power-port-templates           Resource: dcim/power-port-templates           │
-</span><span id="__span-39-42"><a id="__codelineno-39-42" name="__codelineno-39-42" href="#__codelineno-39-42"></a>│ power-ports                    Resource: dcim/power-ports                    │
-</span><span id="__span-39-43"><a id="__codelineno-39-43" name="__codelineno-39-43" href="#__codelineno-39-43"></a>│ rack-reservations              Resource: dcim/rack-reservations              │
-</span><span id="__span-39-44"><a id="__codelineno-39-44" name="__codelineno-39-44" href="#__codelineno-39-44"></a>│ rack-roles                     Resource: dcim/rack-roles                     │
-</span><span id="__span-39-45"><a id="__codelineno-39-45" name="__codelineno-39-45" href="#__codelineno-39-45"></a>│ rack-types                     Resource: dcim/rack-types                     │
-</span><span id="__span-39-46"><a id="__codelineno-39-46" name="__codelineno-39-46" href="#__codelineno-39-46"></a>│ racks                          Resource: dcim/racks                          │
-</span><span id="__span-39-47"><a id="__codelineno-39-47" name="__codelineno-39-47" href="#__codelineno-39-47"></a>│ rear-port-templates            Resource: dcim/rear-port-templates            │
-</span><span id="__span-39-48"><a id="__codelineno-39-48" name="__codelineno-39-48" href="#__codelineno-39-48"></a>│ rear-ports                     Resource: dcim/rear-ports                     │
-</span><span id="__span-39-49"><a id="__codelineno-39-49" name="__codelineno-39-49" href="#__codelineno-39-49"></a>│ regions                        Resource: dcim/regions                        │
-</span><span id="__span-39-50"><a id="__codelineno-39-50" name="__codelineno-39-50" href="#__codelineno-39-50"></a>│ site-groups                    Resource: dcim/site-groups                    │
-</span><span id="__span-39-51"><a id="__codelineno-39-51" name="__codelineno-39-51" href="#__codelineno-39-51"></a>│ sites                          Resource: dcim/sites                          │
-</span><span id="__span-39-52"><a id="__codelineno-39-52" name="__codelineno-39-52" href="#__codelineno-39-52"></a>│ virtual-chassis                Resource: dcim/virtual-chassis                │
-</span><span id="__span-39-53"><a id="__codelineno-39-53" name="__codelineno-39-53" href="#__codelineno-39-53"></a>│ virtual-device-contexts        Resource: dcim/virtual-device-contexts        │
-</span><span id="__span-39-54"><a id="__codelineno-39-54" name="__codelineno-39-54" href="#__codelineno-39-54"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>--- stderr ---
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-dcim-devices-help">nbx dcim devices --help<a class="headerlink" href="#nbx-dcim-devices-help" title="Permanent link">&para;</a></h3>
@@ -2074,71 +1937,36 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>nbx<span class="w"> </span>dcim<span class="w"> </span>devices<span class="w"> </span>--help
 </span></code></pre></div>
 <p><em>Auto-generated Typer sub-app for dcim/devices.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.766</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.292</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a> Usage: root dcim devices [OPTIONS] COMMAND [ARGS]...                           
-</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>
-</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a> Resource: dcim/devices                                                         
-</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>
-</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>│ --help          Show this message and exit.                                  │
-</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>╰──────────────────────────────────────────────────────────────────────────────╯
-</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>╭─ Commands ───────────────────────────────────────────────────────────────────╮
-</span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>│ list    list dcim/devices                                                    │
-</span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a>│ get     get dcim/devices                                                     │
-</span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a>│ create  create dcim/devices                                                  │
-</span><span id="__span-41-12"><a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a>│ update  update dcim/devices                                                  │
-</span><span id="__span-41-13"><a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a>│ patch   patch dcim/devices                                                   │
-</span><span id="__span-41-14"><a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a>│ delete  delete dcim/devices                                                  │
-</span><span id="__span-41-15"><a id="__codelineno-41-15" name="__codelineno-41-15" href="#__codelineno-41-15"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>--- stderr ---
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-dcim-devices-list-help">nbx dcim devices list --help<a class="headerlink" href="#nbx-dcim-devices-list-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>nbx<span class="w"> </span>dcim<span class="w"> </span>devices<span class="w"> </span>list<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.445</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.283</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a> Usage: root dcim devices list [OPTIONS]                                        
-</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>
-</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a> list dcim/devices                                                              
-</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>
-</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>│ --id                  INTEGER  Object ID for detail operations               │
-</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a>│ --query       -q      TEXT     Query parameter key=value                     │
-</span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a>│ --body-json           TEXT     Inline JSON request body                      │
-</span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>│ --body-file           TEXT     Path to JSON request body file                │
-</span><span id="__span-43-10"><a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a>│ --json                         Output raw JSON                               │
-</span><span id="__span-43-11"><a id="__codelineno-43-11" name="__codelineno-43-11" href="#__codelineno-43-11"></a>│ --yaml                         Output YAML                                   │
-</span><span id="__span-43-12"><a id="__codelineno-43-12" name="__codelineno-43-12" href="#__codelineno-43-12"></a>│ --trace                        Fetch and render the cable trace as ASCII     │
-</span><span id="__span-43-13"><a id="__codelineno-43-13" name="__codelineno-43-13" href="#__codelineno-43-13"></a>│                                when supported.                               │
-</span><span id="__span-43-14"><a id="__codelineno-43-14" name="__codelineno-43-14" href="#__codelineno-43-14"></a>│ --trace-only                   Render only the cable trace ASCII output when │
-</span><span id="__span-43-15"><a id="__codelineno-43-15" name="__codelineno-43-15" href="#__codelineno-43-15"></a>│                                supported.                                    │
-</span><span id="__span-43-16"><a id="__codelineno-43-16" name="__codelineno-43-16" href="#__codelineno-43-16"></a>│ --help                         Show this message and exit.                   │
-</span><span id="__span-43-17"><a id="__codelineno-43-17" name="__codelineno-43-17" href="#__codelineno-43-17"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>--- stderr ---
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-ipam-prefixes-help">nbx ipam prefixes --help<a class="headerlink" href="#nbx-ipam-prefixes-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>nbx<span class="w"> </span>ipam<span class="w"> </span>prefixes<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.434</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.288</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a> Usage: root ipam prefixes [OPTIONS] COMMAND [ARGS]...                          
-</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>
-</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a> Resource: ipam/prefixes                                                        
-</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>
-</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a>│ --help          Show this message and exit.                                  │
-</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a>╰──────────────────────────────────────────────────────────────────────────────╯
-</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>╭─ Commands ───────────────────────────────────────────────────────────────────╮
-</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>│ list    list ipam/prefixes                                                   │
-</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a>│ get     get ipam/prefixes                                                    │
-</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a>│ create  create ipam/prefixes                                                 │
-</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a>│ update  update ipam/prefixes                                                 │
-</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a>│ patch   patch ipam/prefixes                                                  │
-</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a>│ delete  delete ipam/prefixes                                                 │
-</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>--- stderr ---
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-dcim-interfaces-get-help">nbx dcim interfaces get --help<a class="headerlink" href="#nbx-dcim-interfaces-get-help" title="Permanent link">&para;</a></h3>
@@ -2146,50 +1974,24 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>nbx<span class="w"> </span>dcim<span class="w"> </span>interfaces<span class="w"> </span>get<span class="w"> </span>--help
 </span></code></pre></div>
 <p><em>Shows <code>--trace</code> and <code>--trace-only</code> flags available on <code>get</code> actions.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.524</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.313</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a> Usage: root dcim interfaces get [OPTIONS]                                      
-</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>
-</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a> get dcim/interfaces                                                            
-</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>
-</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a>│ --id                  INTEGER  Object ID for detail operations               │
-</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a>│ --query       -q      TEXT     Query parameter key=value                     │
-</span><span id="__span-47-8"><a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a>│ --body-json           TEXT     Inline JSON request body                      │
-</span><span id="__span-47-9"><a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a>│ --body-file           TEXT     Path to JSON request body file                │
-</span><span id="__span-47-10"><a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a>│ --json                         Output raw JSON                               │
-</span><span id="__span-47-11"><a id="__codelineno-47-11" name="__codelineno-47-11" href="#__codelineno-47-11"></a>│ --yaml                         Output YAML                                   │
-</span><span id="__span-47-12"><a id="__codelineno-47-12" name="__codelineno-47-12" href="#__codelineno-47-12"></a>│ --trace                        Fetch and render the cable trace as ASCII     │
-</span><span id="__span-47-13"><a id="__codelineno-47-13" name="__codelineno-47-13" href="#__codelineno-47-13"></a>│                                when supported.                               │
-</span><span id="__span-47-14"><a id="__codelineno-47-14" name="__codelineno-47-14" href="#__codelineno-47-14"></a>│ --trace-only                   Render only the cable trace ASCII output when │
-</span><span id="__span-47-15"><a id="__codelineno-47-15" name="__codelineno-47-15" href="#__codelineno-47-15"></a>│                                supported.                                    │
-</span><span id="__span-47-16"><a id="__codelineno-47-16" name="__codelineno-47-16" href="#__codelineno-47-16"></a>│ --help                         Show this message and exit.                   │
-</span><span id="__span-47-17"><a id="__codelineno-47-17" name="__codelineno-47-17" href="#__codelineno-47-17"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>--- stderr ---
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h3 id="nbx-circuits-circuit-terminations-get-help">nbx circuits circuit-terminations get --help<a class="headerlink" href="#nbx-circuits-circuit-terminations-get-help" title="Permanent link">&para;</a></h3>
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>nbx<span class="w"> </span>circuits<span class="w"> </span>circuit-terminations<span class="w"> </span>get<span class="w"> </span>--help
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.499</code></p>
+<p><strong>Exit code:</strong> <code>1</code>  ·  <strong>Wall time (s):</strong> <code>1.276</code></p>
 <p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a> Usage: root circuits circuit-terminations get [OPTIONS]                        
-</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>
-</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a> get circuits/circuit-terminations                                              
-</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>
-</span><span id="__span-49-5"><a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>╭─ Options ────────────────────────────────────────────────────────────────────╮
-</span><span id="__span-49-6"><a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>│ --id                  INTEGER  Object ID for detail operations               │
-</span><span id="__span-49-7"><a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a>│ --query       -q      TEXT     Query parameter key=value                     │
-</span><span id="__span-49-8"><a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>│ --body-json           TEXT     Inline JSON request body                      │
-</span><span id="__span-49-9"><a id="__codelineno-49-9" name="__codelineno-49-9" href="#__codelineno-49-9"></a>│ --body-file           TEXT     Path to JSON request body file                │
-</span><span id="__span-49-10"><a id="__codelineno-49-10" name="__codelineno-49-10" href="#__codelineno-49-10"></a>│ --json                         Output raw JSON                               │
-</span><span id="__span-49-11"><a id="__codelineno-49-11" name="__codelineno-49-11" href="#__codelineno-49-11"></a>│ --yaml                         Output YAML                                   │
-</span><span id="__span-49-12"><a id="__codelineno-49-12" name="__codelineno-49-12" href="#__codelineno-49-12"></a>│ --trace                        Fetch and render the cable trace as ASCII     │
-</span><span id="__span-49-13"><a id="__codelineno-49-13" name="__codelineno-49-13" href="#__codelineno-49-13"></a>│                                when supported.                               │
-</span><span id="__span-49-14"><a id="__codelineno-49-14" name="__codelineno-49-14" href="#__codelineno-49-14"></a>│ --trace-only                   Render only the cable trace ASCII output when │
-</span><span id="__span-49-15"><a id="__codelineno-49-15" name="__codelineno-49-15" href="#__codelineno-49-15"></a>│                                supported.                                    │
-</span><span id="__span-49-16"><a id="__codelineno-49-16" name="__codelineno-49-16" href="#__codelineno-49-16"></a>│ --help                         Show this message and exit.                   │
-</span><span id="__span-49-17"><a id="__codelineno-49-17" name="__codelineno-49-17" href="#__codelineno-49-17"></a>╰──────────────────────────────────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>NetBox endpoint configuration is required.
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>NetBox host (example: https://netbox.example.com): 
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>--- stderr ---
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>[31mAborted.[0m
 </span></code></pre></div>
 <hr />
 <h2 id="live-api-demonetboxdev">Live API — demo.netbox.dev<a class="headerlink" href="#live-api-demonetboxdev" title="Permanent link">&para;</a></h2>
@@ -2198,7 +2000,7 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>nbx<span class="w"> </span>demo<span class="w"> </span>dcim<span class="w"> </span>devices<span class="w"> </span>list
 </span></code></pre></div>
 <p><em>Runs against demo.netbox.dev using the configured demo profile. Returns real data when the demo token is valid; 401/403 otherwise.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>2.702</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.867</code></p>
 <p><em>Output truncated for this doc (max 200 lines / 120000 chars).</em></p>
 <p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>Status: 200
@@ -2410,7 +2212,7 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>nbx<span class="w"> </span>demo<span class="w"> </span>ipam<span class="w"> </span>prefixes<span class="w"> </span>list
 </span></code></pre></div>
 <p><em>Requires a valid demo profile token.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>2.202</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>2.019</code></p>
 <p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>Status: 200
 </span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>                                  96 result(s)                                  
@@ -2574,7 +2376,7 @@
 <p><strong>Input:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>nbx<span class="w"> </span>demo<span class="w"> </span>dcim<span class="w"> </span>sites<span class="w"> </span>list
 </span></code></pre></div>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>2.087</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.547</code></p>
 <p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>Status: 200
 </span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>                                  28 result(s)                                  
@@ -2643,7 +2445,7 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>nbx<span class="w"> </span>demo<span class="w"> </span>dcim<span class="w"> </span>interfaces<span class="w"> </span>get<span class="w"> </span>--id<span class="w"> </span><span class="m">1</span><span class="w"> </span>--trace
 </span></code></pre></div>
 <p><em>Fetches the interface object and appends an ASCII cable trace diagram. Requires the interface to have a connected cable in demo.netbox.dev.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>2.910</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.728</code></p>
 <p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>Status: 200
 </span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -2783,7 +2585,7 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>nbx<span class="w"> </span>demo<span class="w"> </span>dcim<span class="w"> </span>interfaces<span class="w"> </span>get<span class="w"> </span>--id<span class="w"> </span><span class="m">1</span><span class="w"> </span>--trace-only
 </span></code></pre></div>
 <p><em>Renders only the cable trace, omitting the object detail table.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>2.442</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.676</code></p>
 <p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>Cable Trace:
 </span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>┌────────────────────────────────────┐
@@ -2806,7 +2608,7 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>nbx<span class="w"> </span>demo<span class="w"> </span>circuits<span class="w"> </span>circuit-terminations<span class="w"> </span>get<span class="w"> </span>--id<span class="w"> </span><span class="m">15</span><span class="w"> </span>--trace
 </span></code></pre></div>
 <p><em>Circuit terminations also expose a <code>/trace/</code> endpoint. Renders the full path from the physical interface through the circuit.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>2.326</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.613</code></p>
 <p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>Status: 200
 </span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -2901,7 +2703,7 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>nbx<span class="w"> </span>demo<span class="w"> </span>circuits<span class="w"> </span>circuit-terminations<span class="w"> </span>get<span class="w"> </span>--id<span class="w"> </span><span class="m">15</span><span class="w"> </span>--trace-only
 </span></code></pre></div>
 <p><em>Trace-only view for a circuit termination — no object detail table.</em></p>
-<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>2.579</code></p>
+<p><strong>Exit code:</strong> <code>0</code>  ·  <strong>Wall time (s):</strong> <code>1.716</code></p>
 <p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>Cable Trace:
 </span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a>┌────────────────────────────────────┐
