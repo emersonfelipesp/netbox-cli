@@ -314,11 +314,16 @@ def linked_object_cell(value: dict[str, Any], max_len: int = 180) -> Text:
     return safe_text(label, style=_VALUE_STYLES.get("url", ""))
 
 
+_TRAILING_FIELDS: dict[str, int] = {"created": 0, "last_updated": 1}
+
+
 def order_field_names(names: list[str]) -> list[str]:
     priority_index = {name: idx for idx, name in enumerate(_FIELD_PRIORITY)}
 
     def sort_key(field: str) -> tuple[int, int, str]:
         lower = field.lower()
+        if lower in _TRAILING_FIELDS:
+            return (3, _TRAILING_FIELDS[lower], lower)
         for token, idx in priority_index.items():
             if lower == token:
                 return (0, idx, lower)
