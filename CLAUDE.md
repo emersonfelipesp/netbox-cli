@@ -1,3 +1,48 @@
+# netbox-cli — Project Guide
+
+## Codebase Index
+
+| Path | CLAUDE.md | What's there |
+|---|---|---|
+| `netbox_cli/` | [→](netbox_cli/CLAUDE.md) | Core package: API client, CLI, config, schema, services, docgen, utilities |
+| `netbox_cli/ui/` | [→](netbox_cli/ui/CLAUDE.md) | Textual TUI app, panels, navigation, formatting, state persistence |
+| `netbox_cli/themes/` | [→](netbox_cli/themes/CLAUDE.md) | JSON theme files (auto-discovered, strictly validated) |
+| `netbox_cli/reference/` | [→](netbox_cli/reference/CLAUDE.md) | Bundled NetBox OpenAPI schema (runtime source of truth) |
+| `tests/` | [→](tests/CLAUDE.md) | pytest + pytest-asyncio test suite |
+| `docs/` | [→](docs/CLAUDE.md) | MkDocs documentation source + generated capture outputs |
+| `.github/` | [→](.github/CLAUDE.md) | GitHub Actions workflows (CI tests, docs build + deploy) |
+| `reference/` | [→](reference/CLAUDE.md) | Design guides (NETBOX-DARK-PATTERNS, TOAD), Textual app references |
+
+---
+
+## Architecture in One Page
+
+```
+CLI (cli.py / Typer)                  TUI (ui/app.py / Textual)
+    │                                        │
+    ├── SchemaIndex (schema.py)  ────────────┤
+    ├── services.py                          ├── ui/navigation.py
+    ├── NetBoxApiClient (api.py) ────────────┤
+    │     └── HttpCacheStore (http_cache.py) ├── ui/formatting.py
+    │                                        ├── ui/panels.py
+    └── output_safety.py                     └── ui/state.py
+                                                   (tui_state.json)
+Shared:
+  config.py     → ~/.config/netbox-cli/config.json
+  theme_registry.py → netbox_cli/themes/*.json
+  trace_ascii.py, demo_auth.py, docgen_capture.py
+```
+
+**Data flow:**
+1. User runs `nbx <cmd>` or `nbx tui`
+2. `config.py` loads profile (env vars → disk → interactive setup)
+3. `schema.py` indexes bundled OpenAPI JSON once
+4. `services.py` maps (group, resource, action) → (method, path)
+5. `api.py` checks cache, makes `aiohttp` request, handles token fallback
+6. Output: CLI prints via Rich; TUI renders in DataTable + ObjectAttributesPanel
+
+---
+
 # netbox-cli aims to be a TUI mirror of NetBox UI.
 - You must "mirror" UI, such as navigation, cards, etc.
 - For it, you must understand NetBox code and Django (mainly focusing on template understanding)
