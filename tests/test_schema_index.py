@@ -11,6 +11,12 @@ def test_parse_group_resource():
     assert resource == "devices"
 
 
+def test_parse_group_resource_for_plugin_endpoint():
+    group, resource = parse_group_resource("/api/plugins/gpon/olts/")
+    assert group == "plugins"
+    assert resource == "gpon/olts"
+
+
 def test_schema_index_has_core_groups():
     index = build_schema_index(Path("/root/nms/netbox-cli/reference/openapi/netbox-openapi.json"))
     groups = index.groups()
@@ -24,6 +30,14 @@ def test_schema_index_resource_paths_for_devices():
     assert paths is not None
     assert paths.list_path == "/api/dcim/devices/"
     assert paths.detail_path == "/api/dcim/devices/{id}/"
+
+
+def test_schema_index_resource_paths_for_plugin_resource():
+    index = build_schema_index(Path("/root/nms/netbox-cli/reference/openapi/netbox-openapi.json"))
+    paths = index.resource_paths("plugins", "gpon/olts")
+    assert paths is not None
+    assert paths.list_path == "/api/plugins/gpon/olts/"
+    assert paths.detail_path == "/api/plugins/gpon/olts/{id}/"
 
 
 def test_schema_index_trace_path_for_interfaces():

@@ -17,6 +17,13 @@ from ..config import (
     resolved_token,
     save_config,
 )
+from ..logging_runtime import (
+    DEFAULT_LOG_TAIL_LIMIT,
+    log_file_path,
+    read_log_entries,
+    render_log_entries,
+    setup_logging,
+)
 from ..services import load_json_payload, parse_key_value_pairs
 from ..theme_registry import ThemeCatalogError
 from .demo import demo_app
@@ -32,12 +39,21 @@ from .runtime import (
     _get_demo_client,
     _get_index,
 )
+from .runtime import (
+    _ensure_demo_runtime_config as _ensure_demo_runtime_config,
+)
+from .runtime import (
+    _get_client_for_config as _get_client_for_config,
+)
+from .runtime import (
+    _verify_runtime_config as _verify_runtime_config,
+)
 from .support import (
+    available_theme_names_or_error,
     console,
     emit_cli_error,
     format_click_exception,
     print_response,
-    resolve_requested_theme,
     run_with_spinner,
 )
 
@@ -50,6 +66,7 @@ app = typer.Typer(
 
 
 def main(argv: list[str] | None = None) -> int:
+    setup_logging()
     command = typer.main.get_command(app)
     try:
         command.main(
@@ -73,9 +90,10 @@ def main(argv: list[str] | None = None) -> int:
 
 @app.callback(invoke_without_command=True)
 def root_callback(ctx: typer.Context) -> None:
+    setup_logging()
     if ctx.resilient_parsing:
         return
-    if ctx.invoked_subcommand not in {"init", "tui", "docs", "demo", "dev"}:
+    if ctx.invoked_subcommand not in {"init", "tui", "docs", "demo", "dev", "logs"}:
         _ensure_runtime_config()
     if ctx.invoked_subcommand is None and ctx.args:
         _handle_dynamic_invocation(ctx.args)
@@ -200,15 +218,35 @@ def tui_command(
 ) -> None:
     """Launch the interactive NetBox terminal UI."""
     from ..tui import available_theme_names, resolve_theme_name, run_tui  # noqa: PLC0415
+    from ..ui.logs_app import run_logs_tui  # noqa: PLC0415
 
-    selected_theme = resolve_requested_theme(
-        ctx,
-        theme=theme,
-        available_theme_names=available_theme_names,
-        resolve_theme_name=resolve_theme_name,
-        usage="nbx tui --theme <name>",
-    )
-    if theme and not ctx.args:
+    raw_args = list(ctx.args)
+    show_logs = False
+    if raw_args and raw_args[0] == "logs":
+        show_logs = True
+        raw_args = raw_args[1:]
+
+    names = available_theme_names_or_error(available_theme_names)
+    if theme:
+        if not raw_args:
+            typer.echo("Available themes:")
+            for name in names:
+                typer.echo(f"- {name}")
+            return
+        if len(raw_args) > 1:
+            usage = "nbx tui logs --theme <name>" if show_logs else "nbx tui --theme <name>"
+            raise typer.BadParameter(f"Too many arguments for --theme. Use: {usage}")
+        selected_theme = resolve_theme_name(raw_args[0])
+        if not selected_theme:
+            available = ", ".join(names)
+            raise typer.BadParameter(
+                f"Unknown theme '{raw_args[0]}'. Available themes: {available}"
+            )
+    else:
+        selected_theme = None
+
+    if show_logs:
+        run_logs_tui(theme_name=selected_theme)
         return
 
     try:
@@ -220,6 +258,30 @@ def tui_command(
         )
     except ThemeCatalogError as exc:
         raise typer.BadParameter(f"Theme configuration error: {exc}") from exc
+
+
+@app.command("logs")
+def logs_command(
+    limit: int = typer.Option(
+        DEFAULT_LOG_TAIL_LIMIT,
+        "--limit",
+        "-n",
+        min=1,
+        help="Number of most recent log entries to display.",
+    ),
+    include_source: bool = typer.Option(
+        False,
+        "--source",
+        help="Include module/function/line details in output.",
+    ),
+) -> None:
+    """Show recent application logs from the shared on-disk log file."""
+    entries = read_log_entries(limit=limit)
+    typer.echo(f"Log file: {log_file_path()}")
+    if not entries:
+        typer.echo("No log entries yet.")
+        return
+    typer.echo(render_log_entries(entries, include_source=include_source))
 
 
 docs_app = typer.Typer(

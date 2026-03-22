@@ -25,13 +25,21 @@ def _demo_config() -> Config:
 
 
 def test_demo_config_command(monkeypatch) -> None:
-    monkeypatch.setattr(cli.demo, "load_profile_config", lambda profile: _demo_config())
+    monkeypatch.setattr(
+        cli.demo,
+        "load_profile_config",
+        lambda profile: _demo_config().model_copy(
+            update={"demo_username": "demo-user", "demo_password": "demo-pass"}
+        ),
+    )
 
     result = runner.invoke(cli.app, ["demo", "config"])
 
     assert result.exit_code == 0
     assert DEMO_BASE_URL in result.stdout
     assert '"profile": "demo"' in result.stdout
+    assert '"demo_username": "demo-user"' in result.stdout
+    assert '"demo_password": "set"' in result.stdout
 
 
 def test_demo_config_allows_legacy_v2_profile(monkeypatch) -> None:
@@ -169,6 +177,8 @@ def test_demo_init_bootstraps_and_saves_profile(monkeypatch) -> None:
     assert saved["profile"] == "demo"
     assert saved["cfg"].token_key == "fresh-key"
     assert saved["cfg"].timeout == 42.0
+    assert saved["cfg"].demo_username == "demo-user"
+    assert saved["cfg"].demo_password == "demo-pass"
 
 
 def test_demo_init_defaults_to_headless(monkeypatch) -> None:

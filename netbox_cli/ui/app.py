@@ -29,7 +29,8 @@ from textual.widgets import (
 )
 
 from netbox_cli.api import ConnectionProbe, NetBoxApiClient
-from netbox_cli.schema import SchemaIndex
+from netbox_cli.logging_runtime import get_logger
+from netbox_cli.schema import SchemaIndex, parse_group_resource
 
 from .chrome import (
     SWITCH_TO_DEV_TUI,
@@ -54,6 +55,7 @@ from .formatting import (
 )
 from .navigation import build_navigation_menus
 from .panels import ObjectAttributesPanel
+from .plugin_discovery import discover_plugin_resource_paths
 from .state import TuiState, ViewState, load_tui_state, save_tui_state
 from .widgets import NbxButton
 
@@ -62,6 +64,7 @@ _VIEW_MODE_OPTIONS = (
     ("- TUI", "main"),
     ("- Dev", "dev"),
 )
+logger = get_logger(__name__)
 
 
 class NetBoxTuiApp(FilterOverlayMixin, App[None]):
@@ -237,6 +240,7 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
         )
 
     def on_mount(self) -> None:
+        logger.info("main tui mounted")
         self._apply_theme(self.theme_name)
         self.call_after_refresh(self._strip_theme_select_prefix)
         self._update_clock()
@@ -248,6 +252,7 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
         self.query_one("#nav_tree", Tree).focus()
         self._restore_last_view_if_any()
         self._probe_connection_health()
+        self._discover_plugin_resources()
         self._clock_timer = self.set_interval(1.0, self._update_clock, name="nbx_clock")
         self._connection_timer = self.set_interval(
             30.0,
@@ -277,6 +282,7 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
         handler()
 
     def on_unmount(self) -> None:
+        logger.info("main tui unmounting")
         self._stop_results_loading()
         if self._clock_timer is not None:
             self._clock_timer.stop()
@@ -424,6 +430,7 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
             return
 
         group, resource = event.node.data
+        logger.info("main tui selected resource %s/%s", group, resource)
         self.current_group = group
         self.current_resource = resource
         self.current_rows = []
@@ -494,6 +501,7 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
         try:
             response = await self.client.request("GET", paths.list_path, query=query)
         except Exception as exc:  # noqa: BLE001
+            logger.exception("main tui failed loading rows for %s/%s", group, resource)
             # Discard if the user navigated away while the request was in-flight.
             if self.current_group != group or self.current_resource != resource:
                 return
@@ -523,6 +531,7 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
             self._set_status(f"HTTP {response.status}")
         else:
             self._set_status(f"Loaded {len(rows)} row(s) - HTTP {response.status}")
+            logger.info("main tui loaded %s row(s) for %s/%s", len(rows), group, resource)
         self._stop_results_loading()
         self.query_one("#results_table", DataTable).focus()
 
@@ -739,6 +748,28 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
             ok=ok,
             error=None if ok else getattr(response, "text", ""),
         )
+
+    @work(group="plugin_discovery", exclusive=True, thread=False)
+    async def _discover_plugin_resources(self) -> None:
+        changed = False
+        for list_path, detail_path in await discover_plugin_resource_paths(self.client):
+            group, resource = parse_group_resource(list_path)
+            if group != "plugins" or resource is None:
+                continue
+            changed = (
+                self.index.add_discovered_resource(
+                    group=group,
+                    resource=resource,
+                    list_path=list_path,
+                    detail_path=detail_path,
+                )
+                or changed
+            )
+        if not changed:
+            return
+        self._build_navigation_tree()
+        if self.current_group is None and self.current_resource is None:
+            self._restore_last_view_if_any()
 
     def _prune_selection(self) -> None:
         valid_ids = {self._row_identity(row, idx) for idx, row in enumerate(self.current_rows)}

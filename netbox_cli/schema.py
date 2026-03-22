@@ -106,16 +106,8 @@ class SchemaIndex:
             if key not in resource_paths:
                 resource_paths[key] = {"list_path": None, "detail_path": None}
 
-            is_list = (
-                len(parts) == 3 and parts[0] == "api" and parts[1] == group and parts[2] == resource
-            )
-            is_detail = (
-                len(parts) == 4
-                and parts[0] == "api"
-                and parts[1] == group
-                and parts[2] == resource
-                and parts[3] == "{id}"
-            )
+            is_list = _is_list_path(parts, group, resource)
+            is_detail = _is_detail_path(parts, group, resource)
             if is_list:
                 resource_paths[key]["list_path"] = path
             if is_detail:
@@ -164,7 +156,10 @@ class SchemaIndex:
         params (``limit``, ``offset``, ``format``).  The result is sorted with
         ``q`` first, then alphabetically by name.
         """
-        list_path = f"/api/{group}/{resource}/"
+        resource_paths = self.resource_paths(group, resource)
+        list_path = resource_paths.list_path if resource_paths is not None else None
+        if not list_path:
+            return []
         paths = self.schema.get("paths", {})
         path_item = paths.get(list_path, {})
         if not isinstance(path_item, dict):
@@ -235,14 +230,85 @@ class SchemaIndex:
             return None
         return candidate
 
+    def add_discovered_resource(
+        self,
+        *,
+        group: str,
+        resource: str,
+        list_path: str,
+        detail_path: str | None = None,
+    ) -> bool:
+        key = (group, resource)
+        existing = self._resource_paths.get(key)
+        current_list = existing.list_path if existing is not None else None
+        current_detail = existing.detail_path if existing is not None else None
+        if current_list == list_path and current_detail == detail_path:
+            return False
+
+        self._resource_paths[key] = ResourcePaths(list_path=list_path, detail_path=detail_path)
+
+        existing_ops = {
+            (op.method, op.path)
+            for op in self.operations
+            if op.group == group and op.resource == resource
+        }
+        synthetic: list[Operation] = []
+        if ("GET", list_path) not in existing_ops:
+            synthetic.append(
+                Operation(
+                    group=group,
+                    resource=resource,
+                    method="GET",
+                    path=list_path,
+                    operation_id=f"{group}_{resource.replace('/', '_')}_list_discovered",
+                    summary="Discovered plugin list endpoint",
+                )
+            )
+        if detail_path and ("GET", detail_path) not in existing_ops:
+            synthetic.append(
+                Operation(
+                    group=group,
+                    resource=resource,
+                    method="GET",
+                    path=detail_path,
+                    operation_id=f"{group}_{resource.replace('/', '_')}_detail_discovered",
+                    summary="Discovered plugin detail endpoint",
+                )
+            )
+        if synthetic:
+            self.operations.extend(synthetic)
+            self.operations.sort(
+                key=lambda item: (item.group, item.resource, item.path, item.method)
+            )
+        return True
+
 
 def parse_group_resource(path: str) -> tuple[str | None, str | None]:
     parts = [part for part in path.split("/") if part]
     if len(parts) < 3 or parts[0] != "api":
         return None, None
     group = parts[1]
+    if group == "plugins":
+        if len(parts) < 4:
+            return None, None
+        resource = f"{parts[2]}/{parts[3]}"
+        return group, resource
     resource = parts[2]
     return group, resource
+
+
+def _resource_parts(group: str, resource: str) -> list[str]:
+    if group == "plugins":
+        return ["api", "plugins", *[part for part in resource.split("/") if part]]
+    return ["api", group, resource]
+
+
+def _is_list_path(parts: list[str], group: str, resource: str) -> bool:
+    return parts == _resource_parts(group, resource)
+
+
+def _is_detail_path(parts: list[str], group: str, resource: str) -> bool:
+    return parts == [*_resource_parts(group, resource), "{id}"]
 
 
 def load_openapi_schema(openapi_path: Path | None = None) -> dict[str, Any]:

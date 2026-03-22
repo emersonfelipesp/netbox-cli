@@ -8,6 +8,7 @@ import pytest
 
 from netbox_cli.api import ApiResponse, NetBoxApiClient
 from netbox_cli.config import (
+    DEMO_BASE_URL,
     Config,
     authorization_header_value,
     is_runtime_config_complete,
@@ -182,3 +183,198 @@ def test_api_response_headers_are_not_shared_between_instances() -> None:
     first.headers["X-Test"] = "one"
 
     assert second.headers == {}
+
+
+@pytest.mark.asyncio
+async def test_api_client_refreshes_demo_v1_token_when_invalid(monkeypatch, tmp_path) -> None:
+    monkeypatch.setenv("XDG_CONFIG_HOME", str(tmp_path))
+    cfg = Config(
+        base_url=DEMO_BASE_URL,
+        token_version="v1",
+        token_secret="expired-v1-token",
+        demo_username="demo-user",
+        demo_password="demo-pass",
+    )
+    client = NetBoxApiClient(cfg)
+
+    calls: list[str] = []
+    responses = deque(
+        [
+            ApiResponse(status=403, text='{"detail": "Invalid v1 token"}', headers={}),
+            ApiResponse(status=200, text='{"ok": true}', headers={}),
+        ]
+    )
+
+    async def _fake_request_once(self, session, **kwargs):
+        calls.append(kwargs["authorization"] or "")
+        return responses.popleft()
+
+    class _FakeClientSession:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return False
+
+    class _FakeClientTimeout:
+        def __init__(self, total):
+            self.total = total
+
+    class _FakeAiohttp:
+        ClientSession = _FakeClientSession
+        ClientTimeout = _FakeClientTimeout
+
+    import sys
+
+    monkeypatch.setitem(sys.modules, "aiohttp", _FakeAiohttp())
+    monkeypatch.setattr(NetBoxApiClient, "_request_once", _fake_request_once, raising=True)
+    monkeypatch.setattr(
+        "netbox_cli.demo_auth.bootstrap_demo_profile",
+        lambda **kwargs: Config(
+            base_url=DEMO_BASE_URL,
+            token_version="v1",
+            token_secret="fresh-v1-token",
+            timeout=kwargs["timeout"],
+        ),
+        raising=False,
+    )
+
+    response = await client.request("GET", "/api/dcim/devices/")
+
+    assert response.status == 200
+    assert calls == ["Token expired-v1-token", "Token fresh-v1-token"]
+    assert client.config.token_secret == "fresh-v1-token"
+
+
+@pytest.mark.asyncio
+async def test_api_client_keeps_invalid_demo_v1_response_when_refresh_fails(
+    monkeypatch, tmp_path
+) -> None:
+    monkeypatch.setenv("XDG_CONFIG_HOME", str(tmp_path))
+    cfg = Config(
+        base_url=DEMO_BASE_URL,
+        token_version="v1",
+        token_secret="expired-v1-token",
+        demo_username="demo-user",
+        demo_password="demo-pass",
+    )
+    client = NetBoxApiClient(cfg)
+
+    calls: list[str] = []
+
+    async def _fake_request_once(self, session, **kwargs):
+        calls.append(kwargs["authorization"] or "")
+        return ApiResponse(status=403, text='{"detail": "Invalid v1 token"}', headers={})
+
+    class _FakeClientSession:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return False
+
+    class _FakeClientTimeout:
+        def __init__(self, total):
+            self.total = total
+
+    class _FakeAiohttp:
+        ClientSession = _FakeClientSession
+        ClientTimeout = _FakeClientTimeout
+
+    import sys
+
+    monkeypatch.setitem(sys.modules, "aiohttp", _FakeAiohttp())
+    monkeypatch.setattr(NetBoxApiClient, "_request_once", _fake_request_once, raising=True)
+    monkeypatch.setattr(
+        "netbox_cli.demo_auth.bootstrap_demo_profile",
+        lambda **kwargs: (_ for _ in ()).throw(RuntimeError("boom")),
+        raising=False,
+    )
+
+    response = await client.request("GET", "/api/dcim/devices/")
+
+    assert response.status == 403
+    assert calls == ["Token expired-v1-token"]
+
+
+@pytest.mark.asyncio
+async def test_api_client_refreshes_demo_v1_token_using_saved_profile_credentials(
+    monkeypatch, tmp_path
+) -> None:
+    monkeypatch.setenv("XDG_CONFIG_HOME", str(tmp_path))
+    cfg = Config(
+        base_url=DEMO_BASE_URL,
+        token_version="v1",
+        token_secret="expired-v1-token",
+    )
+    client = NetBoxApiClient(cfg)
+
+    calls: list[str] = []
+    responses = deque(
+        [
+            ApiResponse(status=403, text='{"detail": "Invalid v1 token"}', headers={}),
+            ApiResponse(status=200, text='{"ok": true}', headers={}),
+        ]
+    )
+
+    async def _fake_request_once(self, session, **kwargs):
+        calls.append(kwargs["authorization"] or "")
+        return responses.popleft()
+
+    class _FakeClientSession:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return False
+
+    class _FakeClientTimeout:
+        def __init__(self, total):
+            self.total = total
+
+    class _FakeAiohttp:
+        ClientSession = _FakeClientSession
+        ClientTimeout = _FakeClientTimeout
+
+    import sys
+
+    monkeypatch.setitem(sys.modules, "aiohttp", _FakeAiohttp())
+    monkeypatch.setattr(NetBoxApiClient, "_request_once", _fake_request_once, raising=True)
+    monkeypatch.setattr(
+        "netbox_cli.api.load_profile_config",
+        lambda profile: Config(
+            base_url=DEMO_BASE_URL,
+            token_version="v1",
+            token_secret="expired-v1-token",
+            demo_username="demo-user",
+            demo_password="demo-pass",
+        ),
+    )
+    monkeypatch.setattr(
+        "netbox_cli.demo_auth.refresh_demo_profile",
+        lambda existing, headless=True: Config(
+            base_url=DEMO_BASE_URL,
+            token_version="v1",
+            token_secret="fresh-v1-token",
+            demo_username=existing.demo_username,
+            demo_password=existing.demo_password,
+            timeout=existing.timeout,
+        ),
+        raising=False,
+    )
+
+    response = await client.request("GET", "/api/dcim/devices/")
+
+    assert response.status == 200
+    assert calls == ["Token expired-v1-token", "Token fresh-v1-token"]
+    assert client.config.demo_username == "demo-user"
+    assert client.config.demo_password == "demo-pass"
