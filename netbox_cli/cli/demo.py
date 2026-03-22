@@ -40,6 +40,13 @@ demo_app = typer.Typer(
     no_args_is_help=False,
 )
 
+demo_dev_app = typer.Typer(
+    add_completion=False,
+    context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
+    help="Developer-focused tools against the demo.netbox.dev profile.",
+    no_args_is_help=True,
+)
+
 
 def _demo_payload(cfg: Config, *, show_token: bool) -> dict[str, Any]:
     payload: dict[str, Any] = {
@@ -47,6 +54,8 @@ def _demo_payload(cfg: Config, *, show_token: bool) -> dict[str, Any]:
         "base_url": DEMO_BASE_URL,
         "timeout": cfg.timeout,
         "token_version": cfg.token_version,
+        "demo_username": cfg.demo_username or "unset",
+        "demo_password": "set" if cfg.demo_password else "unset",
     }
     if show_token:
         payload["token"] = resolved_token(cfg)
@@ -76,6 +85,8 @@ def _save_demo_profile_from_token(
     token_secret: str,
     timeout: float,
     force: bool,
+    demo_username: str | None = None,
+    demo_password: str | None = None,
 ) -> Config:
     existing = load_profile_config(DEMO_PROFILE)
     if force:
@@ -85,6 +96,8 @@ def _save_demo_profile_from_token(
         token_version="v2",
         token_key=token_key.strip() or None,
         token_secret=token_secret.strip() or None,
+        demo_username=demo_username,
+        demo_password=demo_password,
         timeout=timeout,
     )
     if not cfg.token_key or not cfg.token_secret:
@@ -118,6 +131,8 @@ def _initialize_demo_profile(
             token_secret=token_secret,
             timeout=existing.timeout,
             force=force,
+            demo_username=existing.demo_username,
+            demo_password=existing.demo_password,
         )
 
     if force:
@@ -146,6 +161,8 @@ def _initialize_demo_profile(
             timeout=existing.timeout,
             headless=headless,
         )
+        cfg.demo_username = username
+        cfg.demo_password = password
     except RuntimeError as exc:
         typer.echo(str(exc), err=True)
         raise typer.Exit(code=1) from exc
@@ -306,3 +323,40 @@ def demo_tui_command(
         )
     except ThemeCatalogError as exc:
         raise typer.BadParameter(f"Theme configuration error: {exc}") from exc
+
+
+@demo_dev_app.command(
+    "tui", context_settings={"allow_extra_args": True, "ignore_unknown_options": True}
+)
+def demo_dev_tui_command(
+    ctx: typer.Context,
+    theme: bool = typer.Option(
+        False,
+        "--theme",
+        help="Theme selector. Use '--theme' to list available themes or '--theme <name>' to launch with one.",
+    ),
+) -> None:
+    """Launch the developer request workbench TUI against the demo profile."""
+    from ..dev_tui import available_theme_names, resolve_theme_name, run_dev_tui  # noqa: PLC0415
+
+    selected_theme = resolve_requested_theme(
+        ctx,
+        theme=theme,
+        available_theme_names=available_theme_names,
+        resolve_theme_name=resolve_theme_name,
+        usage="nbx demo dev tui --theme <name>",
+    )
+    if theme and not ctx.args:
+        return
+
+    try:
+        run_dev_tui(
+            client=_get_demo_client(),
+            index=_get_index(),
+            theme_name=selected_theme,
+        )
+    except ThemeCatalogError as exc:
+        raise typer.BadParameter(f"Theme configuration error: {exc}") from exc
+
+
+demo_app.add_typer(demo_dev_app, name="dev")

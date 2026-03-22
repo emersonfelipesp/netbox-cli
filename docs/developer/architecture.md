@@ -2,6 +2,8 @@
 
 `netbox-cli` is organized around a shared API client and OpenAPI schema index that power both the CLI (Typer) and the TUI (Textual) from the same data layer.
 
+In addition to the bundled OpenAPI schema, the TUI runtime can augment the schema index by discovering live plugin REST resources exposed under `/api/plugins/`. This lets plugin-backed resources appear in the TUI automatically when a plugin implements a full REST API.
+
 The TUI theme system is part of the architecture, not decoration: every Textual widget and subcomponent must derive its runtime styling from the active theme catalog, with no hardcoded colors or stray Textual defaults outside `netbox_cli/themes/*.json`.
 
 ---
@@ -28,6 +30,7 @@ netbox_cli/
     ├── chrome.py       Shared theme / clock / logo / connection chrome helpers
     ├── formatting.py   Response parsing, humanization, semantic cell rendering
     ├── navigation.py   Navigation tree building from SchemaIndex
+    ├── plugin_discovery.py Runtime /api/plugins/ discovery for plugin REST resources
     ├── panels.py       ObjectAttributesPanel — detail view with cable trace
     ├── widgets.py      Shared composition primitives (buttons, panel header/body)
     ├── state.py        Main TUI state persistence
@@ -175,6 +178,8 @@ class SchemaIndex:
 `Operation` holds: `group`, `resource`, `method`, `path`, `operation_id`, `summary`.
 
 `ResourcePaths` holds: `list_path` (`/api/group/resources/`) and `detail_path` (`/api/group/resources/{id}/`).
+
+For plugin resources, `SchemaIndex` also supports runtime augmentation. The TUI can discover plugin list/detail endpoints from the live `/api/plugins/` tree and add them into the shared index so they behave like normal resources in navigation, request resolution, and rendering.
 
 ---
 

@@ -89,6 +89,8 @@ def humanize_group(group: str) -> str:
 
 
 def humanize_resource(resource: str) -> str:
+    if "/" in resource:
+        return " / ".join(humanize_identifier(part) for part in resource.split("/") if part)
     return humanize_identifier(resource)
 
 

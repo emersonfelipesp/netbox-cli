@@ -43,14 +43,25 @@ def _plugin_menu(index: SchemaIndex) -> NavMenu | None:
     if "plugins" not in index.groups():
         return None
 
-    items = tuple(
-        NavItem(label=humanize_resource(resource), group="plugins", resource=resource)
-        for resource in index.resources("plugins")
-    )
-    if not items:
+    grouped: dict[str, list[NavItem]] = {}
+    for resource in index.resources("plugins"):
+        plugin_name, _, plugin_resource = resource.partition("/")
+        label = humanize_resource(plugin_resource or resource)
+        grouped.setdefault(plugin_name, []).append(
+            NavItem(label=label, group="plugins", resource=resource)
+        )
+
+    if not grouped:
         return None
 
-    return NavMenu(label="Plugins", groups=(NavGroup(label="Plugins", items=items),))
+    groups = tuple(
+        NavGroup(
+            label=humanize_resource(plugin_name),
+            items=tuple(sorted(items, key=lambda item: item.label)),
+        )
+        for plugin_name, items in sorted(grouped.items())
+    )
+    return NavMenu(label="Plugins", groups=groups)
 
 
 def build_navigation_menus(index: SchemaIndex) -> list[NavMenu]:

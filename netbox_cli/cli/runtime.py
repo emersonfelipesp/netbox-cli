@@ -13,28 +13,34 @@ import typer
 from ..api import NetBoxApiClient
 from ..config import (
     DEFAULT_PROFILE,
+    DEMO_BASE_URL,
     DEMO_PROFILE,
     Config,
     is_runtime_config_complete,
     load_profile_config,
     normalize_base_url,
     save_config,
+    save_profile_config,
 )
+from ..logging_runtime import get_logger
 from ..schema import SchemaIndex, build_schema_index
 from .support import run_with_spinner
 
 _SCHEMA_INDEX: SchemaIndex | None = None
 _RUNTIME_CONFIGS: dict[str, Config] = {}
+logger = get_logger(__name__)
 
 
 def _get_index() -> SchemaIndex:
     global _SCHEMA_INDEX
     if _SCHEMA_INDEX is None:
+        logger.info("building schema index")
         _SCHEMA_INDEX = build_schema_index()
     return _SCHEMA_INDEX
 
 
 def _get_client() -> NetBoxApiClient:
+    logger.debug("creating default profile api client")
     return NetBoxApiClient(_ensure_runtime_config())
 
 
@@ -43,10 +49,12 @@ def _get_client_for_config(cfg: Config) -> NetBoxApiClient:
 
 
 def _get_demo_client() -> NetBoxApiClient:
+    logger.debug("creating demo profile api client")
     return _get_client_for_config(_ensure_demo_runtime_config())
 
 
 def _verify_runtime_config(cfg: Config, *, context: str) -> None:
+    logger.info("verifying runtime config for %s", context)
     client = _get_client_for_config(cfg)
     response = run_with_spinner(client.request("GET", "/api/status/"))
     if response.status >= 400:
@@ -63,16 +71,21 @@ def _load_cached_profile(profile: str) -> Config | None:
 
 def _cache_profile(profile: str, cfg: Config) -> Config:
     _RUNTIME_CONFIGS[profile] = cfg
+    logger.debug("cached profile %s", profile)
     return cfg
 
 
 def _ensure_profile_config(profile: str) -> Config:
     cached = _load_cached_profile(profile)
     if cached is not None:
+        logger.debug("using cached profile %s", profile)
         return cached
 
     cfg = load_profile_config(profile)
     if is_runtime_config_complete(cfg):
+        if profile == DEMO_PROFILE:
+            cfg = _repair_demo_profile_if_needed(cfg)
+        logger.info("loaded complete profile config for %s", profile)
         return _cache_profile(profile, cfg)
 
     if profile == DEMO_PROFILE:
@@ -92,6 +105,7 @@ def _ensure_profile_config(profile: str) -> Config:
 
     save_config(cfg)
     typer.echo("Configuration saved.")
+    logger.info("interactively completed profile config for %s", profile)
     return _cache_profile(profile, cfg)
 
 
@@ -101,3 +115,41 @@ def _ensure_runtime_config() -> Config:
 
 def _ensure_demo_runtime_config() -> Config:
     return _ensure_profile_config(DEMO_PROFILE)
+
+
+def _repair_demo_profile_if_needed(cfg: Config) -> Config:
+    if profile_requires_demo_repair(cfg) is False:
+        return cfg
+    logger.info("checking demo profile token health")
+    client = _get_client_for_config(cfg)
+    response = run_with_spinner(client.request("GET", "/api/status/"))
+    if response.status < 400 or "invalid v1 token" not in response.text.lower():
+        return cfg
+
+    logger.warning("demo profile token expired; reinitializing with saved credentials")
+    try:
+        from ..demo_auth import refresh_demo_profile  # noqa: PLC0415
+
+        refreshed = refresh_demo_profile(cfg, headless=True)
+    except Exception:
+        logger.exception("demo profile token refresh failed")
+        return cfg
+
+    try:
+        save_profile_config(DEMO_PROFILE, refreshed)
+    except Exception:
+        logger.exception("failed to persist repaired demo profile")
+        return cfg
+
+    typer.echo("Demo token was refreshed automatically.")
+    return refreshed
+
+
+def profile_requires_demo_repair(cfg: Config) -> bool:
+    return bool(
+        cfg.base_url == DEMO_BASE_URL
+        and cfg.token_version == "v1"
+        and cfg.token_secret
+        and cfg.demo_username
+        and cfg.demo_password
+    )

@@ -28,6 +28,7 @@ The project is bootstrapped from `CLAUDE.md` requirements:
 - async HTTP via `aiohttp`
 - shared backend logic for CLI and TUI
 - OpenAPI-driven command/resource discovery
+- automatic TUI discovery for plugin REST resources under `/api/plugins/`
 
 ## Quick Test with NetBox Demo Instance
 
@@ -86,6 +87,8 @@ nbx demo tui
 ```
 
 Use `/` to search, `g` to focus the nav tree, `q` to quit. All commands that work under `nbx demo …` are available inside the TUI with the same demo profile.
+
+If your NetBox instance has plugins with a full REST API implementation, the TUI can discover their `/api/plugins/...` resources automatically and render them in navigation without extra configuration.
 
 ---
 
