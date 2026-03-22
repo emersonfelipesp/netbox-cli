@@ -40,6 +40,21 @@ def bootstrap_demo_profile(
     )
 
 
+def refresh_demo_profile(existing: Config, *, headless: bool = True) -> Config:
+    """Re-run demo bootstrap using already saved demo credentials."""
+    if not existing.demo_username or not existing.demo_password:
+        raise RuntimeError("Saved demo credentials are not available for token refresh.")
+    refreshed = bootstrap_demo_profile(
+        username=existing.demo_username,
+        password=existing.demo_password,
+        timeout=existing.timeout,
+        headless=headless,
+    )
+    refreshed.demo_username = existing.demo_username
+    refreshed.demo_password = existing.demo_password
+    return refreshed
+
+
 def provision_demo_token(
     *,
     username: str,

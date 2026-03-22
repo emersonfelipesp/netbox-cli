@@ -33,7 +33,8 @@ from textual.widgets import (
 from textual.widgets.option_list import Option
 
 from netbox_cli.api import ApiResponse, ConnectionProbe, NetBoxApiClient
-from netbox_cli.schema import Operation, SchemaIndex
+from netbox_cli.logging_runtime import get_logger
+from netbox_cli.schema import Operation, SchemaIndex, parse_group_resource
 from netbox_cli.theme_registry import ThemeDefinition
 
 from .app import TOPBAR_CLI_LABEL
@@ -66,6 +67,7 @@ from .dev_state import (
 )
 from .formatting import humanize_group, humanize_resource
 from .navigation import build_navigation_menus
+from .plugin_discovery import discover_plugin_resource_paths
 from .widgets import NbxButton
 
 _HTTP_METHOD_OPTIONS = tuple(
@@ -75,6 +77,7 @@ _VIEW_MODE_OPTIONS = (
     ("- TUI", "main"),
     ("- Dev", "dev"),
 )
+logger = get_logger(__name__)
 
 
 def _text_area_syntax_theme_for(catalog_theme: str) -> str:
@@ -279,6 +282,7 @@ class NetBoxDevTuiApp(App[None]):
         )
 
     def on_mount(self) -> None:
+        logger.info("dev tui mounted")
         self._apply_theme(self.theme_name)
         self.call_after_refresh(self._strip_theme_select_prefix)
         self._build_navigation_tree()
@@ -286,6 +290,7 @@ class NetBoxDevTuiApp(App[None]):
         self._update_clock()
         self._set_connection_badge_checking()
         self._probe_connection_health()
+        self._discover_plugin_resources()
         self._clock_timer = self.set_interval(1.0, self._update_clock, name="nbx_dev_clock")
         self._connection_timer = self.set_interval(
             30.0, self._probe_connection_health, name="nbx_dev_connection"
@@ -293,6 +298,7 @@ class NetBoxDevTuiApp(App[None]):
         self.query_one("#dev_nav_tree", Tree).focus()
 
     def on_unmount(self) -> None:
+        logger.info("dev tui unmounting")
         if self._clock_timer is not None:
             self._clock_timer.stop()
             self._clock_timer = None
@@ -439,6 +445,7 @@ class NetBoxDevTuiApp(App[None]):
         )
 
     def _activate_resource(self, group: str, resource: str) -> None:
+        logger.info("dev tui selected resource %s/%s", group, resource)
         self.current_group = group
         self.current_resource = resource
         self._resource_operations = self.index.operations_for(group, resource)
@@ -453,6 +460,28 @@ class NetBoxDevTuiApp(App[None]):
             self.query_one("#dev_path_input", Input).value = path
             self._set_operation_summary("No OpenAPI operation metadata found.")
             self._set_response_summary(f"Prepared GET {path}")
+
+    @work(group="plugin_discovery", exclusive=True, thread=False)
+    async def _discover_plugin_resources(self) -> None:
+        changed = False
+        for list_path, detail_path in await discover_plugin_resource_paths(self.client):
+            group, resource = parse_group_resource(list_path)
+            if group != "plugins" or resource is None:
+                continue
+            changed = (
+                self.index.add_discovered_resource(
+                    group=group,
+                    resource=resource,
+                    list_path=list_path,
+                    detail_path=detail_path,
+                )
+                or changed
+            )
+        if not changed:
+            return
+        self._build_navigation_tree()
+        if self.current_group is None and self.current_resource is None:
+            self._restore_last_view()
 
     def _default_operation_for(self, group: str, resource: str) -> Operation | None:
         paths = self.index.resource_paths(group, resource)
@@ -549,6 +578,7 @@ class NetBoxDevTuiApp(App[None]):
             return
 
         self._set_request_in_flight(method, path)
+        logger.info("dev tui sending %s %s", method, path)
         started = perf_counter()
         try:
             response = await self.client.request(
@@ -558,6 +588,7 @@ class NetBoxDevTuiApp(App[None]):
                 payload=payload,
             )
         except Exception as exc:  # noqa: BLE001
+            logger.exception("dev tui request failed for %s %s", method, path)
             self._set_request_error(str(exc).strip() or exc.__class__.__name__)
             return
 

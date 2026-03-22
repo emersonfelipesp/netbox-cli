@@ -17,6 +17,8 @@ DEFAULT_HTTP_CACHE_DIRNAME = "http-cache"
 TOKEN_KEY_ENV_VAR = "NETBOX_TOKEN_KEY"
 TOKEN_SECRET_ENV_VAR = "NETBOX_TOKEN_SECRET"
 BASE_URL_ENV_VAR = "NETBOX_URL"
+DEMO_USERNAME_ENV_VAR = "DEMO_USERNAME"
+DEMO_PASSWORD_ENV_VAR = "DEMO_PASSWORD"
 DEFAULT_PROFILE = "default"
 DEMO_PROFILE = "demo"
 DEMO_BASE_URL = "https://demo.netbox.dev"
@@ -27,6 +29,8 @@ class Config(BaseModel):
     token_version: str = "v2"
     token_key: str | None = None
     token_secret: str | None = None
+    demo_username: str | None = None
+    demo_password: str | None = None
     timeout: float = DEFAULT_TIMEOUT
 
     @field_validator("base_url", mode="before")
@@ -130,6 +134,8 @@ def _coerce_config(payload: dict[str, object], *, apply_env: bool) -> Config:
         raw["base_url"] = raw.get("base_url") or os.environ.get(BASE_URL_ENV_VAR)
         raw["token_key"] = raw.get("token_key") or os.environ.get(TOKEN_KEY_ENV_VAR)
         raw["token_secret"] = raw.get("token_secret") or os.environ.get(TOKEN_SECRET_ENV_VAR)
+    raw["demo_username"] = raw.get("demo_username") or os.environ.get(DEMO_USERNAME_ENV_VAR)
+    raw["demo_password"] = raw.get("demo_password") or os.environ.get(DEMO_PASSWORD_ENV_VAR)
     return Config.model_validate(raw)
 
 

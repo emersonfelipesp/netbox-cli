@@ -10,6 +10,8 @@ hide:
 
 `netbox-cli` connects to any NetBox instance through its REST API and lets you list, inspect, create, update, and delete objects without ever opening a browser. Every resource available in the NetBox API is reachable from the command line, and the same backend powers a full interactive TUI.
 
+If your NetBox instance exposes plugin endpoints under `/api/plugins/` with a full REST implementation, `netbox-cli` can discover those plugin resources automatically and surface them in both the CLI/TUI navigation and data views.
+
 ---
 
 <div class="grid cards" markdown>
