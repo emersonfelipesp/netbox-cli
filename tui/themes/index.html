@@ -1500,6 +1500,19 @@
 <li>option list hover and selected rows</li>
 <li><code>TextArea</code> gutter, cursor line, selection, cursor, and placeholder styling</li>
 </ul>
+<p>Theme audits must be recursive. For every themed widget, check the framework-owned internals that Textual mounts inside it, not just the parent selector. This includes:</p>
+<ul>
+<li>tab internals like <code>ContentTab</code> and <code>Underline</code></li>
+<li>select internals like <code>SelectCurrent Static#label</code>, arrow glyphs, and <code>SelectOverlay</code></li>
+<li>input internals like <code>.input--cursor</code>, <code>.input--selection</code>, <code>.input--placeholder</code>, and <code>.input--suggestion</code></li>
+<li>list-style internals like <code>.option-list--option-*</code> and <code>ListItem</code> state classes</li>
+<li>tree internals like <code>.tree--label</code>, <code>.tree--guides*</code>, <code>.tree--cursor</code>, and hover/highlight states</li>
+<li>table internals like <code>.datatable--header</code>, <code>.datatable--cursor</code>, and hover states</li>
+<li>editor internals like <code>.text-area--gutter</code>, <code>.text-area--cursor-line</code>, <code>.text-area--selection</code>, and <code>.text-area--placeholder</code></li>
+<li>footer internals like <code>.footer-key--key</code> and <code>.footer-key--description</code></li>
+<li>notification internals like <code>ToastRack</code>, <code>ToastHolder</code>, <code>Toast</code>, and <code>.toast--title</code></li>
+</ul>
+<p>When a custom widget composes nested Textual widgets internally, propagate semantic theme intent down to those children and verify the final rendered child states after a runtime theme switch, including focus, hover, active, overlay, and ANSI paths.</p>
 <p>Project rules:</p>
 <ul>
 <li>Never hardcode runtime colors in Python or TCSS outside <code>netbox_cli/themes/*.json</code></li>

@@ -1595,6 +1595,13 @@
 <li>define layout tokens (sidebar width, panel spacing)</li>
 <li>support light/dark switch persisted in local config (similar to NetBox color mode persistence)</li>
 </ul>
+<p>Theme implementation rule for this project:</p>
+<ul>
+<li>styling the outer widget is not enough; always inspect and theme Textual's nested internals recursively</li>
+<li>verify framework-owned child selectors and component classes such as tab internals, select overlays, input cursor/selection/placeholder parts, option-list states, tree cursor/highlight states, datatable states, text-area internals, footer internals, and toast internals</li>
+<li>if a custom widget wraps other Textual widgets, pass semantic theme props down to those children and verify the rendered result after runtime theme switching</li>
+<li>theme acceptance should include focus, hover, active, selected, overlay, and ANSI states, not only idle appearance</li>
+</ul>
 <h2 id="3-concrete-porting-blueprint-for-netbox-cli">3. Concrete Porting Blueprint for netbox-cli<a class="headerlink" href="#3-concrete-porting-blueprint-for-netbox-cli" title="Permanent link">&para;</a></h2>
 <h2 id="31-shell-layout">3.1 Shell Layout<a class="headerlink" href="#31-shell-layout" title="Permanent link">&para;</a></h2>
 <p>Create a root app shell that mirrors <code>base/layout.html</code>:</p>
