@@ -1409,29 +1409,48 @@
 <hr />
 <h2 id="module-map">Module map<a class="headerlink" href="#module-map" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>netbox_cli/
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── cli.py              Typer app — all commands, dynamic registration, profile dispatch
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── api.py              Async aiohttp HTTP client (ApiResponse, NetBoxApiClient)
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── config.py           Profile storage, env overrides, token normalization
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── schema.py           OpenAPI schema loading and indexing (SchemaIndex)
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── services.py         Request resolution and action mapping (run_dynamic_command)
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── demo_auth.py        Playwright automation for demo.netbox.dev token retrieval
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── docgen_capture.py   CLI output capture and Markdown generation
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── theme_registry.py   Theme discovery, validation, and catalog management
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── ui_common.tcss      Shared visual design layer for both Textual apps
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── trace_ascii.py      ASCII cable trace renderer
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── tui.py              Thin wrapper — re-exports run_tui from ui.app
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>├── dev_tui.py          Thin wrapper — re-exports run_dev_tui from ui.dev_app
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>└── ui/
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    ├── app.py          NetBoxTuiApp — main Textual application
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    ├── dev_app.py      NetBoxDevTuiApp — request workbench application
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    ├── chrome.py       Shared theme / clock / logo / connection chrome helpers
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    ├── formatting.py   Response parsing, humanization, semantic cell rendering
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    ├── navigation.py   Navigation tree building from SchemaIndex
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    ├── plugin_discovery.py Runtime /api/plugins/ discovery for plugin REST resources
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    ├── panels.py       ObjectAttributesPanel — detail view with cable trace
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    ├── widgets.py      Shared composition primitives (buttons, panel header/body)
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    ├── state.py        Main TUI state persistence
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    └── dev_state.py    Dev TUI state persistence
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── cli/                Typer CLI subpackage
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   ├── __init__.py     Root app, main(), all static commands, app wiring
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   ├── runtime.py      _RUNTIME_CONFIGS cache, client/index factory functions
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   ├── support.py      Console output, Rich table rendering, theme resolution
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   ├── demo.py         nbx demo command group (init, config, test, reset, tui)
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   ├── dev.py          nbx dev command group + nbx dev http sub-app
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   └── dynamic.py      _register_openapi_subcommands, _handle_dynamic_invocation
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── api.py              Async aiohttp HTTP client (ApiResponse, NetBoxApiClient)
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── config.py           Profile storage, env overrides, token normalization
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├── schema.py           OpenAPI schema loading and indexing (SchemaIndex)
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├── services.py         Request resolution and action mapping (run_dynamic_command)
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>├── http_cache.py       Filesystem HTTP cache with TTL (60 s fresh, 300 s stale-if-error)
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├── demo_auth.py        Playwright automation for demo.netbox.dev token retrieval
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>├── docgen_capture.py   CLI output capture and Markdown generation
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>├── docgen_specs.py     CaptureSpec model + all_specs() ordered command list
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>├── logging_runtime.py  Structured JSON logging setup (→ logs/netbox-cli.log)
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>├── output_safety.py    ANSI escape and control-char sanitization
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>├── theme_registry.py   Theme discovery, validation, and catalog management
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>├── trace_ascii.py      ASCII cable trace renderer
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>├── tui.py              Thin wrapper — re-exports run_tui from ui.app
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>├── dev_tui.py          Thin wrapper — re-exports run_dev_tui from ui.dev_app
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>├── tui.tcss            Main TUI stylesheet (semantic variables only)
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>├── dev_tui.tcss        Dev TUI stylesheet (semantic variables only)
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>├── logs_tui.tcss       Log viewer TUI stylesheet (semantic variables only)
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>├── ui_common.tcss      Shared visual design layer imported by all three TUI stylesheets
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>└── ui/
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>    ├── app.py              NetBoxTuiApp — main Textual application
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    ├── dev_app.py          NetBoxDevTuiApp — request workbench application
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    ├── chrome.py           Shared theme / clock / logo / connection chrome helpers
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>    ├── filter_overlay.py   FilterOverlayMixin — filter picker dialog and overlay logic
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    ├── formatting.py       Response parsing, humanization, semantic cell rendering
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    ├── logo_render.py      build_netbox_logo() — themed NetBox wordmark (Rich Text)
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    ├── logs_app.py         NetBoxLogsTuiApp — structured log viewer (nbx logs)
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>    ├── nav_blueprint.py    NAV_BLUEPRINT — static menu data mirroring NetBox sidebar
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>    ├── navigation.py       NavMenu/NavGroup/NavItem models, build_navigation_menus()
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>    ├── plugin_discovery.py Runtime /api/plugins/ discovery for plugin REST resources
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>    ├── panels.py           ObjectAttributesPanel — detail view with cable trace
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>    ├── widgets.py          Shared composition primitives: NbxButton, NbxPanelHeader,
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>    │                       NbxPanelBody, ContextBreadcrumb, SupportModal
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>    ├── state.py            Main TUI state persistence (tui_state.json)
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>    ├── dev_state.py        Dev TUI state persistence
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>    └── dev_rendering.py    Stateless Rich Text rendering helpers for the dev TUI
 </span></code></pre></div>
 <hr />
 <h2 id="data-flow-cli">Data flow: CLI<a class="headerlink" href="#data-flow-cli" title="Permanent link">&para;</a></h2>
@@ -1515,6 +1534,8 @@
 <li><code>NbxButton</code> standardizes size and theme props such as <code>tone</code></li>
 <li><code>NbxPanelHeader</code> and <code>NbxPanelBody</code> define reusable panel structure with prop-like theme inputs</li>
 <li><code>ObjectAttributesPanel</code> composes those primitives instead of inheriting layout from a base panel class</li>
+<li><code>ContextBreadcrumb</code> renders the topbar navigation context as clickable segments with dropdown menus, emitting typed <code>CrumbSelected</code>/<code>MenuOptionSelected</code> messages — no static parent references</li>
+<li><code>SupportModal</code> is a self-contained <code>ModalScreen</code> shared by both TUIs, themed from the active app theme via a CSS class synced on mount</li>
 </ul>
 <p>Contributor guideline: when adding new UI, first ask "can this be expressed as nested reusable widgets?" before introducing a new base class.</p>
 <hr />
@@ -1525,7 +1546,7 @@
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">DEMO_PROFILE</span>    <span class="o">=</span> <span class="s2">&quot;demo&quot;</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">DEMO_BASE_URL</span>   <span class="o">=</span> <span class="s2">&quot;https://demo.netbox.dev&quot;</span>
 </span></code></pre></div>
-<p>In <code>cli.py</code>, the in-process cache is a dict:</p>
+<p>In <code>cli/runtime.py</code>, the in-process cache is a dict:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">_RUNTIME_CONFIGS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Config</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 </span></code></pre></div>
 <p>Profile loading sequence (for <code>_ensure_profile_config(profile)</code>):</p>
@@ -1560,7 +1581,7 @@
 </ul>
 <hr />
 <h2 id="dynamic-command-registration">Dynamic command registration<a class="headerlink" href="#dynamic-command-registration" title="Permanent link">&para;</a></h2>
-<p><code>_register_openapi_subcommands(target_app, *, client_factory, index_factory)</code> runs at module import time (twice — once for root <code>app</code>, once for <code>demo_app</code>):</p>
+<p><code>_register_openapi_subcommands(target_app, *, client_factory, index_factory)</code> in <code>cli/dynamic.py</code> runs at module import time (twice — once for root <code>app</code>, once for <code>demo_app</code>):</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">index</span><span class="o">.</span><span class="n">groups</span><span class="p">():</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">group_typer</span> <span class="o">=</span> <span class="n">Typer</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">target_app</span><span class="o">.</span><span class="n">add_typer</span><span class="p">(</span><span class="n">group_typer</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">group</span><span class="p">)</span>

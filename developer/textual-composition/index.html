@@ -1569,12 +1569,37 @@
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>            <span class="k">yield</span> <span class="n">Static</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;detail_trace&quot;</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="s2">&quot;hidden&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="standard-building-blocks">Standard Building Blocks<a class="headerlink" href="#standard-building-blocks" title="Permanent link">&para;</a></h2>
-<p>Current shared composition primitives live in <a href="/root/nms/netbox-cli/netbox_cli/ui/widgets.py">netbox_cli/ui/widgets.py</a>:</p>
-<ul>
-<li><code>NbxButton</code></li>
-<li><code>NbxPanelHeader</code></li>
-<li><code>NbxPanelBody</code></li>
-</ul>
+<p>Current shared composition primitives live in <code>netbox_cli/ui/widgets.py</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NbxButton</code></td>
+<td>Themed button with <code>tone</code>, <code>size</code>, <code>chrome</code> semantic props</td>
+</tr>
+<tr>
+<td><code>NbxPanelHeader</code></td>
+<td>Panel title bar</td>
+</tr>
+<tr>
+<td><code>NbxPanelBody</code></td>
+<td>Panel content container with optional <code>tone</code> / <code>surface</code></td>
+</tr>
+<tr>
+<td><code>ContextBreadcrumb</code></td>
+<td>Clickable topbar breadcrumb with scoped dropdown menus; emits <code>CrumbSelected</code> / <code>MenuOptionSelected</code></td>
+</tr>
+<tr>
+<td><code>SupportModal</code></td>
+<td>Self-contained <code>ModalScreen</code> shared by main and dev TUIs; inherits active theme via CSS class on mount</td>
+</tr>
+</tbody>
+</table>
 <p>These should be the default starting point for new reusable UI pieces.</p>
 <h2 id="guidelines">Guidelines<a class="headerlink" href="#guidelines" title="Permanent link">&para;</a></h2>
 <h3 id="1-compose-screens-from-leaf-widgets">1. Compose screens from leaf widgets<a class="headerlink" href="#1-compose-screens-from-leaf-widgets" title="Permanent link">&para;</a></h3>
