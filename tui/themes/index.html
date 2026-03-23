@@ -929,6 +929,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Theme compliance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debugging-theme-specific-mismatches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging theme-specific mismatches
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1586,6 +1603,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Theme compliance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debugging-theme-specific-mismatches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging theme-specific mismatches
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1811,6 +1845,30 @@
 <li>Never leave Textual default colors visible after a theme switch</li>
 <li>Avoid built-in widget palettes when they bypass the repo theme tokens; style component classes with semantic variables instead</li>
 </ul>
+<h3 id="debugging-theme-specific-mismatches">Debugging theme-specific mismatches<a class="headerlink" href="#debugging-theme-specific-mismatches" title="Permanent link">&para;</a></h3>
+<p>If one built-in theme renders correctly and another still shows stray color blocks, do not assume the remaining issue is always a widget selector bug. Compare the theme JSON palette itself against a known-good built-in theme before adding more TCSS overrides.</p>
+<p>Use this workflow:</p>
+<ul>
+<li>compare <code>background</code>, <code>surface</code>, <code>panel</code>, <code>boost</code>, <code>nb-border</code>, and <code>nb-border-subtle</code> between the broken theme and a known-good theme</li>
+<li>verify the dark-surface hierarchy is progressive: <code>background &lt; surface &lt; panel &lt; boost</code> in perceived lightness</li>
+<li>for dark themes, keep the surface stack low-saturation enough that panel layers read as neutral structure, not bright blue-violet blocks</li>
+<li>check Textual ANSI paths separately, because <code>Screen</code> / <code>ModalScreen</code> and nested framework widgets may still apply ANSI-mode defaults in a real terminal even when headless tests look fine</li>
+</ul>
+<p>Practical lesson from the Dracula fix:</p>
+<ul>
+<li>the remaining blue support-modal and Dev-TUI pane backgrounds were not only widget-style leaks</li>
+<li>Dracula's own <code>surface</code> / <code>panel</code> / <code>boost</code> / border tokens were too blue compared with the calmer NetBox Dark surface stack</li>
+<li>the durable fix was two-part:</li>
+<li>rebalance the Dracula surface hierarchy in <code>netbox_cli/themes/dracula.json</code></li>
+<li>explicitly account for Textual ANSI-mode screen / modal behavior and runtime-mounted inner widgets</li>
+</ul>
+<p>When reviewing or creating a dark theme, treat the following as a built-in sanity check:</p>
+<ul>
+<li>surfaces should get progressively lighter from app background to nested panel emphasis</li>
+<li>adjacent surface tokens should not jump too far in saturation</li>
+<li>border tokens should separate regions without reading as neon outlines</li>
+<li>modal bodies and large content panes should look like neutral structure, not colored feature blocks</li>
+</ul>
 <hr />
 <h2 id="creating-a-custom-theme">Creating a custom theme<a class="headerlink" href="#creating-a-custom-theme" title="Permanent link">&para;</a></h2>
 <p>Place a JSON file in <code>netbox_cli/themes/</code>. It will be discovered automatically — no code changes required.</p>
@@ -1926,6 +1984,14 @@
 <li>Use <code>boost</code> for highlighted backgrounds</li>
 <li>Use <code>nb-border</code> for standard borders, <code>nb-border-subtle</code> for inner/secondary borders</li>
 <li>Status colors: <code>nb-success-*</code>, <code>nb-info-*</code>, <code>nb-warning-*</code>, <code>nb-danger-*</code></li>
+</ul>
+<p>Additional surface guidance for dark themes:</p>
+<ul>
+<li><code>background</code> should be the darkest neutral foundation</li>
+<li><code>surface</code> should lift slightly from <code>background</code> without becoming obviously colored</li>
+<li><code>panel</code> should sit above <code>surface</code> for nested containers and modal bodies</li>
+<li><code>boost</code> should be the strongest neutral emphasis layer, not a substitute for accent color</li>
+<li>if a theme's surface stack reads as blue or purple slabs in large panes, reduce saturation in those structural tokens before patching widgets</li>
 </ul>
 <p>See <code>reference/design/NETBOX-DARK-PATTERNS.md</code> in the repository for the full design reference.</p>
 

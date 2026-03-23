@@ -1894,6 +1894,19 @@
 <li>if a custom widget wraps other Textual widgets, pass semantic theme props down to those children and verify the rendered result after runtime theme switching</li>
 <li>theme acceptance should include focus, hover, active, selected, overlay, and ANSI states, not only idle appearance</li>
 </ul>
+<p>Theme debugging rule for this project:</p>
+<ul>
+<li>if one built-in theme looks correct and another still renders stray color blocks, compare the theme JSON surface tokens before adding more widget overrides</li>
+<li>specifically compare <code>background</code>, <code>surface</code>, <code>panel</code>, <code>boost</code>, <code>nb-border</code>, and <code>nb-border-subtle</code> against a known-good built-in theme</li>
+<li>for dark themes, structural tokens must remain neutral enough that large panes and modal bodies read as layered containers rather than bright tinted slabs</li>
+<li>if the token stack is wrong, fix the theme palette first and only then patch recursive widget selectors</li>
+</ul>
+<p>Textual runtime rule:</p>
+<ul>
+<li>headless tests are not enough for theme sign-off</li>
+<li>Textual has separate ANSI-mode defaults for surfaces such as <code>Screen</code> and <code>ModalScreen</code>, and these can still win in real terminals</li>
+<li>if TCSS alone does not fully bind those runtime paths to the selected theme, add a narrow runtime surface sync using semantic theme tokens for the affected modal, pane stack, or internal widget subtree</li>
+</ul>
 <h2 id="3-concrete-porting-blueprint-for-netbox-cli">3. Concrete Porting Blueprint for netbox-cli<a class="headerlink" href="#3-concrete-porting-blueprint-for-netbox-cli" title="Permanent link">&para;</a></h2>
 <h2 id="31-shell-layout">3.1 Shell Layout<a class="headerlink" href="#31-shell-layout" title="Permanent link">&para;</a></h2>
 <p>Create a root app shell that mirrors <code>base/layout.html</code>:</p>

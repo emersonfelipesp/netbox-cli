@@ -1931,6 +1931,13 @@
 <li><code>surface</code></li>
 <li><code>chrome</code></li>
 </ul>
+<p>Theme-aware composition also includes surface propagation. If a reusable widget mounts nested Textual primitives internally, the parent widget must carry semantic theme intent down to those children and verify the final rendered surfaces.</p>
+<p>Important examples:</p>
+<ul>
+<li>modal widgets must theme the dialog container and action buttons, not only the <code>ModalScreen</code></li>
+<li>tabbed widgets must theme <code>TabbedContent</code>, <code>ContentTabs</code>, <code>ContentSwitcher</code>, and the active <code>TabPane</code></li>
+<li>editor/list widgets must theme both their outer container and the framework-owned inner parts that paint backgrounds in focus or ANSI paths</li>
+</ul>
 <h3 id="3-use-nested-widgets-as-slots">3. Use nested widgets as slots<a class="headerlink" href="#3-use-nested-widgets-as-slots" title="Permanent link">&para;</a></h3>
 <p>When a widget has recognizable regions, model them as child widgets instead of one large monolith.</p>
 <ul>
@@ -1954,6 +1961,17 @@
 <li>use semantic classes on reusable widgets</li>
 <li>keep theme logic in TCSS and theme JSON</li>
 <li>avoid runtime color decisions in widget constructors</li>
+</ul>
+<p>Exception:</p>
+<ul>
+<li>when Textual runtime defaults still override the selected theme in terminal-only paths such as ANSI-mode <code>Screen</code> / <code>ModalScreen</code> or mounted internal subwidgets, add a narrow runtime surface sync in the owning widget or app</li>
+<li>if you take this escape hatch, also document the reason in the relevant theme/design docs and keep the runtime override limited to semantic theme tokens</li>
+</ul>
+<p>Practical rule:</p>
+<ul>
+<li>first fix the theme palette if the structural tokens themselves are wrong</li>
+<li>then fix recursive TCSS selectors for framework-owned internals</li>
+<li>only then add runtime surface syncing for the specific widgets that still escape the theme contract</li>
 </ul>
 <h3 id="6-keep-inheritance-shallow">6. Keep inheritance shallow<a class="headerlink" href="#6-keep-inheritance-shallow" title="Permanent link">&para;</a></h3>
 <p>Do not create long widget inheritance chains for layout reuse.</p>
