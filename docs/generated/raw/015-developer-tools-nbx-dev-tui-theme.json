@@ -1,12 +1,13 @@
 {
-  "section": "Top-level",
-  "title": "nbx tui --theme",
+  "section": "Developer Tools",
+  "title": "nbx dev tui --theme",
   "argv": [
+    "dev",
     "tui",
     "--theme"
   ],
   "exit_code": 0,
-  "elapsed_seconds": 1.782,
+  "elapsed_seconds": 2.157,
   "truncated": true,
   "stdout_full": "Available themes:\n- dracula\n- netbox-dark\n- netbox-light\n- onedark-pro\n- tokyo-night\n"
 }
