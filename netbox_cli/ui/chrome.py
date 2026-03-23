@@ -63,10 +63,12 @@ def apply_theme(
     definition = theme_catalog.theme_for(new_theme_name)
     configure_semantic_styles(colors=definition.colors, variables=definition.variables)
 
-    if current_theme_name:
-        app.screen.remove_class(f"theme-{current_theme_name}")
     app.theme = new_theme_name
-    app.screen.add_class(f"theme-{new_theme_name}")
+    _sync_screen_theme_classes(
+        app,
+        current_theme_name=current_theme_name,
+        new_theme_name=new_theme_name,
+    )
     app.refresh_css(animate=False)
     app.refresh(repaint=True, layout=True)
     state.theme_name = new_theme_name
@@ -78,6 +80,23 @@ def apply_theme(
         )
         app.notify(f"Theme switched to {label}")
     return new_theme_name
+
+
+def _sync_screen_theme_classes(
+    app: Any,
+    *,
+    current_theme_name: str | None,
+    new_theme_name: str,
+) -> None:
+    seen: set[int] = set()
+    for screen in getattr(app, "screen_stack", ()):
+        identity = id(screen)
+        if identity in seen:
+            continue
+        seen.add(identity)
+        if current_theme_name:
+            screen.remove_class(f"theme-{current_theme_name}")
+        screen.add_class(f"theme-{new_theme_name}")
 
 
 def logo_renderable(theme_catalog: ThemeCatalog, theme_name: str) -> Text:

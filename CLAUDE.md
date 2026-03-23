@@ -12,6 +12,7 @@
 | `docs/` | [→](docs/CLAUDE.md) | MkDocs documentation source + generated capture outputs |
 | `.github/` | [→](.github/CLAUDE.md) | GitHub Actions workflows (CI tests, docs build + deploy) |
 | `reference/` | [→](reference/CLAUDE.md) | Design guides (NETBOX-DARK-PATTERNS, TOAD), Textual app references |
+| `PROMPTING-GUIDE.md` | n/a | Project metaprompting workflow: how prompts must be internally reframed before execution |
 | `SECURITY-GUIDE.md` | n/a | Security hardening guide: URL validation, secret storage, cache privacy, terminal output sanitization, security tests |
 
 ---
@@ -69,6 +70,27 @@ Expect every commit and every push to pass the Ruff lint/format hooks. GitHub Ac
 
 ---
 
+## Prompting Workflow
+
+`PROMPTING-GUIDE.md` is part of the project contract.
+
+Every prompt in this project must be internally re-prompted using that guide before execution. This internal reframing does not need to be shown to the user unless it is useful, but it must shape the work.
+
+Minimum internal prompting loop:
+
+1. restate the real objective
+2. list assumptions
+3. define quality criteria
+4. choose the response or implementation structure
+5. execute
+6. self-check against the criteria
+
+Use the heavier metaprompting patterns from `./PROMPTING-GUIDE.md` for architecture, code generation, debugging, code review, design work, security-sensitive changes, and other high-impact tasks.
+
+For trivial requests, use the compact version of the same workflow rather than skipping it entirely.
+
+---
+
 # netbox-cli aims to be a TUI mirror of NetBox UI.
 - You must "mirror" UI, such as navigation, cards, etc.
 - For it, you must understand NetBox code and Django (mainly focusing on template understanding)
@@ -91,6 +113,9 @@ Expect every commit and every push to pass the Ruff lint/format hooks. GitHub Ac
 - Key rules:
   - Use only semantic CSS variables (`$primary`, `$secondary`, `$error`, etc.) — never hardcode hex colors in TCSS.
   - Every Textual widget and subcomponent must visually follow the active theme. This includes built-in parts such as `OptionList` rows, `Tree` cursor states, `TextArea` gutter/selection/cursor states, tabs, overlays, and notifications.
+  - Always audit Textual internals recursively, not just the outer widget selector. When styling or reviewing any widget, also inspect and theme its framework-owned child parts, wrappers, component classes, and ANSI/focus variants.
+  - Required examples of internal surfaces to check include: `ContentTab`, `Underline`, `SelectCurrent Static#label`, `SelectOverlay`, `.input--cursor`, `.input--selection`, `.input--placeholder`, `.option-list--option-*`, `.tree--*`, `.datatable--*`, `.text-area--*`, `.footer-key--*`, `ToastRack`, `ToastHolder`, `Toast`, and `.toast--title`.
+  - If a widget mounts nested Textual primitives internally, pass semantic theme intent down to those inner widgets and verify the final rendered child states, not only the parent container.
   - Do not use built-in Textual widget palettes when they override repo theme tokens. If a widget offers a separate palette/theme API, only use it when its colors still resolve from the active app theme; otherwise style the component classes in TCSS.
   - Use a React-style composition pattern for Textual widgets. Prefer small reusable primitives and nested `compose()` trees over inheritance chains built only for layout reuse.
   - Use opacity-based tinting for hierarchy: `$primary 10%` (chip bg), `$primary 50%` (border), `$primary 100%` (full).
@@ -115,3 +140,4 @@ Expect every commit and every push to pass the Ruff lint/format hooks. GitHub Ac
   - Unknown keys and alias/name collisions must raise clear errors
 - Theme switching must be live in TUI and persisted in TUI state.
 - Theme switching is a hard contract for every TUI surface: changing theme must update all Textual components, component classes, overlays, and editor chrome with no stray default or hardcoded colors left behind.
+- Theme review is incomplete unless it checks nested Textual internals after runtime theme switch, including focus states, hover states, active selections, ANSI branches, overlays, and notifications.

@@ -102,7 +102,7 @@ Screen {
 }
 
 .nbx-panel-header.nbx-tone--muted .panel-title {
-    color: $text-muted;
+    color: $nb-muted-text;
 }
 
 
@@ -118,7 +118,7 @@ Screen {
     width: 1fr;
     height: auto;
     background: $background;
-    border-bottom: solid $foreground 10%;
+    border-bottom: solid $nb-border-subtle;
     align: left middle;
 }
 
@@ -173,21 +173,26 @@ Screen {
 
 #app_title_wrap {
     width: auto;
-    height: auto;
+    height: 3;
+    min-height: 2;
+    align: left middle;
 }
 
 #app_title_demo {
     width: auto;
+    height: 3;
+    min-height: 2;
     margin-right: 1;
     color: $secondary;
     text-style: bold;
+    content-align: center middle;
 }
 
 #clock {
     width: auto;
     min-width: 8;
     margin-left: 1;
-    color: $text-muted;
+    color: $nb-muted-text;
     content-align: right middle;
 }
 
@@ -243,7 +248,7 @@ Screen {
     width: 1fr;
     padding: 0 2 0 2;
     margin-bottom: 1;
-    color: $text-muted;
+    color: $nb-muted-text;
     text-style: dim;
 }
 
@@ -274,13 +279,90 @@ Screen {
     color: $nb-danger-text;
 }
 
-#context_line {
+#context_breadcrumb {
     width: auto;
-    max-width: 42;
-    content-align: right middle;
-    color: $text-muted;
-    text-wrap: nowrap;
-    text-overflow: ellipsis;
+    max-width: 60;
+    height: 3;
+    min-height: 2;
+    align: right middle;
+}
+
+#context_breadcrumb_menu {
+    display: none;
+    width: auto;
+    min-width: 14;
+    height: auto;
+    max-height: 12;
+    overlay: screen;
+    constrain: none inside;
+    layer: overlay;
+    border: tall $nb-border-subtle;
+    background: $surface;
+}
+
+#context_breadcrumb_menu:focus {
+    border: tall $secondary;
+}
+
+#context_breadcrumb_menu > .option-list--option {
+    padding: 0 1;
+}
+
+#context_breadcrumb_menu.hidden {
+    display: none;
+}
+
+.breadcrumb-prefix {
+    width: auto;
+    height: 3;
+    min-height: 2;
+    color: $nb-muted-text;
+    margin-right: 1;
+    content-align: center middle;
+}
+
+.breadcrumb-sep {
+    width: auto;
+    height: 3;
+    min-height: 2;
+    color: $nb-muted-text;
+    margin: 0 1;
+    content-align: center middle;
+}
+
+.breadcrumb-current {
+    width: auto;
+    color: $nb-muted-text;
+    height: 3;
+    min-height: 2;
+    content-align: center middle;
+}
+
+.breadcrumb-link {
+    width: auto;
+    height: 3;
+    min-height: 2;
+    min-width: 1;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    color: $nb-muted-text;
+    text-style: none;
+    content-align: center middle;
+}
+
+.breadcrumb-link:hover {
+    background: $panel;
+    color: $foreground;
+    text-style: none;
+}
+
+.breadcrumb-link:focus {
+    border: none;
+    background: $panel;
+    color: $foreground;
+    text-style: none;
 }
 
 #close_tui_button {
@@ -305,7 +387,7 @@ Screen {
     max-width: 40%;
     min-width: 24;
     background: $background;
-    border-right: tall $foreground 10%;
+    border-right: tall $nb-border-subtle;
     padding: 0 1;
     overflow: hidden scroll;
     scrollbar-size: 0 0;
@@ -343,7 +425,7 @@ Screen {
 }
 
 .panel-subtitle {
-    color: $text-muted;
+    color: $nb-muted-text;
     text-style: italic;
     margin: 0 0 1 0;
 }
@@ -410,7 +492,7 @@ Screen {
 }
 
 #nav_help {
-    color: $text-muted;
+    color: $nb-muted-text;
     text-style: dim;
     margin: 1 0;
     text-wrap: nowrap;
@@ -429,23 +511,96 @@ Screen {
 
 #main_tabs {
     height: 1fr;
+    background: $background;
 }
 
 #main_tabs ContentTabs {
+    background: transparent;
+    color: $foreground;
+    border: none;
+    padding: 0 1;
+    margin: 0 0 1 0;
+}
+
+#main_tabs Container#tabs-scroll,
+#main_tabs Vertical#tabs-list-bar,
+#main_tabs Horizontal#tabs-list,
+#main_tabs Underline {
     background: transparent;
 }
 
 #main_tabs ContentTabs .underline--bar {
     background: $nb-border-subtle;
+    color: $nb-border-subtle;
 }
 
 #main_tabs ContentTabs:focus .underline--bar {
     background: $primary 35%;
+    color: $primary;
 }
 
 #main_tabs ContentTabs:focus .-active {
     color: $primary;
-    background: $surface;
+    background: transparent;
+    text-style: bold;
+}
+
+#main_tabs Tab {
+    height: 1;
+    min-width: 9;
+    padding: 0 1;
+    background: transparent;
+    color: $nb-muted-text;
+    border: none;
+}
+
+#main_tabs Tab:hover {
+    background: $panel;
+    color: $foreground;
+}
+
+#main_tabs Tab:focus {
+    background: $panel;
+    color: $foreground;
+    text-style: bold;
+}
+
+#main_tabs Tab.-active {
+    color: $foreground;
+    background: transparent;
+    text-style: bold;
+}
+
+#main_tabs ContentTab,
+#main_tabs ContentTab.-active {
+    height: 1;
+    min-width: 9;
+    padding: 0 1;
+    background: transparent;
+    border: none;
+}
+
+#main_tabs ContentTabs:ansi ContentTab {
+    color: $nb-muted-text;
+    background: transparent;
+}
+
+#main_tabs ContentTabs:ansi ContentTab.-active {
+    color: $foreground;
+    background: transparent;
+}
+
+#main_tabs ContentTabs:ansi:focus ContentTab.-active {
+    color: $primary;
+    background: transparent;
+}
+
+#main_tabs ContentSwitcher {
+    background: $background;
+}
+
+#main_tabs TabPane {
+    background: $background;
 }
 
 #results_tab,
@@ -464,7 +619,7 @@ Screen {
     margin: 1 1 1 0;
     border-left: blank $primary;
     padding: 0 1;
-    color: $text-muted;
+    color: $nb-muted-text;
 }
 
 #results_table {
@@ -552,7 +707,7 @@ Screen {
 #results_status {
     height: auto;
     margin: 1 1 1 0;
-    color: $text-muted;
+    color: $nb-muted-text;
     text-style: dim;
 }
 
@@ -583,7 +738,7 @@ ObjectAttributesPanel {
 
 #detail_status {
     height: 1;
-    color: $text-muted;
+    color: $nb-muted-text;
     text-style: dim;
     margin: 0 0 1 0;
 }
@@ -709,7 +864,7 @@ ObjectAttributesPanel.-loading #detail_status {
 }
 
 #filter_picker_dialog Input > .input--placeholder {
-    color: $text-muted;
+    color: $nb-muted-text;
 }
 
 #filter_picker_search {
@@ -780,7 +935,7 @@ ObjectAttributesPanel.-loading #detail_status {
 }
 
 #filter_dialog Input > .input--placeholder {
-    color: $text-muted;
+    color: $nb-muted-text;
 }
 
 #filter_buttons {
@@ -873,7 +1028,7 @@ Button.primary:focus {
 }
 
 .nbx-button.nbx-tone--muted {
-    color: $text-muted;
+    color: $nb-muted-text;
     border: round $nb-border-subtle;
 }
 
@@ -956,30 +1111,10 @@ Button.primary:focus {
     tint: $error 18%;
 }
 
-ListView > ListItem {
-    border: tall transparent;
-}
-
-ListView > ListItem.-hovered {
-    background: $panel;
-}
-
-ListView > ListItem.-highlight {
-    background: $panel;
-    color: $foreground;
-    border: tall transparent;
-    text-style: bold;
-}
-
-ListView:focus {
-    background-tint: transparent;
-}
-
-
 /* ---- Footer --------------------------------------------------------- */
 /* Transparent footer bg; key labels use theme text colors.               */
 
 Footer {
     background: $background;
-    border-top: solid $foreground 10%;
+    border-top: solid $nb-border-subtle;
 }

@@ -68,7 +68,7 @@ from .dev_state import (
 from .formatting import humanize_group, humanize_resource
 from .navigation import build_navigation_menus
 from .plugin_discovery import discover_plugin_resource_paths
-from .widgets import NbxButton
+from .widgets import NbxButton, SupportModal
 
 _HTTP_METHOD_OPTIONS = tuple(
     (method, method) for method in ("GET", "POST", "PUT", "PATCH", "DELETE")
@@ -165,6 +165,13 @@ class NetBoxDevTuiApp(App[None]):
                 yield Static("●", id="dev_connection_badge", classes="-checking")
                 yield Static("Context: <none>", id="dev_context_line")
                 yield NbxButton(
+                    "Liked it? Support me!",
+                    id="support_button",
+                    size="small",
+                    tone="muted",
+                    classes="nbx-topbar-control",
+                )
+                yield NbxButton(
                     "Close",
                     id="dev_close_button",
                     size="small",
@@ -187,9 +194,9 @@ class NetBoxDevTuiApp(App[None]):
             yield NbxButton(
                 "Send",
                 id="dev_send_button",
-                variant="primary",
                 size="medium",
                 tone="primary",
+                chrome="soft",
             )
 
         with Horizontal(id="dev_shell"):
@@ -273,13 +280,12 @@ class NetBoxDevTuiApp(App[None]):
             self._exception = error
             self._exception_event.set()
         detail = str(error).strip() or error.__class__.__name__
-        self.panic(
-            Text.from_markup(
-                "[bold]Application error[/bold]\n"
-                f"{detail}\n"
-                "The dev TUI closed to keep the terminal usable."
-            )
-        )
+        theme = self._theme_definition()
+        message = Text()
+        message.append("Application error\n", style=Style(color=theme.colors["error"], bold=True))
+        message.append(f"{detail}\n")
+        message.append("The dev TUI closed to keep the terminal usable.")
+        self.panic(message)
 
     def on_mount(self) -> None:
         logger.info("dev tui mounted")
@@ -347,6 +353,10 @@ class NetBoxDevTuiApp(App[None]):
     def on_close_button_pressed(self) -> None:
         self.exit()
 
+    @on(Button.Pressed, "#support_button")
+    def on_support_button_pressed(self) -> None:
+        self.push_screen(SupportModal())
+
     @on(Select.Changed, "#dev_view_select")
     def on_view_changed(self, event: Select.Changed) -> None:
         if event.value == Select.BLANK:
@@ -376,8 +386,6 @@ class NetBoxDevTuiApp(App[None]):
     @on(Tree.NodeSelected, "#dev_nav_tree")
     def on_nav_selected(self, event: Tree.NodeSelected[tuple[str, str] | None]) -> None:
         if event.node.data is None:
-            if event.node.children:
-                event.node.toggle()
             return
         group, resource = event.node.data
         self._activate_resource(group, resource)

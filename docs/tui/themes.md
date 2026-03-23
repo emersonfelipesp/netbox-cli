@@ -47,6 +47,20 @@ Theme switching is not limited to top-level containers. Every Textual widget and
 - option list hover and selected rows
 - `TextArea` gutter, cursor line, selection, cursor, and placeholder styling
 
+Theme audits must be recursive. For every themed widget, check the framework-owned internals that Textual mounts inside it, not just the parent selector. This includes:
+
+- tab internals like `ContentTab` and `Underline`
+- select internals like `SelectCurrent Static#label`, arrow glyphs, and `SelectOverlay`
+- input internals like `.input--cursor`, `.input--selection`, `.input--placeholder`, and `.input--suggestion`
+- list-style internals like `.option-list--option-*` and `ListItem` state classes
+- tree internals like `.tree--label`, `.tree--guides*`, `.tree--cursor`, and hover/highlight states
+- table internals like `.datatable--header`, `.datatable--cursor`, and hover states
+- editor internals like `.text-area--gutter`, `.text-area--cursor-line`, `.text-area--selection`, and `.text-area--placeholder`
+- footer internals like `.footer-key--key` and `.footer-key--description`
+- notification internals like `ToastRack`, `ToastHolder`, `Toast`, and `.toast--title`
+
+When a custom widget composes nested Textual widgets internally, propagate semantic theme intent down to those children and verify the final rendered child states after a runtime theme switch, including focus, hover, active, overlay, and ANSI paths.
+
 Project rules:
 
 - Never hardcode runtime colors in Python or TCSS outside `netbox_cli/themes/*.json`

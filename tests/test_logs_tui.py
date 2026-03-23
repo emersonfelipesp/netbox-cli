@@ -76,3 +76,35 @@ async def test_logs_tui_theme_switch_refreshes_surfaces(monkeypatch) -> None:
         assert app.theme_name == "netbox-dark"
         assert app.query_one("#logs_detail_panel", object).styles.background == expected_surface
         assert app.query_one("#logs_detail", object).styles.background == expected_panel
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ("dracula", "netbox-dark", "netbox-light"))
+async def test_logs_tui_surfaces_follow_selected_theme(monkeypatch, theme_name: str) -> None:
+    monkeypatch.setattr(
+        "netbox_cli.ui.logs_app.read_log_entries",
+        lambda limit: [
+            LogEntry(
+                timestamp="2026-03-22T10:00:00Z",
+                level="INFO",
+                logger="netbox_cli.api",
+                message="api request completed",
+            )
+        ],
+    )
+
+    app = NetBoxLogsTuiApp(theme_name=theme_name)
+    theme = app.theme_catalog.theme_for(theme_name)
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await _pause_twice(pilot)
+
+        assert app.query_one("#logs_main", object).styles.background == Color.parse(
+            theme.colors["background"]
+        )
+        assert app.query_one("#logs_detail_panel", object).styles.background == Color.parse(
+            theme.colors["surface"]
+        )
+        assert app.query_one("#logs_detail", object).styles.background == Color.parse(
+            theme.colors["panel"]
+        )

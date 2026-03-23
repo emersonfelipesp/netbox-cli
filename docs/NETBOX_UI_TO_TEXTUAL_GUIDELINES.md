@@ -187,6 +187,13 @@ Mirror NetBox token strategy in Textual CSS variables:
 - define layout tokens (sidebar width, panel spacing)
 - support light/dark switch persisted in local config (similar to NetBox color mode persistence)
 
+Theme implementation rule for this project:
+
+- styling the outer widget is not enough; always inspect and theme Textual's nested internals recursively
+- verify framework-owned child selectors and component classes such as tab internals, select overlays, input cursor/selection/placeholder parts, option-list states, tree cursor/highlight states, datatable states, text-area internals, footer internals, and toast internals
+- if a custom widget wraps other Textual widgets, pass semantic theme props down to those children and verify the rendered result after runtime theme switching
+- theme acceptance should include focus, hover, active, selected, overlay, and ANSI states, not only idle appearance
+
 ## 3. Concrete Porting Blueprint for netbox-cli
 
 ## 3.1 Shell Layout
