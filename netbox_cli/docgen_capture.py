@@ -1,9 +1,21 @@
-"""Generate Markdown + JSON capturing `nbx` CLI invocations (Typer CliRunner)."""
+"""Generate Markdown + JSON capturing ``nbx`` CLI invocations (Typer CliRunner).
+
+Documentation guidelines (AGENTS):
+- All captured output MUST come from demo.netbox.dev only.  Never use a
+  production instance to generate docs — it will leak customer data.
+- Commands documented without the ``demo`` prefix (e.g. ``nbx dcim devices
+  list``) must still execute against the demo profile.
+- Commands that fail with configuration errors (interactive prompts, aborted)
+  are skipped and never included in final output.
+- Each command gets tabs: Command, Output (human), JSON Output, YAML Output,
+  Markdown Output.
+"""
 
 from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 import time
 from datetime import UTC, datetime
@@ -16,6 +28,16 @@ from .docgen_specs import all_specs as _all_specs
 # OpenAPI dynamic actions that render via ``print_response`` (tabular / Markdown-friendly).
 _MARKDOWN_ACTIONS = frozenset({"list", "get", "create", "update", "patch", "delete"})
 _OUTPUT_FORMAT_FLAGS = frozenset({"--json", "--yaml", "--markdown"})
+
+# Strings that indicate a command failed because configuration is missing.
+_CONFIG_ERROR_SIGNALS = (
+    "NetBox endpoint configuration is required",
+    "NetBox host (example:",
+    "Aborted.",
+)
+
+# Header line prepended by ``print_response`` (stripped from format-variant captures).
+_STATUS_HEADER_RE = re.compile(r"^Status:\s*\d+\s*\n?")
 
 
 def argv_with_markdown_output(argv: list[str], *, enabled: bool) -> list[str]:
@@ -131,6 +153,39 @@ def _truncate(text: str, max_lines: int, max_chars: int) -> tuple[str, bool]:
         head = "\n".join(lines[:max_lines])
         return head + f"\n\n… ({len(lines) - max_lines} more lines truncated)\n", True
     return text, False
+
+
+def _strip_status_header(text: str) -> str:
+    """Remove the ``Status: NNN`` header line added by ``print_response``."""
+    return _STATUS_HEADER_RE.sub("", text, count=1)
+
+
+def _is_config_error(output: str) -> bool:
+    """Return True if the captured output indicates a missing configuration."""
+    return any(sig in output for sig in _CONFIG_ERROR_SIGNALS)
+
+
+def _has_output_format_support(argv: list[str]) -> bool:
+    """Return True if the command accepts ``--json``/``--yaml``/``--markdown`` flags.
+
+    Help-only commands and schema-discovery commands do not benefit from
+    format variants — only live API calls and dynamic commands do.
+    """
+    if "--help" in argv:
+        return False
+    if any(t in _OUTPUT_FORMAT_FLAGS for t in argv):
+        return False
+    # Static local commands (groups, resources, ops, config) are plain text.
+    local_commands = {"groups", "resources", "ops", "config", "logs", "init"}
+    if argv and argv[0] in local_commands:
+        return False
+    return True
+
+
+def _inject_format_variant(argv: list[str], flag: str) -> list[str]:
+    """Return a copy of *argv* with *flag* appended (or replacing an existing format flag)."""
+    clean = [a for a in argv if a not in _OUTPUT_FORMAT_FLAGS]
+    return [*clean, flag]
 
 
 def _make_cli_runner() -> Any:
@@ -269,6 +324,7 @@ def generate_command_capture_docs(
 
     section_last = ""
     artifacts: list[dict] = []
+    skipped: list[str] = []
 
     for spec in _all_specs(use_demo=use_demo):
         if spec.section != section_last:
@@ -280,13 +336,54 @@ def generate_command_capture_docs(
         cmd_display = "nbx " + " ".join(run_argv)
         code, out, elapsed = _run_capture(run_argv, cli_app, profile=profile, safe=spec.safe)
 
+        # ── Skip commands that failed due to missing configuration ────────────
+        if _is_config_error(out):
+            skipped.append(spec.title)
+            print(f"  SKIPPED (config error): {spec.title}", file=log)
+            continue
+
         truncated, did_trunc = _truncate(out, max_lines, max_chars)
         slug = f"{spec.section}-{spec.title}"[:80].lower().replace(" ", "-").replace("/", "-")
         slug = "".join(c if c.isalnum() or c == "-" else "-" for c in slug)
         while "--" in slug:
             slug = slug.replace("--", "-")
 
-        art = {
+        # ── Capture format variants (JSON, YAML, Markdown) ────────────────────
+        # Check format support on the original spec.argv (before --markdown was appended).
+        has_format_variants = _has_output_format_support(spec.argv)
+        stdout_json: str | None = None
+        stdout_yaml: str | None = None
+        stdout_markdown: str | None = None
+
+        if has_format_variants:
+            # Re-run with --json and derive YAML + Markdown from it.
+            json_argv = _inject_format_variant(run_argv, "--json")
+            _, json_out, _ = _run_capture(json_argv, cli_app, profile=profile, safe=spec.safe)
+            json_body = _strip_status_header(json_out).strip()
+
+            # Verify the output is valid JSON before storing.
+            try:
+                parsed_json = json.loads(json_body)
+            except json.JSONDecodeError:
+                parsed_json = None
+
+            if parsed_json is not None:
+                stdout_json = json.dumps(parsed_json, indent=2, sort_keys=True)
+
+                import yaml as _yaml  # noqa: PLC0415
+
+                stdout_yaml = _yaml.dump(
+                    parsed_json,
+                    allow_unicode=True,
+                    sort_keys=False,
+                    default_flow_style=False,
+                ).rstrip()
+
+                from .markdown_output import render_markdown as _render_md  # noqa: PLC0415
+
+                stdout_markdown = _render_md(parsed_json)
+
+        art: dict[str, Any] = {
             "section": spec.section,
             "title": spec.title,
             "argv": run_argv,
@@ -294,6 +391,13 @@ def generate_command_capture_docs(
             "elapsed_seconds": round(elapsed, 3),
             "truncated": did_trunc,
         }
+        if stdout_json is not None:
+            art["stdout_json"] = stdout_json
+        if stdout_yaml is not None:
+            art["stdout_yaml"] = stdout_yaml
+        if stdout_markdown is not None:
+            art["stdout_markdown"] = stdout_markdown
+
         artifacts.append(art)
         (raw_dir / f"{len(artifacts):03d}-{slug}.json").write_text(
             json.dumps({**art, "stdout_full": out}, indent=2),
@@ -334,4 +438,6 @@ def generate_command_capture_docs(
     )
     print(f"Wrote {output}", file=log)
     print(f"Wrote {len(artifacts)} raw JSON files under {raw_dir}", file=log)
+    if skipped:
+        print(f"Skipped {len(skipped)} commands (config errors): {skipped}", file=log)
     return 0
