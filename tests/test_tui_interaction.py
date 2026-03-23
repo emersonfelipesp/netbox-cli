@@ -18,7 +18,10 @@ from textual.widgets import (
     Button,
     DataTable,
     Input,
+    ListItem,
+    ListView,
     OptionList,
+    Select,
     Static,
     TabbedContent,
     Tree,
@@ -33,6 +36,7 @@ from netbox_cli.ui.chrome import SWITCH_TO_DEV_TUI, SWITCH_TO_MAIN_TUI
 from netbox_cli.ui.formatting import configure_semantic_styles, semantic_cell
 from netbox_cli.ui.navigation import build_navigation_menus
 from netbox_cli.ui.state import TuiState, ViewState
+from netbox_cli.ui.widgets import SPONSOR_URL, ContextBreadcrumb
 from tests.conftest import OPENAPI_PATH
 
 # ---------------------------------------------------------------------------
@@ -241,6 +245,84 @@ def _detail_response(payload: dict) -> ApiResponse:
     return ApiResponse(status=200, text=json.dumps(payload))
 
 
+def _assert_color_close(actual: Color, expected: Color, tolerance: int = 1) -> None:
+    assert abs(actual.r - expected.r) <= tolerance
+    assert abs(actual.g - expected.g) <= tolerance
+    assert abs(actual.b - expected.b) <= tolerance
+    assert abs(int(actual.a * 255) - int(expected.a * 255)) <= tolerance
+
+
+@pytest.mark.asyncio
+async def test_main_tui_support_modal_opens_sponsors_page(mock_client) -> None:
+    app = NetBoxTuiApp(client=mock_client, index=build_schema_index(OPENAPI_PATH))
+    app.open_url = MagicMock()
+
+    async with app.run_test() as pilot:
+        await pilot.pause()
+        app.on_support_pressed()
+        await pilot.pause()
+        getattr(app.screen, "open_sponsor_page")()
+
+        app.open_url.assert_called_once_with(SPONSOR_URL)
+        app.exit()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ["dracula", "netbox-light", "netbox-dark"])
+async def test_main_tui_support_modal_surfaces_follow_theme(mock_client, theme_name) -> None:
+    app = NetBoxTuiApp(
+        client=mock_client,
+        index=build_schema_index(OPENAPI_PATH),
+        theme_name=theme_name,
+    )
+
+    async with app.run_test() as pilot:
+        await pilot.pause()
+        app.on_support_pressed()
+        await pilot.pause()
+
+        theme = app.theme_catalog.theme_for(theme_name)
+        modal = app.screen_stack[-1]
+        dialog = modal.query_one("#support_modal_dialog", object)
+        title = modal.query_one("#support_modal_title", object)
+        url = modal.query_one("#support_modal_url", object)
+        open_button = modal.query_one("#support_modal_open", object)
+        close_button = modal.query_one("#support_modal_close", object)
+
+        assert dialog.styles.background == Color.parse(theme.colors["surface"])
+        assert title.styles.color == Color.parse(theme.colors["primary"])
+        assert url.styles.color == Color.parse(theme.variables["nb-muted-text"])
+        assert open_button.styles.background == Color.parse(theme.colors["primary"]).with_alpha(
+            0.12
+        )
+        assert open_button.styles.color == Color.parse(theme.colors["primary"])
+        assert close_button.styles.color == Color.parse(theme.variables["nb-muted-text"])
+        app.exit()
+
+
+@pytest.mark.asyncio
+async def test_main_tui_support_modal_uses_selected_theme_after_runtime_switch(
+    mock_client, real_index
+) -> None:
+    app = _make_app(mock_client, real_index, theme="netbox-dark")
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await pilot.pause()
+        app.query_one("#theme_select", Select).value = "dracula"
+        await pilot.pause()
+        await pilot.pause()
+        app.on_support_pressed()
+        await pilot.pause()
+
+        theme = app.theme_catalog.theme_for("dracula")
+        modal = app.screen_stack[-1]
+        dialog = modal.query_one("#support_modal_dialog", object)
+        title = modal.query_one("#support_modal_title", object)
+
+        assert dialog.styles.background == Color.parse(theme.colors["surface"])
+        assert title.styles.color == Color.parse(theme.colors["primary"])
+
+
 @pytest.fixture()
 def real_index():
     return build_schema_index(OPENAPI_PATH)
@@ -380,6 +462,11 @@ def _static_text(widget: Static) -> str:
     return str(widget.content).lower()
 
 
+def _breadcrumb_text(widget: ContextBreadcrumb) -> str:
+    """Return the combined text of all Static children inside a ContextBreadcrumb."""
+    return " ".join(str(s.content).lower() for s in widget.query(Static))
+
+
 def _truecolor_hex(color: object) -> str:
     """Return a normalized #rrggbb hex string for a Textual/Rich color."""
     if hasattr(color, "get_truecolor"):
@@ -425,19 +512,21 @@ async def test_app_mounts_and_nav_tree_is_populated(mock_client, real_index):
 
 
 @pytest.mark.asyncio
-async def test_nav_tree_top_level_click_toggles_expansion(mock_client, real_index):
+async def test_nav_tree_parent_selection_preserves_auto_expand_state(mock_client, real_index):
     app = _make_app(mock_client, real_index)
     async with app.run_test(size=(160, 50)) as pilot:
         await pilot.pause()
         tree = app.query_one("#nav_tree", Tree)
         first_menu = tree.root.children[0]
 
+        assert tree.auto_expand is True
         assert not first_menu.is_expanded
+        app.on_nav_selected(Tree.NodeSelected(first_menu).set_sender(tree))
+        assert not first_menu.is_expanded
+
+        first_menu.expand()
         app.on_nav_selected(Tree.NodeSelected(first_menu).set_sender(tree))
         assert first_menu.is_expanded
-
-        app.on_nav_selected(Tree.NodeSelected(first_menu).set_sender(tree))
-        assert not first_menu.is_expanded
 
 
 @pytest.mark.asyncio
@@ -445,8 +534,8 @@ async def test_initial_context_line_is_none(mock_client, real_index):
     app = _make_app(mock_client, real_index)
     async with app.run_test(size=(160, 50)) as pilot:
         await pilot.pause()
-        ctx = app.query_one("#context_line", Static)
-        assert "none" in _static_text(ctx)
+        ctx = app.query_one("#context_breadcrumb", ContextBreadcrumb)
+        assert "none" in _breadcrumb_text(ctx)
 
 
 @pytest.mark.asyncio
@@ -498,6 +587,21 @@ async def test_demo_tui_title_has_themed_demo_suffix(mock_client, real_index):
 
 
 @pytest.mark.asyncio
+async def test_demo_tui_suffix_aligns_with_topbar_controls(mock_client, real_index) -> None:
+    app = NetBoxTuiApp(client=mock_client, index=real_index, theme_name="dracula", demo_mode=True)
+
+    async with app.run_test(size=(160, 20)) as pilot:
+        await pilot.pause()
+
+        suffix = app.query_one("#app_title_demo", Static)
+        theme_select = app.query_one("#theme_select", object)
+        view_select = app.query_one("#view_select", object)
+
+        assert suffix.outer_size.height == 3
+        assert suffix.region.y == theme_select.region.y == view_select.region.y
+
+
+@pytest.mark.asyncio
 async def test_topbar_wordmark_renders_centered(mock_client, real_index):
     app = _make_app(mock_client, real_index, theme="dracula")
 
@@ -516,9 +620,123 @@ async def test_topbar_wordmark_renders_centered(mock_client, real_index):
 
 
 @pytest.mark.asyncio
-async def test_theme_background_applies_to_query_bar_and_select(mock_client, real_index):
-    app = _make_app(mock_client, real_index, theme="dracula")
-    expected_background = Color.parse(app.theme_catalog.theme_for("dracula").colors["background"])
+async def test_support_button_aligns_with_other_topbar_controls(mock_client, real_index) -> None:
+    app = _make_app(mock_client, real_index, theme="netbox-dark")
+
+    async with app.run_test(size=(160, 20)) as pilot:
+        await pilot.pause()
+
+        support = app.query_one("#support_button", object)
+        close = app.query_one("#close_tui_button", object)
+
+        assert support.outer_size.height == close.outer_size.height == 3
+        assert support.region.y == close.region.y
+
+
+@pytest.mark.asyncio
+async def test_context_breadcrumb_link_matches_plain_text_style(mock_client, real_index) -> None:
+    mock_client.request = AsyncMock(return_value=_list_response(FAKE_DEVICES))
+    app = _make_app(mock_client, real_index, theme="netbox-dark")
+
+    async with app.run_test(size=(180, 20)) as pilot:
+        await pilot.pause()
+
+        tree = app.query_one("#nav_tree", Tree)
+        leaf = _leaf_for_resource(tree, "circuits", "circuit-types")
+        assert leaf is not None
+
+        tree.post_message(Tree.NodeSelected(leaf))
+        await pilot.pause()
+        await pilot.pause()
+
+        breadcrumb = app.query_one("#context_breadcrumb", ContextBreadcrumb)
+        current = app.query_one(".breadcrumb-current", object)
+        link = app.query_one(".breadcrumb-link", object)
+
+        assert breadcrumb.outer_size.height == 3
+        assert breadcrumb.region.y == current.region.y == link.region.y
+        assert link.styles.color == current.styles.color
+        assert str(link.styles.text_style) == str(current.styles.text_style) == "none"
+
+
+@pytest.mark.asyncio
+async def test_plugin_breadcrumb_root_opens_descendant_dropdown(mock_client, real_index) -> None:
+    mock_client.request = AsyncMock(return_value=_list_response(FAKE_DEVICES))
+    app = _make_app(mock_client, real_index, theme="netbox-dark")
+
+    async with app.run_test(size=(180, 24)) as pilot:
+        await pilot.pause()
+
+        tree = app.query_one("#nav_tree", Tree)
+        leaf = _leaf_for_resource(tree, "plugins", "gpon/boards")
+        assert leaf is not None
+
+        tree.post_message(Tree.NodeSelected(leaf))
+        await pilot.pause()
+        await pilot.pause()
+
+        plugins_button = next(
+            button for button in app.query(".breadcrumb-link") if str(button.label) == "Plugins"
+        )
+        plugins_button.press()
+        await pilot.pause()
+
+        option_list = app.query_one("#context_breadcrumb_menu", OptionList)
+        prompts = [
+            str(option_list.get_option_at_index(i).prompt) for i in range(option_list.option_count)
+        ]
+
+        assert "hidden" not in option_list.classes
+        assert prompts == ["Gpon"]
+
+
+@pytest.mark.asyncio
+async def test_plugin_group_breadcrumb_dropdown_navigates_to_selected_resource(
+    mock_client, real_index
+) -> None:
+    mock_client.request = AsyncMock(return_value=_list_response(FAKE_DEVICES))
+    app = _make_app(mock_client, real_index, theme="netbox-dark")
+
+    async with app.run_test(size=(180, 24)) as pilot:
+        await pilot.pause()
+
+        tree = app.query_one("#nav_tree", Tree)
+        leaf = _leaf_for_resource(tree, "plugins", "gpon/boards")
+        assert leaf is not None
+
+        tree.post_message(Tree.NodeSelected(leaf))
+        await pilot.pause()
+        await pilot.pause()
+
+        gpon_button = next(
+            button for button in app.query(".breadcrumb-link") if str(button.label) == "Gpon"
+        )
+        gpon_button.press()
+        await pilot.pause()
+
+        option_list = app.query_one("#context_breadcrumb_menu", OptionList)
+        prompts = [
+            str(option_list.get_option_at_index(i).prompt) for i in range(option_list.option_count)
+        ]
+        assert "Line Profiles" in prompts
+
+        option_list.highlighted = prompts.index("Line Profiles")
+        option_list.action_select()
+        await pilot.pause()
+        await pilot.pause()
+
+        assert app.current_group == "plugins"
+        assert app.current_resource == "gpon/line-profiles"
+        assert "line profiles" in _static_text(app.query_one(".breadcrumb-current", Static))
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ("dracula", "netbox-dark", "netbox-light"))
+async def test_theme_background_applies_to_query_bar_and_select(
+    mock_client, real_index, theme_name: str
+):
+    app = _make_app(mock_client, real_index, theme=theme_name)
+    expected_background = Color.parse(app.theme_catalog.theme_for(theme_name).colors["background"])
 
     async with app.run_test(size=(160, 50)) as pilot:
         await pilot.pause()
@@ -530,6 +748,140 @@ async def test_theme_background_applies_to_query_bar_and_select(mock_client, rea
         assert query_bar.styles.background == expected_background
         assert theme_current.styles.background.a == 0
         assert theme_overlay.styles.background == expected_background
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ("dracula", "netbox-dark", "netbox-light"))
+async def test_select_inner_styles_follow_theme(mock_client, real_index, theme_name: str) -> None:
+    app = _make_app(mock_client, real_index, theme=theme_name)
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await pilot.pause()
+
+        current = app.query_one("#theme_select SelectCurrent", object)
+        label = app.query_one("#theme_select SelectCurrent Static#label", Static)
+        arrow = app.query_one("#theme_select SelectCurrent .arrow", object)
+
+        assert label.styles.color == current.styles.color
+        assert arrow.styles.color == current.styles.color.with_alpha(0.55)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ("dracula", "netbox-dark", "netbox-light"))
+async def test_global_search_input_inner_styles_follow_theme(
+    mock_client, real_index, theme_name: str
+) -> None:
+    app = _make_app(mock_client, real_index, theme=theme_name)
+    theme = app.theme_catalog.theme_for(theme_name)
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await pilot.pause()
+
+        search = app.query_one("#global_search", Input)
+        placeholder = search.get_component_styles("input--placeholder")
+        cursor = search.get_component_styles("input--cursor")
+        selection = search.get_component_styles("input--selection")
+        suggestion = search.get_component_styles("input--suggestion")
+
+        assert placeholder.color == Color.parse(theme.variables["nb-muted-text"])
+        assert suggestion.color == Color.parse(theme.variables["nb-muted-text"])
+        assert cursor.background == search.styles.color
+        assert cursor.color == Color.parse(theme.colors["background"])
+        assert selection.background == Color.parse(theme.colors["primary"]).with_alpha(0.35)
+        assert selection.color == search.styles.color
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ("dracula", "netbox-dark", "netbox-light"))
+async def test_filter_picker_option_list_inner_styles_follow_theme(
+    mock_client, real_index, theme_name: str
+) -> None:
+    app = _make_app(mock_client, real_index, theme=theme_name)
+    theme = app.theme_catalog.theme_for(theme_name)
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await pilot.pause()
+
+        app._refresh_filter_fields("dcim", "devices")
+        app._open_filter_picker("name")
+        await pilot.pause()
+
+        picker = app.query_one("#filter_picker_list", OptionList)
+        highlighted = picker.get_component_styles("option-list--option-highlighted")
+        hover = picker.get_component_styles("option-list--option-hover")
+        disabled = picker.get_component_styles("option-list--option-disabled")
+        separator = picker.get_component_styles("option-list--separator")
+
+        assert picker.styles.background == Color.parse(theme.colors["background"])
+        assert picker.styles.color is not None
+        assert highlighted.background == Color.parse(theme.colors["panel"])
+        assert highlighted.color == picker.styles.color
+        assert hover.background == Color.parse(theme.colors["panel"])
+        assert disabled.color == Color.parse(theme.variables["nb-muted-text"])
+        assert separator.color == Color.parse(theme.variables["nb-border-subtle"])
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ("dracula", "netbox-dark", "netbox-light"))
+async def test_main_tabs_follow_theme_tokens(mock_client, real_index, theme_name: str) -> None:
+    app = _make_app(mock_client, real_index, theme=theme_name)
+    theme = app.theme_catalog.theme_for(theme_name)
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await pilot.pause()
+
+        main_tabs = app.query_one("#main_tabs", object)
+        switcher = app.query_one("#main_tabs ContentSwitcher", object)
+        tabs = list(app.query("#main_tabs Tab"))
+        inactive_tab = next(tab for tab in tabs if "-active" not in tab.classes)
+
+        assert main_tabs.styles.background == Color.parse(theme.colors["background"])
+        assert switcher.styles.background == Color.parse(theme.colors["background"])
+        assert inactive_tab.styles.color == Color.parse(theme.variables["nb-muted-text"])
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ("dracula", "netbox-dark", "netbox-light"))
+async def test_main_tab_labels_stay_visible_across_themes(
+    mock_client, real_index, theme_name: str
+) -> None:
+    app = _make_app(mock_client, real_index, theme=theme_name)
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await pilot.pause()
+
+        tabs = app.query_one("#main_tabs", TabbedContent)
+        content_tabs = list(app.query("#main_tabs ContentTab"))
+        assert [tab.label_text for tab in content_tabs] == ["Results", "Details"]
+        assert all(tab.size.height == 1 for tab in content_tabs)
+
+        tabs.active = "details_tab"
+        await pilot.pause()
+
+        content_tabs = list(app.query("#main_tabs ContentTab"))
+        assert [tab.label_text for tab in content_tabs] == ["Results", "Details"]
+        assert all(tab.size.height == 1 for tab in content_tabs)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ("dracula", "netbox-dark", "netbox-light"))
+async def test_footer_inner_styles_follow_theme(mock_client, real_index, theme_name: str) -> None:
+    app = _make_app(mock_client, real_index, theme=theme_name)
+    theme = app.theme_catalog.theme_for(theme_name)
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await pilot.pause()
+
+        footer = app.query_one("Footer", object)
+        footer_key = app.query_one("FooterKey", object)
+        key_styles = footer_key.get_component_styles("footer-key--key")
+        desc_styles = footer_key.get_component_styles("footer-key--description")
+
+        assert footer.styles.background == Color.parse(theme.colors["background"])
+        assert footer_key.styles.color == footer.styles.color
+        assert key_styles.background == Color.parse(theme.colors["panel"])
+        assert key_styles.color == Color.parse(theme.colors["primary"])
+        assert desc_styles.color == footer.styles.color
 
 
 @pytest.mark.asyncio
@@ -682,8 +1034,8 @@ async def test_detail_link_click_redirects_to_linked_object(real_index):
 
         assert app.current_group == "dcim"
         assert app.current_resource == "device-types"
-        ctx = app.query_one("#context_line", Static)
-        assert "device types" in _static_text(ctx)
+        ctx = app.query_one("#context_breadcrumb", ContextBreadcrumb)
+        assert "device types" in _breadcrumb_text(ctx)
         client.request.assert_any_call("GET", "/api/dcim/device-types/10/")
 
 
@@ -926,9 +1278,10 @@ async def test_nav_tree_selection_updates_context_line(mock_client, real_index):
         assert leaf is not None
 
         app.on_nav_selected(Tree.NodeSelected(leaf))
+        await pilot.pause()
 
-        ctx = app.query_one("#context_line", Static)
-        assert "none" not in _static_text(ctx)
+        ctx = app.query_one("#context_breadcrumb", ContextBreadcrumb)
+        assert "none" not in _breadcrumb_text(ctx)
 
 
 @pytest.mark.asyncio
@@ -1321,6 +1674,74 @@ async def test_filter_overlay_without_field_shows_warning(mock_client, real_inde
         await pilot.pause()
 
         assert "hidden" not in app.query_one("#filter_overlay", object).classes
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("theme_name", "severity", "expected_title_token"),
+    (
+        ("dracula", "information", "primary"),
+        ("dracula", "warning", "warning"),
+        ("dracula", "error", "error"),
+        ("netbox-dark", "information", "primary"),
+        ("netbox-dark", "warning", "warning"),
+        ("netbox-dark", "error", "error"),
+        ("netbox-light", "information", "primary"),
+        ("netbox-light", "warning", "warning"),
+        ("netbox-light", "error", "error"),
+    ),
+)
+async def test_notifications_toasts_follow_theme_tokens(
+    mock_client, real_index, theme_name: str, severity: str, expected_title_token: str
+) -> None:
+    app = _make_app(mock_client, real_index, theme=theme_name)
+    theme = app.theme_catalog.theme_for(theme_name)
+
+    async with app.run_test(size=(160, 50), notifications=True) as pilot:
+        await pilot.pause()
+        app.notify("Theme-driven toast body", title="Heads up", severity=severity)
+        await pilot.pause()
+
+        rack = app.query_one("ToastRack", object)
+        holder = app.query_one("ToastHolder", object)
+        toast = app.query_one("Toast", object)
+        title = toast.get_component_styles("toast--title")
+
+        assert rack.styles.background.a == 0
+        assert holder.styles.background.a == 0
+        assert toast.styles.background == Color.parse(theme.colors["panel"])
+        _assert_color_close(title.color, Color.parse(theme.colors[expected_title_token]))
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ("dracula", "netbox-dark", "netbox-light"))
+async def test_list_view_item_states_follow_theme(mock_client, real_index, theme_name: str) -> None:
+    app = _make_app(mock_client, real_index, theme=theme_name)
+    theme = app.theme_catalog.theme_for(theme_name)
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await pilot.pause()
+
+        list_view = ListView(
+            ListItem(Static("Alpha"), id="theme_probe_item_a"),
+            ListItem(Static("Beta"), id="theme_probe_item_b"),
+            id="theme_probe_list",
+        )
+        await app.query_one("#main", object).mount(list_view)
+        await pilot.pause()
+
+        item_a = app.query_one("#theme_probe_item_a", ListItem)
+        item_b = app.query_one("#theme_probe_item_b", ListItem)
+        item_a.add_class("-highlight")
+        item_b.add_class("-hovered")
+        list_view.focus()
+        await pilot.pause()
+
+        assert list_view.styles.background == Color.parse(theme.colors["surface"])
+        assert item_a.styles.background == Color.parse(theme.colors["panel"])
+        assert item_a.styles.color == list_view.styles.color
+        assert item_b.styles.background == Color.parse(theme.colors["panel"])
+        assert item_b.styles.color == list_view.styles.color
 
 
 # ---------------------------------------------------------------------------

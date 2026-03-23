@@ -85,7 +85,7 @@ Screen {
 #logs_status {
     height: auto;
     margin: 1 0 0 0;
-    color: $text-muted;
+    color: $nb-muted-text;
 }
 
 #logs_detail {

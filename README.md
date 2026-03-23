@@ -10,7 +10,10 @@
   - [1) Dynamic mode (OpenAPI app/resource/action)](#1-dynamic-mode-openapi-appresourceaction)
   - [2) Explicit HTTP mode](#2-explicit-http-mode)
   - [3) Discovery helpers](#3-discovery-helpers)
-  - [4) TUI mode](#4-tui-mode)
+  - [4) Developer / workbench mode](#4-developer--workbench-mode)
+  - [5) Application logs](#5-application-logs)
+  - [6) Documentation capture](#6-documentation-capture)
+  - [7) TUI mode](#7-tui-mode)
   - [Custom Themes (JSON)](#custom-themes-json)
 - [Project Layout](#project-layout)
 - [Notes](#notes)
@@ -189,9 +192,11 @@ Environment overrides:
 - `NETBOX_TOKEN_KEY`
 - `NETBOX_TOKEN_SECRET`
 
-Authentication is v2-token only and sent as:
+Authentication uses v2 token format sent as:
 
 - `Authorization: Bearer nbt_<KEY>.<TOKEN>`
+
+If a v2 token request returns 403, the client automatically retries using the v1 `Token <token>` format.
 
 ## Command Modes
 
@@ -218,6 +223,8 @@ Demo mode uses the same command tree against `https://demo.netbox.dev/`:
 nbx demo dcim devices list
 nbx demo ipam prefixes list
 nbx demo tui
+nbx demo config         # show the active demo profile
+nbx demo reset          # remove saved demo credentials
 ```
 
 Supported action aliases:
@@ -244,7 +251,34 @@ nbx resources dcim
 nbx ops dcim devices
 ```
 
-### 4) TUI mode
+### 4) Developer / workbench mode
+
+```bash
+nbx dev tui             # interactive request workbench (inspect requests, responses, timing)
+nbx dev http GET /api/dcim/devices/
+```
+
+Demo profile variant:
+
+```bash
+nbx demo dev tui
+```
+
+### 5) Application logs
+
+```bash
+nbx logs                # view structured JSON application logs in a TUI log viewer
+```
+
+Logs are written to `~/.config/netbox-cli/logs/netbox-cli.log`.
+
+### 6) Documentation capture
+
+```bash
+nbx docs generate-capture   # re-generate docs/generated/ from live CLI output
+```
+
+### 7) TUI mode
 
 ```bash
 nbx tui
@@ -263,9 +297,12 @@ You can also switch theme live from the top-left `Theme` dropdown in the TUI.
 Theme contract:
 
 - every Textual widget and subcomponent must inherit its visual styling from the active theme
+- always inspect nested Textual internals recursively, not only the outer widget selector
+- theme audits must include framework-owned component classes and wrappers such as `ContentTab`, `SelectCurrent` label/arrow, `SelectOverlay`, `.input--*`, `.option-list--*`, `.tree--*`, `.datatable--*`, `.text-area--*`, footer internals, and toast internals like `ToastRack`, `ToastHolder`, `Toast`, and `.toast--title`
 - never hardcode runtime colors in Python or TCSS outside `netbox_cli/themes/*.json`
 - do not opt into builtin Textual widget palettes when they override the repo theme tokens
 - if a widget needs a custom state, express it with semantic variables and theme-backed component classes
+- when a custom widget composes other Textual widgets internally, pass theme-aware intent through to those children and verify their rendered focus, hover, active, overlay, and ANSI states after a runtime theme switch
 
 Textual composition contract:
 
@@ -320,23 +357,58 @@ Useful TUI keys:
 - `a`: toggle select all visible rows
 - `d`: jump to details tab
 - `q`: quit
+- `Ctrl+G`: clear log viewer
 
 ## Project Layout
 
-- `netbox_cli/config.py`: config storage + env overrides
+Core shared layer:
+
+- `netbox_cli/config.py`: profile management + env overrides
 - `netbox_cli/schema.py`: OpenAPI loading and indexing
-- `netbox_cli/api.py`: async `aiohttp` client
-- `netbox_cli/services.py`: shared request resolution and action mapping
-- `netbox_cli/cli.py`: Typer entrypoint (CLI + dynamic parser)
-- `netbox_cli/ui_common.tcss`: shared visual design layer for both Textual apps
-- `netbox_cli/ui/dev_app.py`: request-workbench Textual app
-- `netbox_cli/ui/app.py`: shell-style Textual app
-- `netbox_cli/ui/panels.py`: panel widgets for detail rendering
-- `netbox_cli/ui/widgets.py`: shared composition primitives for Textual widgets
-- `netbox_cli/ui/state.py`: persisted TUI view state
-- `netbox_cli/tui.py`: compatibility wrapper
-- `netbox_cli/dev_tui.py`: compatibility wrapper for the dev TUI
+- `netbox_cli/api.py`: async `aiohttp` client with token fallback
+- `netbox_cli/http_cache.py`: filesystem HTTP cache (60 s fresh, 300 s stale-if-error)
+- `netbox_cli/services.py`: request resolution and action mapping
+- `netbox_cli/theme_registry.py`: JSON theme discovery and strict validation
+- `netbox_cli/output_safety.py`: ANSI-escape and control-char sanitization
+- `netbox_cli/trace_ascii.py`: cable trace ASCII renderer
+- `netbox_cli/demo_auth.py`: Playwright-based demo.netbox.dev auth flow
+- `netbox_cli/logging_runtime.py`: structured JSON logging setup
+- `netbox_cli/docgen_capture.py` / `docgen_specs.py`: CLI-to-Markdown documentation pipeline
+
+CLI subpackage (`netbox_cli/cli/`):
+
+- `__init__.py`: root Typer app, static commands (`init`, `config`, `groups`, `resources`, `ops`, `call`, `logs`), subcommand wiring
+- `runtime.py`: runtime config cache and async client factories
+- `support.py`: Rich console output, table rendering, theme resolution
+- `demo.py`: `nbx demo` profile management via Playwright
+- `dev.py`: developer tools and request-workbench commands
+- `dynamic.py`: OpenAPI-driven resource command routing
+
+TUI subpackage (`netbox_cli/ui/`):
+
+- `app.py`: main `NetBoxTuiApp` Textual application
+- `dev_app.py`: request-workbench Textual app
+- `chrome.py`: shared theme dropdown, logo, connection badge
+- `navigation.py`: dynamic nav tree built from OpenAPI schema
+- `nav_blueprint.py`: static NetBox navigation menu structure
+- `panels.py`: `ObjectAttributesPanel` detail view with cable trace
+- `filter_overlay.py`: filter modal mixin
+- `formatting.py`: field humanization and semantic Rich Text styling
+- `widgets.py`: shared composition primitives (buttons, headers, etc.)
+- `state.py`: TUI state persistence (`~/.config/netbox-cli/tui_state.json`)
+- `dev_state.py`: dev TUI state and request history
+- `dev_rendering.py`: stateless Rich Text rendering for the dev TUI
+
+Stylesheets:
+
+- `netbox_cli/tui.tcss` / `netbox_cli/dev_tui.tcss`: app-level TCSS entry points
+- `netbox_cli/ui_common.tcss`: shared visual design layer
+
+Compatibility shims:
+
+- `netbox_cli/tui.py`: re-export shim for `ui/app.py`
+- `netbox_cli/dev_tui.py`: re-export shim for `ui/dev_app.py`
 
 ## Notes
 
-This is the initial bootstrap version. It establishes the architecture needed to mirror NetBox UI workflows over time while keeping CLI and TUI parity on top of the same API execution layer.
+`netbox-cli` mirrors NetBox UI workflows over a pure API layer, keeping CLI and TUI parity on top of the same shared execution layer. The CLI subpackage (`netbox_cli/cli/`) and TUI subpackage (`netbox_cli/ui/`) both consume the same `api.py` client and `schema.py` index — no model access, no direct DB connections.

@@ -89,7 +89,7 @@ Screen {
 }
 
 .nbx-panel-header.nbx-tone--muted .panel-title {
-    color: $text-muted;
+    color: $nb-muted-text;
 }
 
 .nbx-button.nbx-tone--default {
@@ -123,7 +123,7 @@ Screen {
 }
 
 .nbx-button.nbx-tone--muted {
-    color: $text-muted;
+    color: $nb-muted-text;
     border: round $nb-border-subtle;
 }
 
@@ -296,7 +296,7 @@ Screen {
     height: 3;
     min-height: 2;
     min-width: 8;
-    color: $text-muted;
+    color: $nb-muted-text;
     content-align: right middle;
 }
 
@@ -383,16 +383,67 @@ Screen {
     min-height: 2;
     max-width: 42;
     margin-left: 1;
-    color: $text-muted;
+    color: $nb-muted-text;
     content-align: right middle;
     text-wrap: nowrap;
     text-overflow: ellipsis;
 }
 
+#support_button,
 #close_tui_button,
 #dev_close_button {
     height: 3;
     min-height: 2;
+}
+
+#support_button {
+    width: 24;
+    height: 3;
+    min-height: 2;
+    margin-left: 1;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: $nb-muted-text;
+    text-style: dim;
+    content-align: center middle;
+}
+
+SupportModal {
+    align: center middle;
+    background: $background 65%;
+}
+
+#support_modal_dialog {
+    width: 58;
+    max-width: 80%;
+    height: auto;
+    padding: 1 2;
+    background: $surface;
+    border: tall $nb-border-subtle;
+}
+
+#support_modal_title {
+    color: $primary;
+    text-style: bold;
+    margin-bottom: 1;
+}
+
+#support_modal_copy {
+    color: $foreground;
+    margin-bottom: 1;
+}
+
+#support_modal_url {
+    color: $nb-muted-text;
+    text-style: dim;
+    margin-bottom: 1;
+}
+
+#support_modal_actions {
+    width: 1fr;
+    height: auto;
+    align: right middle;
 }
 
 #theme_select SelectCurrent:focus,
@@ -474,7 +525,185 @@ OptionList > .option-list--option-hover {
 #view_select SelectOverlay > .option-list--option-disabled,
 #dev_view_select SelectOverlay > .option-list--option-disabled,
 OptionList > .option-list--option-disabled {
-    color: $text-muted;
+    color: $nb-muted-text;
+}
+
+OptionList > .option-list--separator {
+    color: $nb-border-subtle;
+}
+
+Input {
+    color: $foreground;
+    border: tall $nb-border-subtle;
+}
+
+Input:focus {
+    border: tall $primary;
+}
+
+Input > .input--cursor {
+    background: $foreground;
+    color: $background;
+    text-style: bold;
+}
+
+Input > .input--selection {
+    background: $primary 35%;
+    color: $foreground;
+}
+
+Input > .input--placeholder,
+Input > .input--suggestion {
+    color: $nb-muted-text;
+}
+
+Input.-invalid {
+    border: tall $error 60%;
+}
+
+Input.-invalid:focus {
+    border: tall $error;
+}
+
+SelectCurrent:ansi {
+    border: tall $nb-border-subtle;
+    color: $foreground;
+    background: $surface;
+}
+
+SelectCurrent:ansi Static#label {
+    color: $nb-muted-text;
+    background: transparent;
+}
+
+SelectCurrent:ansi.-has-value Static#label {
+    color: $foreground;
+}
+
+SelectCurrent:ansi .arrow {
+    color: $nb-muted-text;
+    background: transparent;
+}
+
+SelectOverlay:ansi {
+    color: $foreground;
+    border: tall $nb-border-subtle;
+    background: $background;
+}
+
+SelectOverlay:ansi > .option-list--option-highlighted {
+    color: $foreground;
+    background: $panel;
+    text-style: bold;
+}
+
+SelectOverlay:ansi > .option-list--option-hover {
+    background: $panel;
+}
+
+SelectOverlay:ansi > .option-list--option-disabled {
+    color: $nb-muted-text;
+}
+
+OptionList:ansi {
+    background: $background;
+    color: $foreground;
+    border: tall $nb-border-subtle;
+}
+
+OptionList:ansi > .option-list--option-highlighted {
+    color: $foreground;
+    background: $panel;
+    text-style: bold;
+}
+
+OptionList:ansi > .option-list--option-hover {
+    background: $panel;
+}
+
+OptionList:ansi > .option-list--option-disabled {
+    color: $nb-muted-text;
+}
+
+OptionList:ansi > .option-list--separator {
+    color: $nb-border-subtle;
+}
+
+Input:ansi {
+    color: $foreground;
+    border: tall $nb-border-subtle;
+    background: $surface;
+}
+
+Input:ansi > .input--cursor {
+    background: $foreground;
+    color: $background;
+    text-style: bold;
+}
+
+Input:ansi > .input--selection {
+    background: transparent;
+    color: $foreground;
+    text-style: reverse;
+}
+
+Input:ansi > .input--placeholder,
+Input:ansi > .input--suggestion {
+    color: $nb-muted-text;
+    text-style: dim;
+}
+
+TextArea {
+    color: $foreground;
+    border: tall $nb-border-subtle;
+    background: $surface;
+}
+
+TextArea:focus {
+    border: tall $primary;
+}
+
+TextArea .text-area--cursor {
+    background: $foreground;
+    color: $background;
+    text-style: bold;
+}
+
+TextArea.-read-only .text-area--cursor {
+    background: $panel;
+    color: $foreground;
+}
+
+TextArea .text-area--gutter {
+    background: $background;
+    color: $nb-muted-text;
+}
+
+TextArea .text-area--cursor-gutter,
+TextArea .text-area--cursor-line {
+    background: $panel;
+    color: $foreground;
+}
+
+TextArea .text-area--selection {
+    background: $primary 35%;
+    color: $foreground;
+}
+
+TextArea .text-area--matching-bracket {
+    background: $foreground 20%;
+    color: $foreground;
+}
+
+TextArea .text-area--suggestion,
+TextArea .text-area--placeholder {
+    color: $nb-muted-text;
+}
+
+TextArea:ansi .text-area--selection {
+    background: transparent;
+    color: $foreground;
+    text-style: reverse;
 }
 
 #query_bar,
@@ -512,13 +741,64 @@ OptionList > .option-list--option-disabled {
 }
 
 .panel-subtitle {
-    color: $text-muted;
+    color: $nb-muted-text;
     text-style: italic;
 }
 
 #nav_help,
 #dev_help {
-    color: $text-muted;
+    color: $nb-muted-text;
+}
+
+ListView {
+    background: $surface;
+    color: $foreground;
+}
+
+ListView > ListItem {
+    background: transparent;
+    color: $foreground;
+    border: tall transparent;
+}
+
+ListView > ListItem.-hovered {
+    background: $panel;
+    color: $foreground;
+}
+
+ListView > ListItem.-highlight {
+    background: $panel;
+    color: $foreground;
+    border: tall transparent;
+    text-style: bold;
+}
+
+ListView:focus {
+    background-tint: transparent;
+}
+
+ListView:focus > ListItem.-highlight {
+    background: $panel;
+    color: $foreground;
+    text-style: bold;
+}
+
+ListView:ansi {
+    background: $surface;
+    color: $foreground;
+}
+
+ListView:ansi > ListItem {
+    background: transparent;
+    color: $foreground;
+}
+
+ListView:ansi > ListItem.-hovered,
+ListView:ansi > ListItem.-highlight,
+ListView:ansi:focus > ListItem.-highlight {
+    background: $panel;
+    color: $foreground;
+    text-style: bold;
 }
 
 #nav_tree,
@@ -560,8 +840,142 @@ OptionList > .option-list--option-disabled {
     text-style: bold;
 }
 
+Tree:focus {
+    background-tint: transparent;
+}
+
+Tree:focus > .tree--guides,
+Tree:focus > .tree--guides-hover {
+    color: $nb-border-subtle;
+}
+
+Tree:focus > .tree--guides-selected {
+    color: $primary;
+}
+
+Tree:focus > .tree--cursor,
+Tree:focus > .tree--highlight-line,
+Tree:focus > .tree--highlight {
+    background: $panel;
+    color: $foreground;
+}
+
+Tree:ansi {
+    background: transparent;
+    color: $foreground;
+}
+
+Tree:ansi > .tree--label {
+    color: $foreground;
+}
+
+Tree:ansi > .tree--guides,
+Tree:ansi > .tree--guides-hover {
+    color: $nb-border-subtle;
+}
+
+Tree:ansi > .tree--guides-selected {
+    color: $primary;
+}
+
+Tree:ansi > .tree--cursor,
+Tree:ansi > .tree--highlight-line,
+Tree:ansi > .tree--highlight {
+    background: $panel;
+    color: $foreground;
+}
+
 TabbedContent {
     background: $surface;
+}
+
+Tabs {
+    background: transparent;
+}
+
+Tabs > #tabs-scroll,
+Tabs #tabs-list-bar,
+Tabs #tabs-list,
+Tabs Underline {
+    background: transparent;
+}
+
+Tabs .underline--bar {
+    color: $nb-border-subtle;
+    background: $nb-border-subtle;
+}
+
+Tabs:focus .underline--bar {
+    color: $primary;
+    background: $primary 35%;
+}
+
+Tabs Tab,
+Tabs ContentTab {
+    height: 1;
+    min-width: 9;
+    padding: 0 1;
+    background: transparent;
+    color: $nb-muted-text;
+    border: none;
+}
+
+Tabs Tab:hover,
+Tabs ContentTab:hover {
+    background: $panel;
+    color: $foreground;
+}
+
+Tabs Tab:focus,
+Tabs ContentTab:focus {
+    background: $panel;
+    color: $foreground;
+    text-style: bold;
+}
+
+Tabs Tab.-active,
+Tabs ContentTab.-active {
+    color: $foreground;
+    background: transparent;
+    text-style: bold;
+}
+
+Tabs:focus Tab.-active,
+Tabs:focus ContentTab.-active {
+    color: $primary;
+    background: transparent;
+    text-style: bold;
+}
+
+Tabs:ansi Tab,
+Tabs:ansi ContentTab {
+    background: transparent;
+    color: $nb-muted-text;
+    text-style: dim;
+}
+
+Tabs:ansi Tab.-active,
+Tabs:ansi ContentTab.-active {
+    color: $foreground;
+    background: transparent;
+    text-style: bold not dim;
+}
+
+Tabs:ansi:focus Tab.-active,
+Tabs:ansi:focus ContentTab.-active {
+    color: $primary;
+    background: transparent;
+    text-style: bold not dim;
+}
+
+Tabs:ansi .underline--bar {
+    color: $nb-border-subtle;
+    background: transparent;
+}
+
+Tabs:ansi:focus .underline--bar {
+    color: $primary;
+    background: transparent;
 }
 
 ContentSwitcher {
@@ -573,30 +987,133 @@ TabPane {
     padding: 0;
 }
 
+ToastRack,
+ToastHolder {
+    background: transparent;
+}
+
 Toast {
     background: $panel;
     color: $foreground;
     border-left: outer $primary;
+    link-color: $primary;
+    background: $panel;
+    color: $foreground;
+}
+
+.toast--title {
+    color: $primary;
+    text-style: bold;
 }
 
 Toast.-information {
-    border-left: outer $success;
+    border-left: outer $primary;
+}
+
+.toast--title,
+Toast.-information .toast--title {
+    color: $primary;
 }
 
 Toast.-warning {
     border-left: outer $warning;
 }
 
+Toast.-warning .toast--title {
+    color: $warning;
+}
+
 Toast.-error {
     border-left: outer $error;
 }
 
+Toast.-error .toast--title {
+    color: $error;
+}
+
+Toast:ansi {
+    background: $panel;
+    color: $foreground;
+    border-left: outer $primary;
+    link-color: $primary;
+}
+
+Toast:ansi .toast--title,
+Toast:ansi.-information .toast--title {
+    color: $primary;
+    text-style: bold;
+}
+
+Toast:ansi.-warning {
+    border-left: outer $warning;
+}
+
+Toast:ansi.-warning .toast--title {
+    color: $warning;
+}
+
+Toast:ansi.-error {
+    border-left: outer $error;
+}
+
+Toast:ansi.-error .toast--title {
+    color: $error;
+}
+
+DataTable:focus {
+    background-tint: transparent;
+}
+
+DataTable:focus > .datatable--header {
+    background: $panel;
+    color: $foreground;
+}
+
+DataTable:focus > .datatable--cursor,
+DataTable:focus > .datatable--fixed-cursor,
+DataTable:focus > .datatable--header-cursor {
+    background: $panel;
+    color: $foreground;
+    text-style: bold;
+}
+
+DataTable:ansi {
+    background: $surface;
+    color: $foreground;
+}
+
+DataTable:ansi > .datatable--header {
+    background: $panel;
+    color: $foreground;
+}
+
+DataTable:ansi > .datatable--fixed {
+    color: $foreground;
+}
+
+DataTable:ansi > .datatable--cursor,
+DataTable:ansi > .datatable--fixed-cursor,
+DataTable:ansi > .datatable--header-cursor {
+    background: $panel;
+    color: $foreground;
+}
+
 Footer {
     background: $background;
+    color: $foreground;
 }
 
 FooterKey {
     background: transparent;
+    color: $foreground;
+}
+
+FooterKey:hover {
+    background: $panel;
+}
+
+FooterKey.-disabled {
+    color: $nb-muted-text;
 }
 
 FooterKey .footer-key--key {
@@ -605,6 +1122,46 @@ FooterKey .footer-key--key {
 }
 
 FooterKey .footer-key--description {
+    background: transparent;
+    color: $foreground;
+}
+
+FooterKey.-compact .footer-key--key,
+FooterKey.-compact .footer-key--description {
+    background: transparent;
+}
+
+FooterLabel {
+    color: $nb-muted-text;
+    background: transparent;
+}
+
+FooterKey.-command-palette {
+    border-left: vkey $nb-border-subtle;
+}
+
+Footer:ansi {
+    background: $background;
+    color: $foreground;
+}
+
+Footer:ansi FooterKey {
+    background: transparent;
+    color: $foreground;
+}
+
+Footer:ansi FooterKey:hover {
+    background: $panel;
+    text-style: none;
+}
+
+Footer:ansi .footer-key--key {
+    background: $panel;
+    color: $primary;
+}
+
+Footer:ansi .footer-key--description,
+Footer:ansi FooterLabel {
     background: transparent;
     color: $foreground;
 }

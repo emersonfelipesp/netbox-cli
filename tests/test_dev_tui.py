@@ -15,7 +15,7 @@ from netbox_cli.schema import build_schema_index
 from netbox_cli.ui.chrome import SWITCH_TO_DEV_TUI, SWITCH_TO_MAIN_TUI
 from netbox_cli.ui.dev_app import NetBoxDevTuiApp, _text_area_syntax_theme_for, run_dev_tui
 from netbox_cli.ui.dev_state import DevTuiState
-from netbox_cli.ui.widgets import NbxButton, NbxPanelBody, NbxPanelHeader
+from netbox_cli.ui.widgets import SPONSOR_URL, NbxButton, NbxPanelBody, NbxPanelHeader
 
 _OPENAPI_PATH = Path(__file__).parent.parent / "reference" / "openapi" / "netbox-openapi.json"
 
@@ -70,6 +70,21 @@ async def test_dev_tui_loads_default_operation(mock_client, real_index) -> None:
         assert path.value == "/api/dcim/devices/"
         assert "GET /api/dcim/devices/" in str(summary.content)
         assert operations.option_count > 0
+
+
+@pytest.mark.asyncio
+async def test_dev_tui_support_modal_opens_sponsors_page(mock_client, real_index) -> None:
+    app = NetBoxDevTuiApp(client=mock_client, index=real_index, theme_name="netbox-dark")
+    app.open_url = MagicMock()
+
+    async with app.run_test() as pilot:
+        await pilot.pause()
+        app.on_support_button_pressed()
+        await pilot.pause()
+        getattr(app.screen, "open_sponsor_page")()
+
+        app.open_url.assert_called_once_with(SPONSOR_URL)
+        app.exit()
 
 
 @pytest.mark.asyncio
@@ -141,8 +156,12 @@ async def test_dev_tui_theme_switch_refreshes_existing_surfaces(mock_client, rea
 
 
 @pytest.mark.asyncio
-async def test_dev_tui_textareas_follow_app_theme_tokens(mock_client, real_index) -> None:
-    app = NetBoxDevTuiApp(client=mock_client, index=real_index, theme_name="dracula")
+@pytest.mark.parametrize("theme_name", ("dracula", "netbox-dark", "netbox-light"))
+async def test_dev_tui_textareas_follow_app_theme_tokens(
+    mock_client, real_index, theme_name: str
+) -> None:
+    app = NetBoxDevTuiApp(client=mock_client, index=real_index, theme_name=theme_name)
+    theme = app.theme_catalog.theme_for(theme_name)
 
     async with app.run_test() as pilot:
         await pilot.pause()
@@ -152,8 +171,8 @@ async def test_dev_tui_textareas_follow_app_theme_tokens(mock_client, real_index
 
         assert body.theme == "css"
         assert response.theme == "css"
-        assert str(body.styles.background) == "Color(40, 42, 54)"
-        assert str(response.styles.background) == "Color(40, 42, 54)"
+        assert body.styles.background == Color.parse(theme.colors["background"])
+        assert response.styles.background == Color.parse(theme.colors["background"])
 
 
 @pytest.mark.asyncio
@@ -178,6 +197,31 @@ async def test_dev_tui_operation_search_input_follows_theme_tokens(mock_client, 
         assert selection.color == search.styles.color
         assert cursor.background == search.styles.color
         assert cursor.color == Color.parse(theme.colors["background"])
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("theme_name", ["dracula", "netbox-light", "netbox-dark"])
+async def test_dev_tui_textarea_internals_follow_theme_tokens(
+    mock_client, real_index, theme_name: str
+) -> None:
+    app = NetBoxDevTuiApp(client=mock_client, index=real_index, theme_name=theme_name)
+    theme = app.theme_catalog.theme_for(theme_name)
+
+    async with app.run_test(size=(160, 50)) as pilot:
+        await pilot.pause()
+
+        body = app.query_one("#dev_body_editor", TextArea)
+        selection = body.get_component_styles("text-area--selection")
+        cursor = body.get_component_styles("text-area--cursor")
+        cursor_line = body.get_component_styles("text-area--cursor-line")
+        gutter = body.get_component_styles("text-area--gutter")
+
+        assert selection.background == Color.parse(theme.colors["primary"]).with_alpha(0.35)
+        assert selection.color == body.styles.color
+        assert cursor.background == body.styles.color
+        assert cursor.color == Color.parse(theme.colors["background"])
+        assert cursor_line.background == Color.parse(theme.colors["panel"])
+        assert gutter.color == Color.parse(theme.variables["nb-muted-text"])
 
 
 @pytest.mark.asyncio

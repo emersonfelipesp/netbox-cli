@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
+from rich.style import Style
 from rich.text import Text
 from textual import events, on, work
 from textual.app import App, ComposeResult
@@ -48,6 +49,7 @@ from .filter_overlay import FilterOverlayMixin
 from .formatting import (
     humanize_field,
     humanize_group,
+    humanize_identifier,
     humanize_resource,
     order_field_names,
     parse_response_rows,
@@ -57,7 +59,7 @@ from .navigation import build_navigation_menus
 from .panels import ObjectAttributesPanel
 from .plugin_discovery import discover_plugin_resource_paths
 from .state import TuiState, ViewState, load_tui_state, save_tui_state
-from .widgets import NbxButton
+from .widgets import ContextBreadcrumb, NbxButton, SupportModal
 
 TOPBAR_CLI_LABEL = "CLI"
 _VIEW_MODE_OPTIONS = (
@@ -150,7 +152,14 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
                     id="connection_badge",
                     classes="-checking",
                 )
-                yield Static("Context: <none>", id="context_line")
+                yield ContextBreadcrumb(id="context_breadcrumb")
+                yield NbxButton(
+                    "Liked it? Support me!",
+                    id="support_button",
+                    size="small",
+                    tone="muted",
+                    classes="nbx-topbar-control",
+                )
                 yield NbxButton(
                     "Close",
                     id="close_tui_button",
@@ -215,9 +224,9 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
                         yield NbxButton(
                             "Apply",
                             id="filter_apply",
-                            variant="primary",
                             size="small",
                             tone="primary",
+                            chrome="soft",
                         )
                         yield NbxButton("Cancel", id="filter_cancel", size="small")
 
@@ -231,13 +240,12 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
             self._exception_event.set()
 
         detail = str(error).strip() or error.__class__.__name__
-        self.panic(
-            Text.from_markup(
-                "[bold red]Application error[/bold red]\n"
-                f"{detail}\n"
-                "The TUI closed to avoid leaving the terminal in a bad state."
-            )
-        )
+        theme = self.theme_catalog.theme_for(self.theme_name)
+        message = Text()
+        message.append("Application error\n", style=Style(color=theme.colors["error"], bold=True))
+        message.append(f"{detail}\n")
+        message.append("The TUI closed to avoid leaving the terminal in a bad state.")
+        self.panic(message)
 
     def on_mount(self) -> None:
         logger.info("main tui mounted")
@@ -313,6 +321,13 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
 
     def action_focus_results(self) -> None:
         self.query_one("#results_table", DataTable).focus()
+
+    def action_cancel(self) -> None:
+        breadcrumb = self.query_one("#context_breadcrumb", ContextBreadcrumb)
+        if breadcrumb.menu_open:
+            breadcrumb.close_menu()
+            return
+        super().action_cancel()
 
     def action_refresh(self) -> None:
         if self.current_group and self.current_resource:
@@ -395,6 +410,10 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
     def on_close_pressed(self) -> None:
         self.exit()
 
+    @on(Button.Pressed, "#support_button")
+    def on_support_pressed(self) -> None:
+        self.push_screen(SupportModal())
+
     @on(Select.Changed, "#view_select")
     def on_view_changed(self, event: Select.Changed) -> None:
         if event.value == Select.BLANK:
@@ -423,8 +442,6 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
     @on(Tree.NodeSelected, "#nav_tree")
     def on_nav_selected(self, event: Tree.NodeSelected[tuple[str, str] | None]) -> None:
         if event.node.data is None:
-            if event.node.children:
-                event.node.toggle()
             if not event.node.children:
                 self._set_status("No API endpoint is available for this menu item in TUI")
             return
@@ -661,14 +678,156 @@ class NetBoxTuiApp(FilterOverlayMixin, App[None]):
     def _update_clock(self) -> None:
         update_clock_widget(self, widget_id="#clock")
 
-    def _update_context_line(self) -> None:
-        target = self.query_one("#context_line", Static)
-        if self.current_group and self.current_resource:
-            target.update(
-                f"Context: {humanize_group(self.current_group)} / {humanize_resource(self.current_resource)}"
-            )
+    def _compute_context_crumbs(self) -> list[tuple[str, str | None, str | None]]:
+        """Build breadcrumb crumbs for the current navigation context.
+
+        Returns a list of (label, group_or_None, resource_or_None) tuples.
+        The last entry is always the current page (non-clickable).
+        Earlier entries with both group and resource are clickable nav buttons.
+        """
+        if not self.current_group or not self.current_resource:
+            return []
+
+        menus = build_navigation_menus(self.index)
+
+        if "/" in self.current_resource:
+            # Plugin resource e.g. group="plugins", resource="gpon/line-profiles"
+            plugin_name, _, plugin_resource = self.current_resource.partition("/")
+            plugin_label = humanize_identifier(plugin_name)
+            resource_label = humanize_identifier(plugin_resource)
+
+            first_plugins: tuple[str, str] | None = None
+            first_plugin: tuple[str, str] | None = None
+            for menu in menus:
+                for grp in menu.groups:
+                    for item in grp.items:
+                        if not item.group or not item.resource:
+                            continue
+                        if item.group == "plugins":
+                            if first_plugins is None:
+                                first_plugins = (item.group, item.resource)
+                            if item.resource.startswith(f"{plugin_name}/") and first_plugin is None:
+                                first_plugin = (item.group, item.resource)
+
+            p_group, p_resource = first_plugins if first_plugins else (None, None)
+            pg_group, pg_resource = first_plugin if first_plugin else (None, None)
+            return [
+                ("Plugins", p_group, p_resource),
+                (plugin_label, pg_group, pg_resource),
+                (resource_label, None, None),
+            ]
+
         else:
-            target.update("Context: <none>")
+            # Standard resource e.g. group="dcim", resource="devices"
+            group_label = humanize_group(self.current_group)
+            resource_label = humanize_resource(self.current_resource)
+
+            first_in_group: tuple[str, str] | None = None
+            for menu in menus:
+                for grp in menu.groups:
+                    for item in grp.items:
+                        if item.group == self.current_group and item.resource:
+                            first_in_group = (item.group, item.resource)
+                            break
+                    if first_in_group:
+                        break
+                if first_in_group:
+                    break
+
+            fg_group, fg_resource = first_in_group if first_in_group else (None, None)
+            return [
+                (group_label, fg_group, fg_resource),
+                (resource_label, None, None),
+            ]
+
+    def _breadcrumb_menu_options(
+        self, *, label: str, group: str, resource: str
+    ) -> list[tuple[str, str, str]]:
+        menus = build_navigation_menus(self.index)
+
+        if (
+            self.current_group == "plugins"
+            and self.current_resource
+            and "/" in self.current_resource
+        ):
+            plugin_name, _, _ = self.current_resource.partition("/")
+            plugins_menu = next((menu for menu in menus if menu.label == "Plugins"), None)
+            if plugins_menu is None:
+                return []
+            if label == "Plugins":
+                options: list[tuple[str, str, str]] = []
+                for plugin_group in plugins_menu.groups:
+                    first_item = next(
+                        (
+                            item
+                            for item in plugin_group.items
+                            if item.group is not None and item.resource is not None
+                        ),
+                        None,
+                    )
+                    if first_item is not None:
+                        options.append((plugin_group.label, first_item.group, first_item.resource))
+                return options
+            plugin_group_label = humanize_identifier(plugin_name)
+            if label == plugin_group_label:
+                for plugin_group in plugins_menu.groups:
+                    if plugin_group.label != plugin_group_label:
+                        continue
+                    return [
+                        (item.label, item.group, item.resource)
+                        for item in plugin_group.items
+                        if item.group is not None and item.resource is not None
+                    ]
+
+        seen: set[tuple[str, str]] = set()
+        options: list[tuple[str, str, str]] = []
+        for menu in menus:
+            for nav_group in menu.groups:
+                for item in nav_group.items:
+                    if item.group != group or item.resource is None:
+                        continue
+                    target = (item.group, item.resource)
+                    if target in seen:
+                        continue
+                    seen.add(target)
+                    options.append((item.label, item.group, item.resource))
+        return options
+
+    def _update_context_line(self) -> None:
+        crumbs = self._compute_context_crumbs()
+        self.query_one("#context_breadcrumb", ContextBreadcrumb).set_crumbs(crumbs)
+
+    @on(ContextBreadcrumb.CrumbSelected, "#context_breadcrumb")
+    def on_crumb_selected(self, event: ContextBreadcrumb.CrumbSelected) -> None:
+        options = self._breadcrumb_menu_options(
+            label=event.label,
+            group=event.group,
+            resource=event.resource,
+        )
+        if not options:
+            return
+        self.query_one("#context_breadcrumb", ContextBreadcrumb).open_menu(
+            anchor=event.button,
+            options=options,
+        )
+
+    @on(ContextBreadcrumb.MenuOptionSelected, "#context_breadcrumb")
+    def on_crumb_menu_option_selected(self, event: ContextBreadcrumb.MenuOptionSelected) -> None:
+        self._navigate_to_resource(event.group, event.resource)
+
+    def _navigate_to_resource(self, group: str, resource: str) -> None:
+        self.current_group = group
+        self.current_resource = resource
+        self.current_rows = []
+        self.selected_row_ids.clear()
+        self._update_context_line()
+        self._set_controls(f"Resource: {humanize_group(group)} / {humanize_resource(resource)}")
+        self.query_one("#main_tabs", TabbedContent).active = "results_tab"
+        self._clear_results_table()
+        self._set_results_loading(
+            f"Loading {humanize_group(group)} / {humanize_resource(resource)}"
+        )
+        self._load_rows(group, resource)
 
     def _set_controls(self, text: str) -> None:
         self.query_one("#results_controls", Static).update(text)

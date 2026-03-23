@@ -48,7 +48,7 @@ _LIST_COLUMNS = {
 
 def emit_cli_error(message: str, *, exit_code: int = 1) -> int:
     console.print(
-        f"[red]Error:[/red] {sanitize_terminal_text(message).strip()}",
+        f"[bold]Error:[/bold] {sanitize_terminal_text(message).strip()}",
         highlight=False,
         soft_wrap=True,
     )
@@ -107,7 +107,7 @@ def resolve_requested_theme(
 
 
 def run_with_spinner(coro: Any) -> Any:
-    with console.status("[bold cyan]Fetching…[/bold cyan]", spinner="dots"):
+    with console.status("[bold]Fetching...[/bold]", spinner="dots"):
         return asyncio.run(coro)
 
 
