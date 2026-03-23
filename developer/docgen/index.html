@@ -304,17 +304,20 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../../reference/command-examples/" class="md-tabs__link">
-        
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/command-examples/" class="md-tabs__link">
+          
   
   
     
   
   Command Examples
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -893,9 +896,50 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../reference/command-examples/" class="md-nav__link">
+    
+    
+      
         
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../reference/command-examples/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -909,7 +953,255 @@
   
   
 
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Command Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/command-examples/top-level/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Top-level
+  
+
+    
+  </span>
+  
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/command-examples/schema-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/command-examples/dynamic-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/command-examples/logs-viewer.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logs Viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/command-examples/developer-tools.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/command-examples/demo-profile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo Profile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/command-examples/live-api-demo-netbox-dev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Live API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/command-examples/cable-trace-demo-netbox-dev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cable Trace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1557,7 +1849,7 @@
 
 
 <h1 id="documentation-generation">Documentation Generation<a class="headerlink" href="#documentation-generation" title="Permanent link">&para;</a></h1>
-<p><code>netbox-cli</code> includes a built-in capture system that runs every <code>nbx</code> command, records its output, and produces the <a href="../../reference/command-examples/">Command Examples</a> page automatically.</p>
+<p><code>netbox-cli</code> includes a built-in capture system that runs every <code>nbx</code> command, records its output, and produces the <a href="../../reference/command-examples/">Command Examples</a> section automatically — one page per command group.</p>
 <hr />
 <h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>/path/to/netbox-cli
@@ -1665,16 +1957,20 @@
 </thead>
 <tbody>
 <tr>
-<td><code>docs/generated/nbx-command-capture.md</code></td>
-<td>Full Markdown reference with all command captures</td>
-</tr>
-<tr>
 <td><code>docs/generated/raw/NNN-&lt;slug&gt;.json</code></td>
 <td>Per-command JSON with full stdout, exit code, timing</td>
 </tr>
 <tr>
 <td><code>docs/generated/raw/index.json</code></td>
 <td>Summary of all runs with generation metadata</td>
+</tr>
+<tr>
+<td><code>docs/reference/command-examples/index.md</code></td>
+<td>Overview page (generated by <code>docs/hooks.py</code> at MkDocs build time)</td>
+</tr>
+<tr>
+<td><code>docs/reference/command-examples/&lt;section&gt;.md</code></td>
+<td>One page per command section (generated by <code>docs/hooks.py</code>)</td>
 </tr>
 </tbody>
 </table>
@@ -1749,7 +2045,7 @@
 </table>
 <hr />
 <h2 id="mkdocs-integration">MkDocs integration<a class="headerlink" href="#mkdocs-integration" title="Permanent link">&para;</a></h2>
-<p>The <code>docs/hooks.py</code> MkDocs hook reads the raw JSON artifacts before each build and generates <code>docs/reference/command-examples.md</code> with Material tabs and badges. This means the <a href="../../reference/command-examples/">Command Examples</a> page always reflects the latest captured run — no manual editing required.</p>
+<p>The <code>docs/hooks.py</code> MkDocs hook reads the raw JSON artifacts before each build and generates one Markdown file per section under <code>docs/reference/command-examples/</code>, plus an <code>index.md</code> overview. Each file uses Material tabs and badges. This means the <a href="../../reference/command-examples/">Command Examples</a> section always reflects the latest captured run — no manual editing required.</p>
 <hr />
 <h2 id="github-actions-ci">GitHub Actions CI<a class="headerlink" href="#github-actions-ci" title="Permanent link">&para;</a></h2>
 <p>The workflow at <code>.github/workflows/docs-capture.yml</code> runs on every push to <code>main</code>:</p>
