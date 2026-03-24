@@ -86,7 +86,7 @@ def test_resolve_output_format_rejects_mixed_flags() -> None:
 
 def test_parse_dynamic_options_accepts_markdown() -> None:
     parsed = _parse_dynamic_options(["--markdown"])
-    assert parsed[6] is True
+    assert parsed.as_markdown is True
 
 
 def test_nbx_call_rejects_conflicting_output_flags(monkeypatch) -> None:
