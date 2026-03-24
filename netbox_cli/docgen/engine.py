@@ -35,7 +35,6 @@ from .models import (
     CaptureResult,
     CaptureSpec,
     build_slug,
-    truncate,
 )
 
 # ── Top-level worker function (required for ProcessPoolExecutor) ─────────
@@ -45,8 +44,6 @@ def _worker_capture(
     spec_dict: dict,
     *,
     profile: str,
-    max_lines: int,
-    max_chars: int,
     markdown_output: bool,
 ) -> dict:
     """Execute a single capture in a child process.
@@ -143,22 +140,6 @@ def _worker_capture(
 
     code, stdout, elapsed = _invoke(argv, catch=not safe)
 
-    # Truncate.
-    if len(stdout) > max_chars:
-        stdout_trunc = stdout[:max_chars] + "\n\n\u2026 (truncated by character limit)\n"
-        did_truncate = True
-    else:
-        lines = stdout.splitlines()
-        if len(lines) > max_lines:
-            stdout_trunc = (
-                "\n".join(lines[:max_lines])
-                + f"\n\n\u2026 ({len(lines) - max_lines} more lines truncated)\n"
-            )
-            did_truncate = True
-        else:
-            stdout_trunc = stdout
-            did_truncate = False
-
     # ── Format variants ───────────────────────────────────────────────────
     stdout_json = None
     stdout_yaml = None
@@ -179,8 +160,8 @@ def _worker_capture(
         "argv": argv,
         "exit_code": code,
         "elapsed_seconds": round(elapsed, 3),
-        "stdout_full": stdout_trunc,
-        "truncated": did_truncate,
+        "stdout_full": stdout,
+        "truncated": False,
         "stdout_json": stdout_json,
         "stdout_yaml": stdout_yaml,
         "stdout_markdown": stdout_markdown,
@@ -210,6 +191,7 @@ class CaptureEngine:
         log: TextIO | None = None,
     ) -> None:
         self._concurrency = max(1, max_concurrency)
+        # Backward-compatible no-op knobs: capture output is never truncated.
         self._max_lines = max_lines
         self._max_chars = max_chars
         self._markdown_output = markdown_output
@@ -310,7 +292,6 @@ class CaptureEngine:
 
         argv = argv_with_markdown_output(spec.argv, enabled=self._markdown_output)
         code, stdout, elapsed = self._invoke_cli(argv, safe=spec.safe)
-        stdout_trunc, did_truncate = truncate(stdout, self._max_lines, self._max_chars)
 
         result = CaptureResult(
             section=spec.section,
@@ -318,8 +299,8 @@ class CaptureEngine:
             argv=argv,
             exit_code=code,
             elapsed_seconds=elapsed,
-            stdout_full=stdout_trunc,
-            truncated=did_truncate,
+            stdout_full=stdout,
+            truncated=False,
         )
 
         if supports_format_variants(spec.argv):
@@ -386,8 +367,6 @@ class CaptureEngine:
                     _worker_capture,
                     spec_dict,
                     profile=profile,
-                    max_lines=self._max_lines,
-                    max_chars=self._max_chars,
                     markdown_output=self._markdown_output,
                 ): idx
                 for idx, spec_dict in enumerate(spec_dicts)

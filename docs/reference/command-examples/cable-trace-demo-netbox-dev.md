@@ -60,10 +60,10 @@
     … (truncated by character limit)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">3.015s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">3.015s</span>
 
 ---
 
@@ -87,10 +87,10 @@
     … (9 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">2.080s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">2.080s</span>
 
 ---
 
@@ -150,10 +150,10 @@
     … (truncated by character limit)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">2.767s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">2.767s</span>
 
 ---
 
@@ -177,9 +177,9 @@
     … (28 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">2.192s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">2.192s</span>
 
 ---

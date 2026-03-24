@@ -40,10 +40,10 @@
     … (truncated by character limit)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.922s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.922s</span>
 
 ---
 
@@ -67,10 +67,10 @@
     … (10 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.953s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.953s</span>
 
 ---
 
@@ -94,10 +94,10 @@
     … (5 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.932s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.932s</span>
 
 ---
 
@@ -121,10 +121,10 @@
     … (4 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.999s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.999s</span>
 
 ---
 
@@ -148,10 +148,10 @@
     … (7 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.841s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.841s</span>
 
 ---
 
@@ -175,10 +175,10 @@
     … (8 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.711s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.711s</span>
 
 ---
 
@@ -202,10 +202,10 @@
     … (15 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.878s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.878s</span>
 
 ---
 
@@ -229,10 +229,10 @@
     … (6 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.677s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.677s</span>
 
 ---
 
@@ -256,10 +256,10 @@
     … (1 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.852s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.852s</span>
 
 ---
 
@@ -283,10 +283,10 @@
     … (8 more lines truncated)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.909s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.909s</span>
 
 ---
 
@@ -330,9 +330,9 @@
     … (truncated by character limit)
     ```
 
-<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.947s</span>
+!!! warning "Output truncated in generated docs"
+    This command output was truncated in the rendered page. See `docs/generated/raw/` artifacts for full output.
 
-!!! warning "Truncated"
-    Output was truncated. Full text is in `docs/generated/raw/`.
+<span class="nbx-badge nbx-badge--ok">exit&nbsp;0</span> <span class="nbx-badge nbx-badge--neutral">1.947s</span>
 
 ---
