@@ -580,6 +580,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#from-official-pypi-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From official PyPI (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#global-install-with-uv-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1528,6 +1539,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#from-official-pypi-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From official PyPI (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#global-install-with-uv-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1666,48 +1688,57 @@
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>install<span class="w"> </span>--hook-type<span class="w"> </span>pre-commit<span class="w"> </span>--hook-type<span class="w"> </span>pre-push
 </span></code></pre></div>
 <hr />
+<h2 id="from-official-pypi-recommended">From official PyPI (recommended)<a class="headerlink" href="#from-official-pypi-recommended" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>netbox-cli
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>nbx<span class="w"> </span>--help
+</span></code></pre></div>
+<p>If you want isolated CLI installation with <code>uv</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>--force<span class="w"> </span>netbox-cli
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>nbx<span class="w"> </span>--help
+</span></code></pre></div>
+<hr />
 <h2 id="global-install-with-uv-tool">Global install with uv tool<a class="headerlink" href="#global-install-with-uv-tool" title="Permanent link">&para;</a></h2>
 <p><a href="https://docs.astral.sh/uv/concepts/tools/"><code>uv tool</code></a> installs Python CLIs in isolated environments and puts the executable on your PATH.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>--force<span class="w"> </span>/path/to/netbox-cli
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>nbx<span class="w"> </span>--help
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>--force<span class="w"> </span>/path/to/netbox-cli
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>nbx<span class="w"> </span>--help
 </span></code></pre></div>
 <p>If <code>nbx</code> is not found after install, add <code>~/.local/bin</code> to your PATH:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">bash</label><label for="__tabbed_1_2">zsh</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">source</span><span class="w"> </span>~/.zshrc
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">source</span><span class="w"> </span>~/.zshrc
 </span></code></pre></div>
 </div>
 </div>
 </div>
 <hr />
 <h2 id="repo-local-development-environment">Repo-local development environment<a class="headerlink" href="#repo-local-development-environment" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>netbox-cli
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>uv<span class="w"> </span>sync<span class="w"> </span>--dev
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>uv<span class="w"> </span>run<span class="w"> </span>nbx<span class="w"> </span>--help
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>netbox-cli
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>uv<span class="w"> </span>sync<span class="w"> </span>--dev
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>uv<span class="w"> </span>run<span class="w"> </span>nbx<span class="w"> </span>--help
 </span></code></pre></div>
 <p>Use this for tests, docs, and local iteration. Use <code>uv tool install --force ...</code> when you want the <code>nbx</code> executable installed as a user tool.</p>
 <p>Recommended contributor setup:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>install<span class="w"> </span>--hook-type<span class="w"> </span>pre-commit<span class="w"> </span>--hook-type<span class="w"> </span>pre-push
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>install<span class="w"> </span>--hook-type<span class="w"> </span>pre-commit<span class="w"> </span>--hook-type<span class="w"> </span>pre-push
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest
 </span></code></pre></div>
 <p>The project standard is Ruff for linting/formatting and <code>pre-commit</code> for enforcing those checks before commits and pushes.</p>
 <hr />
 <h2 id="playwright-optional-demo-profile-only">Playwright (optional — demo profile only)<a class="headerlink" href="#playwright-optional-demo-profile-only" title="Permanent link">&para;</a></h2>
 <p>The <code>nbx demo init</code> command uses <a href="https://playwright.dev/python/">Playwright</a> to log in to <code>demo.netbox.dev</code> and retrieve a fresh API token. Playwright is already declared as a dependency, but the browser must be installed separately:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>run<span class="w"> </span>--from<span class="w"> </span>playwright<span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>chromium<span class="w"> </span>--with-deps
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>run<span class="w"> </span>--from<span class="w"> </span>playwright<span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>chromium<span class="w"> </span>--with-deps
 </span></code></pre></div>
 <p>If you already have a demo API token, you can skip Playwright entirely — see <a href="../../cli/demo-profile/#direct-token-setup">Demo Profile</a>.</p>
 <hr />
 <h2 id="verifying-the-install">Verifying the install<a class="headerlink" href="#verifying-the-install" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>nbx<span class="w"> </span>--help
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>nbx<span class="w"> </span>--help
 </span></code></pre></div>
 <p>You should see the top-level help banner listing all available commands and OpenAPI app groups.</p>
 <hr />
