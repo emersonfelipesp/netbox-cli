@@ -1,6 +1,6 @@
 # Command capture documentation
 
-This folder contains tooling to produce **reference documentation** where each section shows:
+This folder contains tooling to produce **reference documentation** where each section shows full command output as-is (no truncation):
 
 1. The **command input** (what you would type).
 2. The **command output** (stdout/stderr as captured at generation time).
@@ -150,7 +150,7 @@ For each spec the generator writes:
 
 - **A Markdown section** in `docs/generated/nbx-command-capture.md` with the input, notes,
   exit code, wall time, and captured output.
-- **A raw JSON file** in `docs/generated/raw/NNN-<slug>.json` with the full untruncated output.
+- **A raw JSON file** in `docs/generated/raw/NNN-<slug>.json` with the full output (never truncated).
 - **`docs/generated/raw/index.json`** — summary of all runs including generation metadata.
 
 ---
