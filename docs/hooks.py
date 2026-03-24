@@ -61,7 +61,6 @@ def _render_section(
         argv = run.get("argv", [])
         exit_code = run.get("exit_code", 0)
         elapsed = run.get("elapsed_seconds", 0.0)
-        truncated = run.get("truncated", False)
         notes = run.get("notes", "")
 
         data = stdout_map.get((section, title), {})
@@ -128,13 +127,6 @@ def _render_section(
         badge_exit = _badge(exit_code)
         badge_dur = _duration_badge(elapsed)
         lines.append(f"{badge_exit} {badge_dur}")
-
-        if truncated:
-            lines.append("")
-            lines.append(
-                '!!! warning "Truncated"'
-                "\n    Output was truncated. Full text is in `docs/generated/raw/`."
-            )
 
         lines.append("")
         lines.append("---")

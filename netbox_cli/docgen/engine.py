@@ -35,7 +35,6 @@ from .models import (
     CaptureResult,
     CaptureSpec,
     build_slug,
-    truncate,
 )
 
 # ── Top-level worker function (required for ProcessPoolExecutor) ─────────
@@ -45,8 +44,6 @@ def _worker_capture(
     spec_dict: dict,
     *,
     profile: str,
-    max_lines: int,
-    max_chars: int,
     markdown_output: bool,
 ) -> dict:
     """Execute a single capture in a child process.
@@ -143,21 +140,8 @@ def _worker_capture(
 
     code, stdout, elapsed = _invoke(argv, catch=not safe)
 
-    # Truncate.
-    if len(stdout) > max_chars:
-        stdout_trunc = stdout[:max_chars] + "\n\n\u2026 (truncated by character limit)\n"
-        did_truncate = True
-    else:
-        lines = stdout.splitlines()
-        if len(lines) > max_lines:
-            stdout_trunc = (
-                "\n".join(lines[:max_lines])
-                + f"\n\n\u2026 ({len(lines) - max_lines} more lines truncated)\n"
-            )
-            did_truncate = True
-        else:
-            stdout_trunc = stdout
-            did_truncate = False
+    stdout_trunc = stdout
+    did_truncate = False
 
     # ── Format variants ───────────────────────────────────────────────────
     stdout_json = None
@@ -204,14 +188,10 @@ class CaptureEngine:
         self,
         *,
         max_concurrency: int = DEFAULT_MAX_CONCURRENCY,
-        max_lines: int = 200,
-        max_chars: int = 120_000,
         markdown_output: bool = True,
         log: TextIO | None = None,
     ) -> None:
         self._concurrency = max(1, max_concurrency)
-        self._max_lines = max_lines
-        self._max_chars = max_chars
         self._markdown_output = markdown_output
         self._log = log or sys.stderr
 
@@ -310,7 +290,7 @@ class CaptureEngine:
 
         argv = argv_with_markdown_output(spec.argv, enabled=self._markdown_output)
         code, stdout, elapsed = self._invoke_cli(argv, safe=spec.safe)
-        stdout_trunc, did_truncate = truncate(stdout, self._max_lines, self._max_chars)
+        stdout_trunc, did_truncate = stdout, False
 
         result = CaptureResult(
             section=spec.section,
@@ -386,8 +366,6 @@ class CaptureEngine:
                     _worker_capture,
                     spec_dict,
                     profile=profile,
-                    max_lines=self._max_lines,
-                    max_chars=self._max_chars,
                     markdown_output=self._markdown_output,
                 ): idx
                 for idx, spec_dict in enumerate(spec_dicts)
