@@ -15,6 +15,22 @@ maintainers = [
   {name = "Emerson Felipe", email = "emerson@netdevopsbr.com"}
 ]
 keywords = ["netbox", "terminal", "netbox-integration", "tui", "cli", "terminal", "api", "integration"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Internet",
+  "Topic :: System :: Networking",
+  "Topic :: System :: Systems Administration",
+  "Typing :: Typed",
+]
 dependencies = [
   "aiohttp>=3.9.0",
   "playwright>=1.52.0",
