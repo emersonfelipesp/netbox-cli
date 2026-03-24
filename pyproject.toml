@@ -70,6 +70,9 @@ docs = [
 [project.scripts]
 nbx = "netbox_cli.cli:main"
 
+[project.urls]
+Homepage = "https://github.com/emersonfelipesp/netbox-cli"
+
 [tool.setuptools]
 include-package-data = true
 
