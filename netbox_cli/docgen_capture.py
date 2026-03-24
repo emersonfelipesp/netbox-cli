@@ -102,6 +102,8 @@ def generate_command_capture_docs(
     *,
     output: Path,
     raw_dir: Path,
+    max_lines: int = 200,
+    max_chars: int = 120_000,
     use_demo: bool = True,
     markdown_output: bool = True,
     max_concurrency: int = DEFAULT_MAX_CONCURRENCY,
@@ -127,6 +129,8 @@ def generate_command_capture_docs(
 
     engine = CaptureEngine(
         max_concurrency=max_concurrency,
+        max_lines=max_lines,
+        max_chars=max_chars,
         markdown_output=markdown_output,
         log=log,
     )
@@ -147,7 +151,7 @@ def generate_command_capture_docs(
     engine.write_artifacts(valid, raw_dir)
 
     # ── Write Markdown capture file ───────────────────────────────────────
-    md_text = _render_markdown_capture(meta, valid)
+    md_text = _render_markdown_capture(meta, valid, max_lines, max_chars)
     output.write_text(md_text, encoding="utf-8")
 
     # ── Write index.json for the MkDocs hook ──────────────────────────────
@@ -195,6 +199,8 @@ def _build_meta(use_demo: bool, markdown_output: bool) -> dict:
 def _render_markdown_capture(
     meta: dict,
     results: list[CaptureResult],
+    max_lines: int,
+    max_chars: int,
 ) -> str:
     """Render the human-readable Markdown capture file."""
     profile_note = (
@@ -264,6 +270,11 @@ def _render_markdown_capture(
         lines.append(
             f"**Exit code:** `{r.exit_code}`  \u00b7  **Wall time (s):** `{r.elapsed_seconds:.3f}`"
         )
+        if r.truncated:
+            lines.append("")
+            lines.append(
+                f"*Output truncated for this doc (max {max_lines} lines / {max_chars} chars).*"
+            )
         lines.append("")
         lines.append("**Output:**")
         lines.append("")

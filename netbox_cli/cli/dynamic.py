@@ -7,8 +7,8 @@ Typer command trees at startup.
 
 from __future__ import annotations
 
-import dataclasses
 from collections.abc import Callable
+from importlib import import_module
 from typing import Any
 
 import typer
@@ -19,35 +19,15 @@ from .runtime import _get_client, _get_index
 from .support import print_response, print_trace_output, resolve_output_format, run_with_spinner
 
 
-@dataclasses.dataclass
-class _DynamicOptions:
-    object_id: int | None = None
-    query_pairs: list[str] = dataclasses.field(default_factory=list)
-    body_json: str | None = None
-    body_file: str | None = None
-    as_json: bool = False
-    as_yaml: bool = False
-    as_markdown: bool = False
-    trace: bool = False
-    trace_only: bool = False
-
-
 def _run_dynamic_command(
-    *,
-    client: NetBoxApiClient | None,
-    index: SchemaIndex | None,
-    group: str,
-    resource: str,
-    action: str,
-    object_id: int | None,
-    query_pairs: list[str],
-    body_json: str | None,
-    body_file: str | None,
-) -> Any:
-    # Import via the cli package so tests can monkeypatch netbox_cli.cli.run_dynamic_command.
-    from importlib import import_module  # noqa: PLC0415
+    *, client, index, group, resource, action, object_id, query_pairs, body_json, body_file
+):
+    cli_module = import_module("netbox_cli.cli")
+    fn = getattr(cli_module, "run_dynamic_command", None)
+    if fn is None:
+        from ..services import run_dynamic_command  # noqa: PLC0415
 
-    fn = getattr(import_module("netbox_cli.cli"), "run_dynamic_command")
+        fn = run_dynamic_command
     return fn(
         client=client,
         index=index,
@@ -75,85 +55,123 @@ def _handle_dynamic_invocation(
     group, resource, action = raw_args[0], raw_args[1], raw_args[2]
     option_args = raw_args[3:]
 
-    opts = _parse_dynamic_options(option_args)
-    resolve_output_format(as_json=opts.as_json, as_yaml=opts.as_yaml, as_markdown=opts.as_markdown)
-    if opts.trace and opts.trace_only:
+    (
+        object_id,
+        query_pairs,
+        body_json,
+        body_file,
+        as_json,
+        as_yaml,
+        as_markdown,
+        trace,
+        trace_only,
+    ) = _parse_dynamic_options(option_args)
+    resolve_output_format(as_json=as_json, as_yaml=as_yaml, as_markdown=as_markdown)
+    if trace and trace_only:
         raise typer.BadParameter("Use either --trace or --trace-only, not both.")
     response = _execute_dynamic_action(
         group=group,
         resource=resource,
         action=action,
-        object_id=opts.object_id,
-        query_pairs=opts.query_pairs,
-        body_json=opts.body_json,
-        body_file=opts.body_file,
+        object_id=object_id,
+        query_pairs=query_pairs,
+        body_json=body_json,
+        body_file=body_file,
         client=client_factory(),
         index=index_factory(),
     )
-    if not opts.trace_only:
+    if not trace_only:
         print_response(
             response.status,
             response.text,
-            as_json=opts.as_json,
-            as_yaml=opts.as_yaml,
-            as_markdown=opts.as_markdown,
+            as_json=as_json,
+            as_yaml=as_yaml,
+            as_markdown=as_markdown,
         )
-    if opts.trace or opts.trace_only:
+    if trace or trace_only:
         print_trace_output(
             group=group,
             resource=resource,
             action=action,
-            object_id=opts.object_id,
+            object_id=object_id,
             client=client_factory(),
             index=index_factory(),
         )
 
 
-def _parse_dynamic_options(args: list[str]) -> _DynamicOptions:
-    opts = _DynamicOptions()
+def _parse_dynamic_options(
+    args: list[str],
+) -> tuple[int | None, list[str], str | None, str | None, bool, bool, bool, bool, bool]:
+    object_id: int | None = None
+    query_pairs: list[str] = []
+    body_json: str | None = None
+    body_file: str | None = None
+    as_json: bool = False
+    as_yaml: bool = False
+    as_markdown: bool = False
+    trace: bool = False
+    trace_only: bool = False
 
     i = 0
     while i < len(args):
         token = args[i]
-        if token == "--id":
+        if token in {"--id"}:
             if i + 1 >= len(args):
                 raise typer.BadParameter("--id requires a value")
-            opts.object_id = int(args[i + 1])
+            object_id = int(args[i + 1])
             i += 2
-        elif token in {"-q", "--query"}:
+            continue
+        if token in {"-q", "--query"}:
             if i + 1 >= len(args):
                 raise typer.BadParameter(f"{token} requires key=value")
-            opts.query_pairs.append(args[i + 1])
+            query_pairs.append(args[i + 1])
             i += 2
-        elif token == "--body-json":
+            continue
+        if token == "--body-json":
             if i + 1 >= len(args):
                 raise typer.BadParameter("--body-json requires a value")
-            opts.body_json = args[i + 1]
+            body_json = args[i + 1]
             i += 2
-        elif token == "--body-file":
+            continue
+        if token == "--body-file":
             if i + 1 >= len(args):
                 raise typer.BadParameter("--body-file requires a path")
-            opts.body_file = args[i + 1]
+            body_file = args[i + 1]
             i += 2
-        elif token == "--json":
-            opts.as_json = True
+            continue
+        if token == "--json":
+            as_json = True
             i += 1
-        elif token == "--yaml":
-            opts.as_yaml = True
+            continue
+        if token == "--yaml":
+            as_yaml = True
             i += 1
-        elif token == "--markdown":
-            opts.as_markdown = True
+            continue
+        if token == "--markdown":
+            as_markdown = True
             i += 1
-        elif token == "--trace":
-            opts.trace = True
+            continue
+        if token == "--trace":
+            trace = True
             i += 1
-        elif token == "--trace-only":
-            opts.trace_only = True
+            continue
+        if token == "--trace-only":
+            trace_only = True
             i += 1
-        else:
-            raise typer.BadParameter(f"Unknown option: {token}")
+            continue
+        raise typer.BadParameter(f"Unknown option: {token}")
 
-    return opts
+    return (
+        object_id,
+        query_pairs,
+        body_json,
+        body_file,
+        as_json,
+        as_yaml,
+        as_markdown,
+        trace,
+        trace_only,
+    )
 
 
 def _execute_dynamic_action(

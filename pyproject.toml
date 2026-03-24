@@ -3,12 +3,34 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "netbox-cli"
-version = "0.1.0"
+name = "netbox-console"
+version = "0.0.2"
 description = "API-first NetBox CLI + Textual TUI"
 readme = "README.md"
 requires-python = ">=3.11"
-authors = [{ name = "netbox-cli contributors" }]
+authors = [
+  { name = "Emerson Felipe", email = "emerson@netdevopsbr.com" }
+]
+maintainers = [
+  {name = "Emerson Felipe", email = "emerson@netdevopsbr.com"}
+]
+keywords = ["netbox", "terminal", "netbox-integration", "tui", "cli", "terminal", "api", "integration"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Internet",
+  "Topic :: System :: Networking",
+  "Topic :: System :: Systems Administration",
+  "Typing :: Typed",
+]
 dependencies = [
   "aiohttp>=3.9.0",
   "playwright>=1.52.0",
@@ -47,6 +69,13 @@ docs = [
 
 [project.scripts]
 nbx = "netbox_cli.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/emersonfelipesp/netbox-cli"
+Documentation = "https://emersonfelipesp.com/netbox-cli"
+Repository = "https://github.com/emersonfelipesp/netbox-cli"
+Issues = "https://github.com/emersonfelipesp/netbox-cli/issues"
+Changelog = "https://github.com/emersonfelipesp/netbox-cli/releases"
 
 [tool.setuptools]
 include-package-data = true

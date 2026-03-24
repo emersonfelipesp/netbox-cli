@@ -5,9 +5,14 @@
 - fast command-line operations such as `nbx dcim devices get --id 1`
 - interactive terminal apps such as `nbx tui` and `nbx dev tui`
 
+> Temporary naming note: the GitHub repository remains `netbox-cli`, but the
+> published PyPI package is currently `netbox-console` due to PyPI naming policy
+> constraints tracked in https://github.com/pypi/support/issues/9925. This will
+> be reverted to `netbox-cli` on PyPI after that issue is resolved.
+
 ## Quick Start with the Demo Instance
 
-Install from GitHub:
+Install (official PyPI):
 
 ```bash
 sudo apt-get update && sudo apt-get install -y curl
@@ -38,7 +43,19 @@ nbx demo dev tui
 
 ## Install
 
-Install from a local checkout:
+Install from official PyPI:
+
+```bash
+pip install netbox-console
+```
+
+or with `uv`:
+
+```bash
+uv tool install --force netbox-console
+```
+
+Install from a local checkout (developer workflow):
 
 ```bash
 cd <path-to-netbox-cli>

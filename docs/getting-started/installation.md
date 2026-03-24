@@ -2,6 +2,10 @@
 
 `netbox-cli` requires **Python 3.11 or newer**.
 
+> Temporary naming note: this repository is named `netbox-cli`, but the PyPI
+> package is temporarily published as `netbox-console` while
+> https://github.com/pypi/support/issues/9925 remains unresolved.
+
 ---
 
 ## From source (development)
@@ -21,6 +25,22 @@ For contributor workflows where you want repo-local commands without reinstallin
 uv sync --dev
 uv run nbx --help
 uv run pre-commit install --hook-type pre-commit --hook-type pre-push
+```
+
+---
+
+## From official PyPI (recommended)
+
+```bash
+pip install netbox-console
+nbx --help
+```
+
+If you want isolated CLI installation with `uv`:
+
+```bash
+uv tool install --force netbox-console
+nbx --help
 ```
 
 ---

@@ -12,6 +12,10 @@ hide:
 
 If your NetBox instance exposes plugin endpoints under `/api/plugins/` with a full REST implementation, `netbox-cli` can discover those plugin resources automatically and surface them in both the CLI/TUI navigation and data views.
 
+> Temporary naming note: the repository name is `netbox-cli`, while the package
+> on PyPI is currently `netbox-console` until
+> https://github.com/pypi/support/issues/9925 is resolved.
+
 ---
 
 <div class="grid cards" markdown>
@@ -63,7 +67,7 @@ If your NetBox instance exposes plugin endpoints under `/api/plugins/` with a fu
     Install, configure, and run your first command in under a minute.
 
     ```bash
-    uv tool install --force .
+    pip install netbox-console
     nbx init
     nbx dcim devices list
     ```
