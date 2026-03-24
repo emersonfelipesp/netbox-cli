@@ -5,12 +5,6 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
-    inputs:
-      publish_pypi:
-        description: "Also publish to official PyPI after TestPyPI validation"
-        required: false
-        default: false
-        type: boolean
 
 permissions:
   contents: read
@@ -228,7 +222,6 @@ jobs:
 
   publish-pypi:
     name: publish to official PyPI
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_pypi == true }}
     needs:
       - prepare-release
       - publish-testpypi
