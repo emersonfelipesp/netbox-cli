@@ -1666,8 +1666,8 @@ Pass <code>--live</code> to run them against your own NetBox instance instead.</
 <td><strong>Generated</strong> per-command JSON files (<code>stdout_full</code>, exit code, timing).</td>
 </tr>
 <tr>
-<td><a href="../.github/workflows/docs-capture.yml"><code>../.github/workflows/docs-capture.yml</code></a></td>
-<td>CI workflow that runs on every push to <code>main</code>, authenticates with demo.netbox.dev, and commits the regenerated snapshot.</td>
+<td><a href="https://github.com/emersonfelipesp/netbox-cli/blob/main/.github/workflows/docs.yml"><code>docs.yml</code> workflow</a></td>
+<td>CI workflow that builds and deploys docs; when demo secrets are present, it regenerates command-capture content against demo.netbox.dev before deploy.</td>
 </tr>
 </tbody>
 </table>
@@ -1847,8 +1847,8 @@ produce output when the generator runs from a <code>netbox-cli</code> git checko
 </ul>
 <hr />
 <h2 id="github-actions-ci">GitHub Actions CI<a class="headerlink" href="#github-actions-ci" title="Permanent link">&para;</a></h2>
-<p>The workflow at <a href="../.github/workflows/docs-capture.yml"><code>.github/workflows/docs-capture.yml</code></a>
-runs automatically on every push to <code>main</code> (which includes merged pull requests).</p>
+<p>The workflow at <a href="https://github.com/emersonfelipesp/netbox-cli/blob/main/.github/workflows/docs.yml"><code>docs.yml</code> on GitHub</a>
+runs automatically on pushes to <code>main</code> (and can be started manually via <code>workflow_dispatch</code>).</p>
 <h3 id="what-it-does">What it does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Checks out the repository.</li>
