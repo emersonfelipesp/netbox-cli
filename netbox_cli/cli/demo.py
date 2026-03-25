@@ -532,4 +532,12 @@ def _register_demo_dev_http() -> None:
     demo_dev_app.add_typer(dev_http_app, name="http")
 
 
+def _register_demo_dev_django_model() -> None:
+    from .django_model import django_model_app as _django_model_app  # noqa: PLC0415
+
+    demo_dev_app.add_typer(_django_model_app, name="django-model")
+    demo_dev_app.add_typer(_django_model_app, name="django-models")
+
+
 _register_demo_dev_http()
+_register_demo_dev_django_model()
