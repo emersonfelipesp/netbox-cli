@@ -110,6 +110,9 @@ nbx graphql "query($id: Int!) { device(id: $id) { name } }" --variables '{"id": 
 # Query with key=value variables
 nbx graphql "query($name: String!) { devices(name: $name) { id } }" --variables name=sw01
 
+# Multiple variables (repeat -v / --variables)
+nbx graphql "query($a: Int!, $b: Int!) { __typename }" -v a=1 -v b=2
+
 # Output as JSON
 nbx graphql "{ sites { name } }" --json
 ```
@@ -118,7 +121,7 @@ nbx graphql "{ sites { name } }" --json
 
 | Flag | Description |
 |------|-------------|
-| `--variables` / `-v TEXT` | GraphQL variables as JSON string or `key=value` pairs |
+| `--variables` / `-v TEXT` | GraphQL variables: one JSON object, or repeat for multiple `key=value` pairs |
 | `--json` | Output raw JSON instead of formatted table |
 | `--yaml` | Output as YAML |
 

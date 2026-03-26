@@ -178,6 +178,35 @@ class TestGraphQLCommand:
         )
         assert result.exit_code == 0
 
+    def test_graphql_with_multiple_key_value_variables(self, monkeypatch):
+        """Test GraphQL with repeated -v key=value variables."""
+
+        class _FakeClient:
+            async def graphql(self, query, variables=None):
+                assert variables == {"a": "1", "b": "2"}
+
+                class _Response:
+                    status = 200
+                    text = json.dumps({"data": {"__typename": "Query"}})
+
+                return _Response()
+
+        monkeypatch.setattr(cli, "_ensure_runtime_config", _mock_config)
+        monkeypatch.setattr(cli, "_get_client", lambda: _FakeClient())
+
+        result = runner.invoke(
+            cli.app,
+            [
+                "graphql",
+                "query($a: Int!, $b: Int!) { __typename }",
+                "-v",
+                "a=1",
+                "-v",
+                "b=2",
+            ],
+        )
+        assert result.exit_code == 0
+
     def test_graphql_json_output(self, monkeypatch):
         """Test GraphQL with --json output."""
 

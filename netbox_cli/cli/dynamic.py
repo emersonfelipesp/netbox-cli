@@ -408,7 +408,7 @@ def _build_action_command(
                 "--dry-run is only supported for write operations (create, update, patch, delete)"
             )
 
-        client = client_factory()
+        client = None if dry_run else client_factory()
         index = index_factory()
         columns_list = [c.strip() for c in columns.split(",")] if columns else None
         response = _execute_dynamic_action(

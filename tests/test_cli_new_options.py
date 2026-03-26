@@ -262,6 +262,32 @@ class TestColumnControl:
         )
         assert result.exit_code == 0
 
+    def test_columns_nonexistent_raises_bad_parameter(self, monkeypatch):
+        """--columns must match at least one key in the response rows."""
+
+        class _ClientWithRows(_FakeListClient):
+            async def request(self, method: str, path: str, **kwargs: object):
+                del method, path, kwargs
+
+                class _Response:
+                    status = 200
+                    text = json.dumps({"count": 1, "results": [{"id": 1, "name": "d1"}]})
+
+                return _Response()
+
+        monkeypatch.setattr(cli, "_ensure_runtime_config", _mock_config)
+        monkeypatch.setattr(
+            "netbox_cli.cli.runtime._get_client",
+            lambda: _ClientWithRows(),
+        )
+
+        result = runner.invoke(
+            cli.app,
+            ["dcim", "devices", "list", "--columns", "bogus,also_missing"],
+        )
+        assert result.exit_code != 0
+        assert "None of the requested columns" in result.output
+
 
 class TestSelectOption:
     """Tests for --select field extraction."""
