@@ -206,6 +206,18 @@ def render_list_table(
 
     if columns:
         display_keys = [k for k in columns if k in all_keys]
+        if not display_keys:
+            if not all_keys:
+                raise typer.BadParameter(
+                    "None of the requested columns exist in the response (rows have no keys)."
+                )
+            sample = ", ".join(all_keys[:12])
+            if len(all_keys) > 12:
+                sample += ", …"
+            raise typer.BadParameter(
+                f"None of the requested columns exist in the response. "
+                f"Available keys include: {sample}"
+            )
     else:
         priority_keys = [k for k in all_keys if k in _LIST_COLUMNS]
         display_keys = order_field_names(priority_keys if priority_keys else all_keys)

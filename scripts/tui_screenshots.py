@@ -164,7 +164,7 @@ async def capture_screenshot_for_tui(
             return str(output_path)
 
     except Exception as e:
-        raise Exception(f"Error capturing screenshot: {e}")
+        raise RuntimeError(f"Error capturing screenshot: {e}") from e
 
 
 def get_app_kwargs(app_id: str, theme: str, index: Any, client: Any) -> dict:

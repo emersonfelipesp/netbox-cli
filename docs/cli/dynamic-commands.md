@@ -135,14 +135,12 @@ Extract specific fields from the JSON response using dot notation:
 ```bash
 # Get the first device's name
 nbx dcim devices list --select results.0.name
-
-# Get all device names from results
-nbx dcim devices list --select results[*].name
 ```
 
+Only numeric list indices are supported in paths (no wildcards such as `[*]`).
+
 Supported path patterns:
-- `results.0.name` — Access nested object at index
-- `results[*].name` — Access field from all items in array
+- `results.0.name` — Access nested object at a numeric index
 - `count` — Access top-level fields
 
 ---

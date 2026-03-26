@@ -261,11 +261,11 @@ def operations_command(
 @app.command("graphql")
 def graphql_command(
     query: str = typer.Argument(..., help="GraphQL query string"),
-    variables: str | None = typer.Option(
+    variables: list[str] = typer.Option(
         None,
         "--variables",
         "-v",
-        help="GraphQL variables as JSON string or key=value pairs",
+        help="GraphQL variables: one JSON object, or repeat for multiple key=value pairs",
     ),
     output_json: bool = typer.Option(False, "--json", help="Output raw JSON"),
     output_yaml: bool = typer.Option(False, "--yaml", help="Output YAML"),
@@ -274,11 +274,26 @@ def graphql_command(
     client = _get_client()
 
     vars_dict: dict[str, Any] | None = None
-    if variables:
-        if "=" in variables:
-            vars_dict = parse_key_value_pairs([variables])
+    pairs = variables or []
+    if pairs:
+        if len(pairs) == 1:
+            raw = pairs[0]
+            try:
+                decoded = json.loads(raw)
+            except json.JSONDecodeError:
+                try:
+                    vars_dict = parse_key_value_pairs(pairs)
+                except ValueError as exc:
+                    raise typer.BadParameter(str(exc)) from exc
+            else:
+                if not isinstance(decoded, dict):
+                    raise typer.BadParameter("GraphQL variables JSON must decode to an object")
+                vars_dict = decoded
         else:
-            vars_dict = json.loads(variables)
+            try:
+                vars_dict = parse_key_value_pairs(pairs)
+            except ValueError as exc:
+                raise typer.BadParameter(str(exc)) from exc
 
     response = run_with_spinner(client.graphql(query, vars_dict))
     print_response(
