@@ -38,6 +38,12 @@ __all__ = [
     "ContentError",
     "AllocationError",
     "ParameterValidationError",
+    "typed_api",
+    "SupportedNetBoxVersion",
+    "SUPPORTED_NETBOX_VERSIONS",
+    "UnsupportedNetBoxVersionError",
+    "TypedRequestValidationError",
+    "TypedResponseValidationError",
     # http_cache
     "HttpCacheStore",
     "CachePolicy",
@@ -99,6 +105,13 @@ from netbox_sdk.facade import (
 )
 from netbox_sdk.http_cache import CacheEntry, CachePolicy, HttpCacheStore, build_cache_key
 from netbox_sdk.plugin_discovery import discover_plugin_resource_paths
+from netbox_sdk.typed_api import typed_api
+from netbox_sdk.typed_runtime import TypedRequestValidationError, TypedResponseValidationError
+from netbox_sdk.versioning import (
+    SUPPORTED_NETBOX_VERSIONS,
+    SupportedNetBoxVersion,
+    UnsupportedNetBoxVersionError,
+)
 from netbox_sdk.schema import (
     FilterParam,
     Operation,
