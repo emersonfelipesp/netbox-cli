@@ -5,7 +5,9 @@ from __future__ import annotations
 import json
 import logging
 import time
+from contextlib import contextmanager
 from collections.abc import Callable
+from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin, urlsplit
 
@@ -58,6 +60,8 @@ class NetBoxApiClient:
         self.config = config
         self._cache = HttpCacheStore(cache_dir())
         self._on_token_refresh = on_token_refresh or self._default_token_refresh_callback()
+        self._default_headers: dict[str, str] = {}
+        self._openapi_cache: Any = None
         logger.debug("initialized api client for %s", self.config.base_url or "<unset>")
 
     def _default_token_refresh_callback(
@@ -100,6 +104,7 @@ class NetBoxApiClient:
         query: dict[str, str] | None = None,
         payload: dict[str, Any] | list[Any] | None = None,
         headers: dict[str, str] | None = None,
+        expect_json: bool = True,
     ) -> ApiResponse:
         try:
             import aiohttp
@@ -126,7 +131,8 @@ class NetBoxApiClient:
         )
         cache_key: str | None = None
         cache_entry = None
-        req_headers = dict(headers or {})
+        req_headers = dict(self._default_headers)
+        req_headers.update(headers or {})
         if cache_policy is not None and self.config.base_url:
             cache_key = build_cache_key(
                 base_url=self.config.base_url,
@@ -155,6 +161,7 @@ class NetBoxApiClient:
                     payload=payload,
                     headers=req_headers,
                     authorization=authorization,
+                    expect_json=expect_json,
                 )
             except Exception:
                 logger.exception(
@@ -170,10 +177,11 @@ class NetBoxApiClient:
                     method=method,
                     path=path,
                     query=query,
-                    payload=payload,
-                    headers=req_headers,
-                    authorization=self._v1_fallback_header(),
-                )
+                        payload=payload,
+                        headers=req_headers,
+                        authorization=self._v1_fallback_header(),
+                        expect_json=expect_json,
+                    )
             elif self._should_refresh_demo_v1_token(response):
                 authorization = self._refresh_demo_v1_authorization()
                 if authorization:
@@ -185,6 +193,7 @@ class NetBoxApiClient:
                         payload=payload,
                         headers=req_headers,
                         authorization=authorization,
+                        expect_json=expect_json,
                     )
             logger.info(
                 "api request completed",
@@ -211,17 +220,23 @@ class NetBoxApiClient:
         payload: dict[str, Any] | list[Any] | None,
         headers: dict[str, str] | None,
         authorization: str | None,
+        expect_json: bool,
     ) -> ApiResponse:
+        files_payload = None
+        json_payload = payload
         req_headers = dict(headers or {})
-        req_headers.setdefault("Accept", "application/json")
+        req_headers.setdefault("Accept", "application/json" if expect_json else "*/*")
         if authorization:
             req_headers["Authorization"] = authorization
+        if isinstance(payload, dict):
+            json_payload, files_payload = self._extract_files(payload)
 
         async with session.request(
             method=method.upper(),
             url=self.build_url(path),
             params=query,
-            json=payload,
+            json=json_payload if files_payload is None else None,
+            data=files_payload if files_payload is not None else None,
             headers=req_headers,
         ) as response:
             text = await response.text()
@@ -234,6 +249,65 @@ class NetBoxApiClient:
                 },
             )
             return ApiResponse(status=response.status, text=text, headers=dict(response.headers))
+
+    def _extract_files(
+        self, payload: dict[str, Any]
+    ) -> tuple[dict[str, Any], Any | None]:
+        try:
+            import aiohttp
+        except ModuleNotFoundError as exc:
+            raise RuntimeError(
+                "aiohttp is required for HTTP requests. Install project dependencies first."
+            ) from exc
+
+        clean_payload: dict[str, Any] = {}
+        form: Any | None = None
+        for key, value in payload.items():
+            file_info = self._coerce_file_field(value, field_name=key)
+            if file_info is None:
+                clean_payload[key] = value
+                continue
+            if form is None:
+                form = aiohttp.FormData()
+            filename, file_obj, content_type = file_info
+            form.add_field(key, file_obj, filename=filename, content_type=content_type)
+
+        if form is None:
+            return payload, None
+
+        for key, value in clean_payload.items():
+            if isinstance(value, bool):
+                form.add_field(key, json.dumps(value))
+            elif value is None:
+                form.add_field(key, "")
+            elif isinstance(value, (dict, list)):
+                form.add_field(key, json.dumps(value))
+            else:
+                form.add_field(key, str(value))
+        return clean_payload, form
+
+    def _coerce_file_field(
+        self, value: Any, *, field_name: str
+    ) -> tuple[str, Any, str | None] | None:
+        if self._is_file_like(value):
+            return self._file_tuple(getattr(value, "name", field_name), value, None)
+        if isinstance(value, tuple) and len(value) >= 2 and self._is_file_like(value[1]):
+            filename = value[0]
+            file_obj = value[1]
+            content_type = value[2] if len(value) > 2 else None
+            return self._file_tuple(filename, file_obj, content_type)
+        return None
+
+    def _file_tuple(
+        self, filename: Any, file_obj: Any, content_type: Any
+    ) -> tuple[str, Any, str | None]:
+        name = Path(str(filename)).name if filename else "upload"
+        return name, file_obj, str(content_type) if content_type else None
+
+    def _is_file_like(self, value: Any) -> bool:
+        if isinstance(value, (str, bytes, bytearray)):
+            return False
+        return hasattr(value, "read") and callable(getattr(value, "read"))
 
     def _v1_fallback_header(self) -> str | None:
         if not self.config.token_secret:
@@ -364,6 +438,51 @@ class NetBoxApiClient:
         if probe.ok:
             return probe.version
         raise RequestError(ApiResponse(status=probe.status, text=probe.error or "", headers={}))
+
+    async def status(self) -> dict[str, Any]:
+        response = await self.request("GET", "/api/status/")
+        return response.json()
+
+    async def openapi(self) -> dict[str, Any]:
+        if self._openapi_cache is not None:
+            return self._openapi_cache
+        version = await self.get_version()
+        path = "/api/schema/"
+        try:
+            major, minor = (int(part) for part in version.split(".")[:2])
+        except Exception:
+            major, minor = 999, 0
+        if (major, minor) < (3, 5):
+            path = "/api/docs/"
+        query = None if path == "/api/schema/" else {"format": "openapi"}
+        response = await self.request("GET", path, query=query)
+        self._openapi_cache = response.json()
+        return self._openapi_cache
+
+    async def create_token(self, username: str, password: str) -> ApiResponse:
+        response = await self.request(
+            "POST",
+            "/api/users/tokens/provision/",
+            payload={"username": username, "password": password},
+        )
+        if 200 <= response.status < 300:
+            try:
+                body = response.json()
+            except Exception:
+                return response
+            token_value = body.get("key")
+            if isinstance(token_value, str) and token_value:
+                self.config.token_secret = token_value
+        return response
+
+    @contextmanager
+    def header_scope(self, **headers: str):
+        previous = dict(self._default_headers)
+        self._default_headers.update({k: v for k, v in headers.items() if v})
+        try:
+            yield self
+        finally:
+            self._default_headers = previous
 
     async def graphql(self, query: str, variables: dict[str, Any] | None = None) -> ApiResponse:
         """Execute a GraphQL query against the NetBox API."""
