@@ -104,6 +104,7 @@ nav:
   - SDK:
     - sdk/index.md
     - Authentication: sdk/authentication.md
+    - Facade API: sdk/facade.md
     - Making Requests: sdk/making-requests.md
     - Schema Indexing: sdk/schema.md
     - Error Handling: sdk/error-handling.md

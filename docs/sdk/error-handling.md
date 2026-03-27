@@ -30,6 +30,59 @@ except RequestError as exc:
     print(f"HTTP {exc.response.status}: {exc.response.text}")
 ```
 
+The facade layer raises `RequestError` for failed endpoint operations such as
+`await nb.dcim.devices.get(1)` when the response is not a handled success case.
+
+---
+
+## Facade-specific exceptions
+
+The higher-level facade adds a few explicit exceptions for common NetBox SDK workflows.
+
+### ParameterValidationError
+
+Raised when strict filter validation is enabled and a filter name is not present
+in the OpenAPI schema:
+
+```python
+from netbox_sdk import ParameterValidationError, api
+
+nb = api("https://netbox.example.com", token="tok", strict_filters=True)
+
+try:
+    nb.dcim.devices.filter(not_a_real_filter="value")
+except ParameterValidationError as exc:
+    print(exc)
+```
+
+### AllocationError
+
+Raised for allocation-style detail endpoints when NetBox returns HTTP 409:
+
+```python
+from netbox_sdk import AllocationError
+
+prefix = await nb.ipam.prefixes.get(123)
+
+try:
+    await prefix.available_prefixes.create({"prefix_length": 28})
+except AllocationError as exc:
+    print(exc)
+```
+
+### ContentError
+
+Raised when the facade expects JSON but the server returns invalid content:
+
+```python
+from netbox_sdk import ContentError
+
+try:
+    plugins = await nb.plugins.installed_plugins()
+except ContentError:
+    print("NetBox returned invalid JSON")
+```
+
 ---
 
 ## ConnectionProbe
@@ -147,3 +200,6 @@ if response.status == 200:
 else:
     print(f"Error {response.status}: {response.text[:200]}")
 ```
+
+The facade wraps this case as `ContentError` when a higher-level operation
+requires JSON decoding.
