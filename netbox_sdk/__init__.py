@@ -25,6 +25,19 @@ __all__ = [
     "ApiResponse",
     "RequestError",
     "ConnectionProbe",
+    "api",
+    "Api",
+    "App",
+    "PluginsApp",
+    "Endpoint",
+    "DetailEndpoint",
+    "RODetailEndpoint",
+    "ROMultiFormatDetailEndpoint",
+    "Record",
+    "RecordSet",
+    "ContentError",
+    "AllocationError",
+    "ParameterValidationError",
     # http_cache
     "HttpCacheStore",
     "CachePolicy",
@@ -68,6 +81,21 @@ from netbox_sdk.config import (
     resolved_token,
     save_config,
     save_profile_config,
+)
+from netbox_sdk.facade import (
+    AllocationError,
+    Api,
+    App,
+    ContentError,
+    DetailEndpoint,
+    Endpoint,
+    ParameterValidationError,
+    PluginsApp,
+    RODetailEndpoint,
+    ROMultiFormatDetailEndpoint,
+    Record,
+    RecordSet,
+    api,
 )
 from netbox_sdk.http_cache import CacheEntry, CachePolicy, HttpCacheStore, build_cache_key
 from netbox_sdk.plugin_discovery import discover_plugin_resource_paths
