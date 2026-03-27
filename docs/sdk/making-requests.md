@@ -1,8 +1,87 @@
 # Making Requests
 
-All NetBox API calls go through `NetBoxApiClient.request()`. The client is async — use it inside an `asyncio` event loop or an `async def` function.
+`netbox_sdk` supports two async request styles:
+
+- the low-level `NetBoxApiClient` for direct HTTP calls
+- the higher-level facade returned by `api()` for PyNetBox-style workflows
+
+Both layers are async and can be used in the same project.
 
 ---
+
+## Facade usage
+
+The facade is the shortest path for common NetBox SDK operations:
+
+```python
+from netbox_sdk import api
+
+nb = api("https://netbox.example.com", token="mytoken")
+```
+
+### Retrieve a single record
+
+```python
+device = await nb.dcim.devices.get(42)
+if device is not None:
+    print(device.name)
+```
+
+### Filter and iterate
+
+```python
+devices = nb.dcim.devices.filter(site="lon", role="leaf-switch")
+
+async for device in devices:
+    print(device.name)
+```
+
+### Create, modify, and save
+
+```python
+device = await nb.dcim.devices.create(
+    name="sw-lon-01",
+    site={"id": 1},
+    role={"id": 2},
+    device_type={"id": 3},
+)
+
+device.name = "sw-lon-01-renamed"
+await device.save()
+```
+
+### Use detail endpoints
+
+```python
+prefix = await nb.ipam.prefixes.get(123)
+
+available = await prefix.available_ips.list()
+new_ip = await prefix.available_ips.create({})
+new_prefix = await prefix.available_prefixes.create({"prefix_length": 28})
+```
+
+### Rack elevation JSON vs SVG
+
+```python
+rack = await nb.dcim.racks.get(5)
+units = await rack.elevation.list()
+svg = await rack.elevation.list(render="svg")
+```
+
+### Plugins
+
+```python
+plugins = await nb.plugins.installed_plugins()
+
+async for olt in nb.plugins.gpon.olts.filter(status="active"):
+    print(olt.name)
+```
+
+---
+
+## Low-level client usage
+
+All direct HTTP calls go through `NetBoxApiClient.request()`.
 
 ## Basic usage
 
@@ -242,3 +321,46 @@ response = await run_dynamic_command(
 ```
 
 Supported actions: `list`, `get`, `create`, `update`, `patch`, `delete`.
+
+---
+
+## Multipart uploads
+
+`NetBoxApiClient.request()` automatically switches to multipart form data when a
+payload contains file-like values:
+
+```python
+with open("rack-photo.png", "rb") as handle:
+    response = await client.request(
+        "POST",
+        "/api/extras/image-attachments/",
+        payload={
+            "object_type": "dcim.device",
+            "object_id": 42,
+            "name": "Front view",
+            "image": ("rack-photo.png", handle, "image/png"),
+        },
+    )
+```
+
+Supported file inputs include plain file objects and tuples in the form
+`(filename, file_obj)` or `(filename, file_obj, content_type)`.
+
+---
+
+## Status and OpenAPI helpers
+
+The low-level client now exposes convenience helpers for common API metadata:
+
+```python
+status = await client.status()
+version = await client.get_version()
+spec = await client.openapi()
+```
+
+Token provisioning is also available:
+
+```python
+token_response = await client.create_token("admin", "password")
+print(token_response.json()["key"])
+```
