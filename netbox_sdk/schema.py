@@ -8,6 +8,8 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 
+from netbox_sdk.versioning import SupportedNetBoxVersion, bundled_openapi_path
+
 HTTP_METHODS = {"get", "post", "put", "patch", "delete", "head", "options"}
 
 # Query params that control pagination/format, not filters.
@@ -320,9 +322,13 @@ def _is_detail_path(parts: list[str], group: str, resource: str) -> bool:
     return parts == [*_resource_parts(group, resource), "{id}"]
 
 
-def load_openapi_schema(openapi_path: Path | None = None) -> dict[str, Any]:
+def load_openapi_schema(
+    openapi_path: Path | None = None,
+    *,
+    version: SupportedNetBoxVersion | None = None,
+) -> dict[str, Any]:
     if openapi_path is None:
-        openapi_path = (
+        openapi_path = bundled_openapi_path(version or "4.5") if version else (
             Path(__file__).resolve().parent / "reference" / "openapi" / "netbox-openapi.json"
         )
     text = openapi_path.read_text(encoding="utf-8")
@@ -339,5 +345,9 @@ def load_openapi_schema(openapi_path: Path | None = None) -> dict[str, Any]:
     return loaded
 
 
-def build_schema_index(openapi_path: Path | None = None) -> SchemaIndex:
-    return SchemaIndex(load_openapi_schema(openapi_path))
+def build_schema_index(
+    openapi_path: Path | None = None,
+    *,
+    version: SupportedNetBoxVersion | None = None,
+) -> SchemaIndex:
+    return SchemaIndex(load_openapi_schema(openapi_path, version=version))
