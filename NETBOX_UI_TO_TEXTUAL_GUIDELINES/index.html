@@ -6,11 +6,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="API-first NetBox CLI and TUI — manage NetBox from your terminal">
+        <meta name="description" content="API-first NetBox SDK, CLI, and Textual TUI for NetBox">
       
       
       
-        <link rel="canonical" href="https://emersonfelipesp.github.io/netbox-cli/NETBOX_UI_TO_TEXTUAL_GUIDELINES/">
+        <link rel="canonical" href="https://emersonfelipesp.github.io/netbox-sdk/NETBOX_UI_TO_TEXTUAL_GUIDELINES/">
       
       
       
@@ -23,7 +23,7 @@
     
     
       
-        <title>NetBox UI to Textual TUI Design Guidelines - NetBox CLI</title>
+        <title>NetBox UI to Textual TUI Design Guidelines - netbox-sdk</title>
       
     
     
@@ -92,7 +92,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="NetBox CLI" class="md-header__button md-logo" aria-label="NetBox CLI" data-md-component="logo">
+    <a href=".." title="netbox-sdk" class="md-header__button md-logo" aria-label="netbox-sdk" data-md-component="logo">
       
   <img src="../assets/logo.svg" alt="logo">
 
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            NetBox CLI
+            netbox-sdk
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -193,13 +193,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/emersonfelipesp/netbox-cli" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/emersonfelipesp/netbox-sdk" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    emersonfelipesp/netbox-cli
+    emersonfelipesp/netbox-sdk
   </div>
 </a>
       </div>
@@ -327,6 +327,28 @@
     
     
       <li class="md-tabs__item">
+        <a href="../sdk/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  SDK
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
         <a href="../developer/" class="md-tabs__link">
           
   
@@ -369,22 +391,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="NetBox CLI" class="md-nav__button md-logo" aria-label="NetBox CLI" data-md-component="logo">
+    <a href=".." title="netbox-sdk" class="md-nav__button md-logo" aria-label="netbox-sdk" data-md-component="logo">
       
   <img src="../assets/logo.svg" alt="logo">
 
     </a>
-    NetBox CLI
+    netbox-sdk
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/emersonfelipesp/netbox-cli" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/emersonfelipesp/netbox-sdk" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    emersonfelipesp/netbox-cli
+    emersonfelipesp/netbox-sdk
   </div>
 </a>
     </div>
@@ -1467,6 +1489,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1483,6 +1511,256 @@
           
         
         <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../sdk/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SDK
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdk/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdk/facade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facade API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdk/typed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Typed API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdk/making-requests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Making Requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdk/schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Indexing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sdk/error-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1504,14 +1782,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1806,10 +2084,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-concrete-porting-blueprint-for-netbox-cli" class="md-nav__link">
+  <a href="#3-concrete-porting-blueprint-for-netbox-sdk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Concrete Porting Blueprint for netbox-cli
+        3. Concrete Porting Blueprint for netbox-sdk
       
     </span>
   </a>
@@ -1927,10 +2205,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-implementation-notes-for-netbox-cli" class="md-nav__link">
+  <a href="#6-implementation-notes-for-netbox-sdk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Implementation Notes for netbox-cli
+        6. Implementation Notes for netbox-sdk
       
     </span>
   </a>
@@ -1966,7 +2244,7 @@
 
 
 <h1 id="netbox-ui-to-textual-tui-design-guidelines">NetBox UI to Textual TUI Design Guidelines<a class="headerlink" href="#netbox-ui-to-textual-tui-design-guidelines" title="Permanent link">&para;</a></h1>
-<p>This document summarizes how NetBox's frontend is built and defines a practical porting strategy to a Textual-based TUI in <code>netbox-cli</code>.</p>
+<p>This document summarizes how NetBox's frontend is built and defines a practical porting strategy to a Textual-based TUI in <code>netbox-sdk</code>.</p>
 <h2 id="1-netbox-frontend-architecture-what-exists-today">1. NetBox Frontend Architecture (What Exists Today)<a class="headerlink" href="#1-netbox-frontend-architecture-what-exists-today" title="Permanent link">&para;</a></h2>
 <h2 id="11-stack-and-build">1.1 Stack and Build<a class="headerlink" href="#11-stack-and-build" title="Permanent link">&para;</a></h2>
 <p>NetBox's web UI is built from:</p>
@@ -2007,7 +2285,7 @@
 <li>app-level panel declarations, e.g. <code>dcim/ui/panels.py</code></li>
 </ul>
 <p>This declarative composition is important for TUI parity because it naturally maps to Textual widget composition.</p>
-<p>For <code>netbox-cli</code>, this is now a project guideline: use a React-style composition approach in Textual by building screens from small reusable widgets and nested layout primitives instead of deep inheritance trees.</p>
+<p>For <code>netbox-sdk</code>, this is now a project guideline: use a React-style composition approach in Textual by building screens from small reusable widgets and nested layout primitives instead of deep inheritance trees.</p>
 <h2 id="14-listdetail-interaction-model">1.4 List/Detail Interaction Model<a class="headerlink" href="#14-listdetail-interaction-model" title="Permanent link">&para;</a></h2>
 <p>Common pages:</p>
 <ul>
@@ -2153,7 +2431,7 @@
 <li>Textual has separate ANSI-mode defaults for surfaces such as <code>Screen</code> and <code>ModalScreen</code>, and these can still win in real terminals</li>
 <li>if TCSS alone does not fully bind those runtime paths to the selected theme, add a narrow runtime surface sync using semantic theme tokens for the affected modal, pane stack, or internal widget subtree</li>
 </ul>
-<h2 id="3-concrete-porting-blueprint-for-netbox-cli">3. Concrete Porting Blueprint for netbox-cli<a class="headerlink" href="#3-concrete-porting-blueprint-for-netbox-cli" title="Permanent link">&para;</a></h2>
+<h2 id="3-concrete-porting-blueprint-for-netbox-sdk">3. Concrete Porting Blueprint for netbox-sdk<a class="headerlink" href="#3-concrete-porting-blueprint-for-netbox-sdk" title="Permanent link">&para;</a></h2>
 <h2 id="31-shell-layout">3.1 Shell Layout<a class="headerlink" href="#31-shell-layout" title="Permanent link">&para;</a></h2>
 <p>Create a root app shell that mirrors <code>base/layout.html</code>:</p>
 <ul>
@@ -2288,10 +2566,10 @@
 </li>
 <li>theme tokens, notifications, hotkeys, persistent preferences</li>
 </ol>
-<h2 id="6-implementation-notes-for-netbox-cli">6. Implementation Notes for netbox-cli<a class="headerlink" href="#6-implementation-notes-for-netbox-cli" title="Permanent link">&para;</a></h2>
+<h2 id="6-implementation-notes-for-netbox-sdk">6. Implementation Notes for netbox-sdk<a class="headerlink" href="#6-implementation-notes-for-netbox-sdk" title="Permanent link">&para;</a></h2>
 <p>Immediate recommendations:</p>
 <ul>
-<li>Introduce <code>netbox_cli/ui/</code> package with panel and screen abstractions (mirroring NetBox's <code>ui/</code> layering)</li>
+<li>Introduce <code>netbox_tui/</code> package with panel and screen abstractions (mirroring NetBox's <code>ui/</code> layering)</li>
 <li>Add a local state module for list/detail view state persistence</li>
 <li>Standardize response -&gt; table/attr transformation utilities to keep CLI/TUI formatting consistent</li>
 <li>Keep one API contract path and avoid branching logic between CLI and TUI</li>
@@ -2351,7 +2629,7 @@
       
       
     
-    <a href="https://github.com/emersonfelipesp/netbox-cli" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+    <a href="https://github.com/emersonfelipesp/netbox-sdk" target="_blank" rel="noopener" title="github.com" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   

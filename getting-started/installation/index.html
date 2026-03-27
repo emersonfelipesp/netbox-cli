@@ -6,11 +6,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="API-first NetBox CLI and TUI — manage NetBox from your terminal">
+        <meta name="description" content="API-first NetBox SDK, CLI, and Textual TUI for NetBox">
       
       
       
-        <link rel="canonical" href="https://emersonfelipesp.github.io/netbox-cli/getting-started/installation/">
+        <link rel="canonical" href="https://emersonfelipesp.github.io/netbox-sdk/getting-started/installation/">
       
       
         <link rel="prev" href="../">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Installation - NetBox CLI</title>
+        <title>Installation - netbox-sdk</title>
       
     
     
@@ -96,7 +96,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="NetBox CLI" class="md-header__button md-logo" aria-label="NetBox CLI" data-md-component="logo">
+    <a href="../.." title="netbox-sdk" class="md-header__button md-logo" aria-label="netbox-sdk" data-md-component="logo">
       
   <img src="../../assets/logo.svg" alt="logo">
 
@@ -109,7 +109,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            NetBox CLI
+            netbox-sdk
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -197,13 +197,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/emersonfelipesp/netbox-cli" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/emersonfelipesp/netbox-sdk" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    emersonfelipesp/netbox-cli
+    emersonfelipesp/netbox-sdk
   </div>
 </a>
       </div>
@@ -333,6 +333,28 @@
     
     
       <li class="md-tabs__item">
+        <a href="../../sdk/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  SDK
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
         <a href="../../developer/" class="md-tabs__link">
           
   
@@ -375,22 +397,22 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="NetBox CLI" class="md-nav__button md-logo" aria-label="NetBox CLI" data-md-component="logo">
+    <a href="../.." title="netbox-sdk" class="md-nav__button md-logo" aria-label="netbox-sdk" data-md-component="logo">
       
   <img src="../../assets/logo.svg" alt="logo">
 
     </a>
-    NetBox CLI
+    netbox-sdk
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/emersonfelipesp/netbox-cli" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/emersonfelipesp/netbox-sdk" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    emersonfelipesp/netbox-cli
+    emersonfelipesp/netbox-sdk
   </div>
 </a>
     </div>
@@ -569,10 +591,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#from-source-development" class="md-nav__link">
+  <a href="#from-pypi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        From source (development)
+        From PyPI
       
     </span>
   </a>
@@ -580,10 +602,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#from-official-pypi-recommended" class="md-nav__link">
+  <a href="#with-uv-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
-        From official PyPI (recommended)
+        With uv tool
       
     </span>
   </a>
@@ -591,10 +613,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#global-install-with-uv-tool" class="md-nav__link">
+  <a href="#from-source" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Global install with uv tool
+        From source
       
     </span>
   </a>
@@ -602,10 +624,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#repo-local-development-environment" class="md-nav__link">
+  <a href="#typed-sdk-support" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Repo-local development environment
+        Typed SDK support
       
     </span>
   </a>
@@ -613,10 +635,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#playwright-optional-demo-profile-only" class="md-nav__link">
+  <a href="#contributor-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Playwright (optional — demo profile only)
+        Contributor workflow
       
     </span>
   </a>
@@ -624,21 +646,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verifying-the-install" class="md-nav__link">
+  <a href="#optional-demo-automation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verifying the install
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dependencies
+        Optional demo automation
       
     </span>
   </a>
@@ -1600,6 +1611,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1616,6 +1633,256 @@
           
         
         <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../sdk/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SDK
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdk/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdk/facade/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Facade API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdk/typed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Typed API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdk/making-requests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Making Requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdk/schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Indexing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sdk/error-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -1637,14 +1904,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1774,10 +2041,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#from-source-development" class="md-nav__link">
+  <a href="#from-pypi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        From source (development)
+        From PyPI
       
     </span>
   </a>
@@ -1785,10 +2052,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#from-official-pypi-recommended" class="md-nav__link">
+  <a href="#with-uv-tool" class="md-nav__link">
     <span class="md-ellipsis">
       
-        From official PyPI (recommended)
+        With uv tool
       
     </span>
   </a>
@@ -1796,10 +2063,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#global-install-with-uv-tool" class="md-nav__link">
+  <a href="#from-source" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Global install with uv tool
+        From source
       
     </span>
   </a>
@@ -1807,10 +2074,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#repo-local-development-environment" class="md-nav__link">
+  <a href="#typed-sdk-support" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Repo-local development environment
+        Typed SDK support
       
     </span>
   </a>
@@ -1818,10 +2085,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#playwright-optional-demo-profile-only" class="md-nav__link">
+  <a href="#contributor-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Playwright (optional — demo profile only)
+        Contributor workflow
       
     </span>
   </a>
@@ -1829,21 +2096,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verifying-the-install" class="md-nav__link">
+  <a href="#optional-demo-automation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verifying the install
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dependencies
+        Optional demo automation
       
     </span>
   </a>
@@ -1919,115 +2175,44 @@
 
 
 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
-<p><code>netbox-cli</code> requires <strong>Python 3.11 or newer</strong>.</p>
-<blockquote>
-<p>Temporary naming note: this repository is named <code>netbox-cli</code>, but the PyPI
-package is temporarily published as <code>netbox-console</code> while
-https://github.com/pypi/support/issues/9925 remains unresolved.</p>
-</blockquote>
-<hr />
-<h2 id="from-source-development">From source (development)<a class="headerlink" href="#from-source-development" title="Permanent link">&para;</a></h2>
-<p>The recommended approach while the project is in active development:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/emersonfelipesp/netbox-cli.git
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>netbox-cli
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>--force<span class="w"> </span>.
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>nbx<span class="w"> </span>--help
+<p><code>netbox-sdk</code> requires Python 3.11 or newer.</p>
+<h2 id="from-pypi">From PyPI<a class="headerlink" href="#from-pypi" title="Permanent link">&para;</a></h2>
+<p>SDK only:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>netbox-sdk
 </span></code></pre></div>
-<p>For contributor workflows where you want repo-local commands without reinstalling the tool on each change:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--dev
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>uv<span class="w"> </span>run<span class="w"> </span>nbx<span class="w"> </span>--help
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>install<span class="w"> </span>--hook-type<span class="w"> </span>pre-commit<span class="w"> </span>--hook-type<span class="w"> </span>pre-push
+<p>The base package already includes the dependencies required by the typed SDK,
+including <code>pydantic</code> and <code>email-validator</code>.</p>
+<p>CLI:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;netbox-sdk[cli]&#39;</span>
 </span></code></pre></div>
-<hr />
-<h2 id="from-official-pypi-recommended">From official PyPI (recommended)<a class="headerlink" href="#from-official-pypi-recommended" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>netbox-console
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>nbx<span class="w"> </span>--help
+<p>TUI:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;netbox-sdk[tui]&#39;</span>
 </span></code></pre></div>
-<p>If you want isolated CLI installation with <code>uv</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>--force<span class="w"> </span>netbox-console
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>nbx<span class="w"> </span>--help
+<p>Everything:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;netbox-sdk[all]&#39;</span>
 </span></code></pre></div>
-<hr />
-<h2 id="global-install-with-uv-tool">Global install with uv tool<a class="headerlink" href="#global-install-with-uv-tool" title="Permanent link">&para;</a></h2>
-<p><a href="https://docs.astral.sh/uv/concepts/tools/"><code>uv tool</code></a> installs Python CLIs in isolated environments and puts the executable on your PATH.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>--force<span class="w"> </span>/path/to/netbox-cli
+<h2 id="with-uv-tool">With uv tool<a class="headerlink" href="#with-uv-tool" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>--force<span class="w"> </span><span class="s1">&#39;netbox-sdk[cli]&#39;</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>nbx<span class="w"> </span>--help
 </span></code></pre></div>
-<p>If <code>nbx</code> is not found after install, add <code>~/.local/bin</code> to your PATH:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">bash</label><label for="__tabbed_1_2">zsh</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc
+<h2 id="from-source">From source<a class="headerlink" href="#from-source" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/emersonfelipesp/netbox-sdk.git
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">cd</span><span class="w"> </span>netbox-sdk
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>uv<span class="w"> </span>sync<span class="w"> </span>--dev<span class="w"> </span>--extra<span class="w"> </span>cli<span class="w"> </span>--extra<span class="w"> </span>tui<span class="w"> </span>--extra<span class="w"> </span>demo
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>uv<span class="w"> </span>run<span class="w"> </span>nbx<span class="w"> </span>--help
 </span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">source</span><span class="w"> </span>~/.zshrc
+<h2 id="typed-sdk-support">Typed SDK support<a class="headerlink" href="#typed-sdk-support" title="Permanent link">&para;</a></h2>
+<p>The repository ships committed OpenAPI bundles and generated Pydantic models for
+NetBox <code>4.5</code>, <code>4.4</code>, and <code>4.3</code>. Users do not need to run code generation locally.</p>
+<h2 id="contributor-workflow">Contributor workflow<a class="headerlink" href="#contributor-workflow" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>install<span class="w"> </span>--hook-type<span class="w"> </span>pre-commit<span class="w"> </span>--hook-type<span class="w"> </span>pre-push
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest
 </span></code></pre></div>
-</div>
-</div>
-</div>
-<hr />
-<h2 id="repo-local-development-environment">Repo-local development environment<a class="headerlink" href="#repo-local-development-environment" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>netbox-cli
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>uv<span class="w"> </span>sync<span class="w"> </span>--dev
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>uv<span class="w"> </span>run<span class="w"> </span>nbx<span class="w"> </span>--help
+<h2 id="optional-demo-automation">Optional demo automation<a class="headerlink" href="#optional-demo-automation" title="Permanent link">&para;</a></h2>
+<p><code>nbx demo init</code> uses Playwright. The browser runtime must be installed separately:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>run<span class="w"> </span>--from<span class="w"> </span>playwright<span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>chromium<span class="w"> </span>--with-deps
 </span></code></pre></div>
-<p>Use this for tests, docs, and local iteration. Use <code>uv tool install --force ...</code> when you want the <code>nbx</code> executable installed as a user tool.</p>
-<p>Recommended contributor setup:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>install<span class="w"> </span>--hook-type<span class="w"> </span>pre-commit<span class="w"> </span>--hook-type<span class="w"> </span>pre-push
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>uv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest
-</span></code></pre></div>
-<p>The project standard is Ruff for linting/formatting and <code>pre-commit</code> for enforcing those checks before commits and pushes.</p>
-<hr />
-<h2 id="playwright-optional-demo-profile-only">Playwright (optional — demo profile only)<a class="headerlink" href="#playwright-optional-demo-profile-only" title="Permanent link">&para;</a></h2>
-<p>The <code>nbx demo init</code> command uses <a href="https://playwright.dev/python/">Playwright</a> to log in to <code>demo.netbox.dev</code> and retrieve a fresh API token. Playwright is already declared as a dependency, but the browser must be installed separately:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>run<span class="w"> </span>--from<span class="w"> </span>playwright<span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>chromium<span class="w"> </span>--with-deps
-</span></code></pre></div>
-<p>If you already have a demo API token, you can skip Playwright entirely — see <a href="../../cli/demo-profile/#direct-token-setup">Demo Profile</a>.</p>
-<hr />
-<h2 id="verifying-the-install">Verifying the install<a class="headerlink" href="#verifying-the-install" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>nbx<span class="w"> </span>--help
-</span></code></pre></div>
-<p>You should see the top-level help banner listing all available commands and OpenAPI app groups.</p>
-<hr />
-<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Package</th>
-<th>Role</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>typer &gt;= 0.12</code></td>
-<td>CLI framework</td>
-</tr>
-<tr>
-<td><code>textual &gt;= 0.62</code></td>
-<td>TUI framework</td>
-</tr>
-<tr>
-<td><code>aiohttp &gt;= 3.9</code></td>
-<td>Async HTTP client</td>
-</tr>
-<tr>
-<td><code>rich &gt;= 13.7</code></td>
-<td>Terminal output formatting</td>
-</tr>
-<tr>
-<td><code>pyyaml &gt;= 6.0</code></td>
-<td>YAML output support</td>
-</tr>
-<tr>
-<td><code>playwright &gt;= 1.52</code></td>
-<td>Browser automation for <code>nbx demo init</code></td>
-</tr>
-</tbody>
-</table>
 
 
 
@@ -2082,7 +2267,7 @@ https://github.com/pypi/support/issues/9925 remains unresolved.</p>
       
       
     
-    <a href="https://github.com/emersonfelipesp/netbox-cli" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+    <a href="https://github.com/emersonfelipesp/netbox-sdk" target="_blank" rel="noopener" title="github.com" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
