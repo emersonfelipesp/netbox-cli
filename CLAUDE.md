@@ -8,11 +8,12 @@
 | `netbox_tui/` | [→](netbox_tui/CLAUDE.md) | Textual TUI package: apps, chrome, widgets, navigation, state, TCSS, theme registry |
 | `netbox_tui/themes/` | [→](netbox_tui/themes/CLAUDE.md) | JSON theme files auto-discovered by the TUI |
 | `netbox_cli/` | [→](netbox_cli/CLAUDE.md) | Typer CLI package: root app, runtime, dynamic commands, demo/dev/docgen wiring |
-| `netbox_sdk/reference/` | [→](netbox_sdk/reference/CLAUDE.md) | Bundled OpenAPI schema reference and update notes |
+| `netbox_sdk/reference/` | [→](netbox_sdk/reference/CLAUDE.md) | Bundled SDK schema assets |
 | `tests/` | [→](tests/CLAUDE.md) | pytest suite |
 | `docs/` | [→](docs/CLAUDE.md) | MkDocs sources |
 | `.github/` | [→](.github/CLAUDE.md) | GitHub Actions workflows |
-| `reference/` | [→](reference/CLAUDE.md) | Design and Textual references |
+| `reference/` | [→](reference/CLAUDE.md) | Design, Textual, and prior-art client references |
+| `reference/PYNETBOX.md` | n/a | Internal reference for pynetbox architecture and prior-art behavior |
 
 ## Architecture In One Page
 
@@ -29,7 +30,8 @@ netbox_sdk/   standalone runtime-independent API layer
     ├── output_safety.py
     ├── trace_ascii.py
     ├── demo_auth.py
-    └── django_models/
+    ├── django_models/
+    └── reference/openapi/
 
 netbox_tui/   optional Textual layer
     ├── app.py / dev_app.py / cli_tui.py / logs_app.py / django_model_app.py
@@ -90,6 +92,7 @@ pip install -e '.[all]'
 - TUI code in `netbox_tui/` may depend on `netbox_sdk` and `textual`, not on old `netbox_cli/ui` paths.
 - Use absolute imports only: `netbox_sdk.*`, `netbox_tui.*`, `netbox_cli.*`.
 - Never use pynetbox or direct NetBox model access. Use `aiohttp` via `netbox_sdk.client`.
+- Consult `reference/PYNETBOX.md` when evaluating prior-art client behavior or SDK ergonomics.
 - Never hardcode colors in TCSS. Use theme variables and JSON theme definitions.
 
 ## TUI Design Rules
