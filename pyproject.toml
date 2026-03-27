@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "netbox-sdk"
-version = "0.0.3"
+version = "0.0.4"
 description = "API-first NetBox CLI + Textual TUI"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -83,11 +83,11 @@ docs = [
 nbx = "netbox_cli:main"
 
 [project.urls]
-Homepage = "https://github.com/emersonfelipesp/netbox-cli"
+Homepage = "https://github.com/emersonfelipesp/netbox-sdk"
 Documentation = "https://emersonfelipesp.com/netbox-cli"
-Repository = "https://github.com/emersonfelipesp/netbox-cli"
-Issues = "https://github.com/emersonfelipesp/netbox-cli/issues"
-Changelog = "https://github.com/emersonfelipesp/netbox-cli/releases"
+Repository = "https://github.com/emersonfelipesp/netbox-sdk"
+Issues = "https://github.com/emersonfelipesp/netbox-sdk/issues"
+Changelog = "https://github.com/emersonfelipesp/netbox-sdk/releases"
 
 [tool.setuptools]
 include-package-data = true
