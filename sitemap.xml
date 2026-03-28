@@ -33,6 +33,10 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
+         <loc>https://emersonfelipesp.github.io/netbox-sdk/cli/graphql/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
          <loc>https://emersonfelipesp.github.io/netbox-sdk/developer/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
@@ -66,10 +70,6 @@
     </url>
     <url>
          <loc>https://emersonfelipesp.github.io/netbox-sdk/getting-started/quickstart/</loc>
-         <lastmod>2026-03-28</lastmod>
-    </url>
-    <url>
-         <loc>https://emersonfelipesp.github.io/netbox-sdk/reference/command-examples/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
@@ -141,7 +141,23 @@
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
+         <loc>https://emersonfelipesp.github.io/netbox-sdk/tui/cli-builder/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
+         <loc>https://emersonfelipesp.github.io/netbox-sdk/tui/dev-workbench/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
+         <loc>https://emersonfelipesp.github.io/netbox-sdk/tui/django-models/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
          <loc>https://emersonfelipesp.github.io/netbox-sdk/tui/keybindings/</loc>
+         <lastmod>2026-03-28</lastmod>
+    </url>
+    <url>
+         <loc>https://emersonfelipesp.github.io/netbox-sdk/tui/logs/</loc>
          <lastmod>2026-03-28</lastmod>
     </url>
     <url>
