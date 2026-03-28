@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import pytest
+import yaml
 
 pytestmark = pytest.mark.suite_sdk
 
@@ -94,3 +96,37 @@ def test_docs_workflow_still_deploys_pages_for_netbox_sdk_repo() -> None:
     assert "uv run mkdocs gh-deploy --force --clean --verbose" in workflow
     assert "site_url: https://emersonfelipesp.github.io/netbox-sdk/" in mkdocs
     assert "repo_url: https://github.com/emersonfelipesp/netbox-sdk" in mkdocs
+
+
+def _nav_markdown_paths(node: Any) -> list[str]:
+    paths: list[str] = []
+    if isinstance(node, list):
+        for entry in node:
+            paths.extend(_nav_markdown_paths(entry))
+    elif isinstance(node, dict):
+        for _key, value in node.items():
+            if isinstance(value, str) and value.endswith(".md"):
+                paths.append(value)
+            else:
+                paths.extend(_nav_markdown_paths(value))
+    return paths
+
+
+def test_mkdocs_i18n_en_default_and_pt_locale() -> None:
+    mkdocs_text = _read("mkdocs.yml")
+    assert "language: en" in mkdocs_text
+    assert "i18n:" in mkdocs_text
+    assert "locale: en" in mkdocs_text
+    assert "default: true" in mkdocs_text
+    assert "locale: pt" in mkdocs_text
+    assert "Português (Brasil)" in mkdocs_text
+    assert "fallback_to_default: false" in mkdocs_text
+
+
+def test_nav_markdown_pages_have_portuguese_siblings() -> None:
+    # mkdocs.yml uses Material tags (e.g. !!python/name:...); trusted repo file only.
+    mkdocs = yaml.load(_read("mkdocs.yml"), Loader=yaml.UnsafeLoader)
+    docs_dir = REPO_ROOT / "docs"
+    for rel in _nav_markdown_paths(mkdocs["nav"]):
+        pt = rel[:-3] + ".pt.md" if rel.endswith(".md") else rel
+        assert (docs_dir / pt).is_file(), f"missing Portuguese mirror: docs/{pt}"
