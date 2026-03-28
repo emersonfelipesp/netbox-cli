@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://emersonfelipesp.github.io/netbox-sdk/sdk/authentication/">
+        <link rel="canonical" href="https://emersonfelipesp.github.io/netbox-sdk/developer/package-integration/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../architecture/">
       
       
-        <link rel="next" href="../making-requests/">
+        <link rel="next" href="../design-principles/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Authentication - NetBox SDK</title>
+        <title>Package integration - NetBox SDK</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#authentication" class="md-skip">
+        <a href="#package-integration" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Authentication
+              Package integration
             
           </span>
         </div>
@@ -261,13 +261,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../sdk/" class="md-tabs__link">
           
   
   
@@ -329,11 +327,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../developer/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -594,8 +594,6 @@
       
   
   
-    
-  
   
   
     
@@ -621,23 +619,22 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../sdk/" class="md-nav__link ">
               
   
   
@@ -655,13 +652,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -678,37 +675,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Authentication
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../sdk/authentication/" class="md-nav__link">
         
   
   
@@ -724,120 +694,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#token-versions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Token versions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#automatic-v2-v1-fallback" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Automatic v2 → v1 fallback
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#auth-header-helpers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Auth header helpers
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#profile-storage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Profile storage
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Profile storage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#file-security" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        File security
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-variable-overrides" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Environment variable overrides
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#validating-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Validating configuration
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#url-normalization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        URL normalization
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -850,7 +706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../making-requests/" class="md-nav__link">
+      <a href="../../sdk/making-requests/" class="md-nav__link">
         
   
   
@@ -878,7 +734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../facade/" class="md-nav__link">
+      <a href="../../sdk/facade/" class="md-nav__link">
         
   
   
@@ -906,7 +762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../typed/" class="md-nav__link">
+      <a href="../../sdk/typed/" class="md-nav__link">
         
   
   
@@ -934,7 +790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../schema/" class="md-nav__link">
+      <a href="../../sdk/schema/" class="md-nav__link">
         
   
   
@@ -962,7 +818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../error-handling/" class="md-nav__link">
+      <a href="../../sdk/error-handling/" class="md-nav__link">
         
   
   
@@ -2274,6 +2130,8 @@
       
   
   
+    
+  
   
   
     
@@ -2301,22 +2159,23 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../developer/" class="md-nav__link ">
+            <a href="../" class="md-nav__link ">
               
   
   
@@ -2334,13 +2193,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2360,7 +2219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developer/architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -2385,10 +2244,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../developer/package-integration/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Package integration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2404,6 +2290,103 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pypi-project-and-optional-extras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PyPI project and optional extras
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#public-sdk-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public SDK surface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#allowed-import-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allowed import edges
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-process-runtime-state-netbox_cliruntime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In-process runtime state (netbox_cli.runtime)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-command-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI command registration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry point
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2416,7 +2399,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developer/design-principles/" class="md-nav__link">
+      <a href="../design-principles/" class="md-nav__link">
         
   
   
@@ -2444,7 +2427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developer/textual-composition/" class="md-nav__link">
+      <a href="../textual-composition/" class="md-nav__link">
         
   
   
@@ -2472,7 +2455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../developer/docgen/" class="md-nav__link">
+      <a href="../docgen/" class="md-nav__link">
         
   
   
@@ -2583,10 +2566,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#token-versions" class="md-nav__link">
+  <a href="#pypi-project-and-optional-extras" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Token versions
+        PyPI project and optional extras
       
     </span>
   </a>
@@ -2594,10 +2577,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#automatic-v2-v1-fallback" class="md-nav__link">
+  <a href="#public-sdk-surface" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Automatic v2 → v1 fallback
+        Public SDK surface
       
     </span>
   </a>
@@ -2605,10 +2588,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#auth-header-helpers" class="md-nav__link">
+  <a href="#layer-diagram" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Auth header helpers
+        Layer diagram
       
     </span>
   </a>
@@ -2616,38 +2599,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#profile-storage" class="md-nav__link">
+  <a href="#allowed-import-edges" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Profile storage
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Profile storage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#file-security" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        File security
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-variable-overrides" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Environment variable overrides
+        Allowed import edges
       
     </span>
   </a>
@@ -2655,10 +2610,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#validating-configuration" class="md-nav__link">
+  <a href="#in-process-runtime-state-netbox_cliruntime" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Validating configuration
+        In-process runtime state (netbox_cli.runtime)
       
     </span>
   </a>
@@ -2666,10 +2621,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#url-normalization" class="md-nav__link">
+  <a href="#cli-command-registration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        URL normalization
+        CLI command registration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry point
       
     </span>
   </a>
@@ -2722,7 +2688,7 @@
         <a href="../" class="md-path__link">
           
   <span class="md-ellipsis">
-    SDK
+    Developer Guide
   </span>
 
         </a>
@@ -2744,141 +2710,107 @@
   
 
 
-<h1 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h1>
-<p>NetBox supports two token formats. The SDK handles both transparently.</p>
-<hr />
-<h2 id="token-versions">Token versions<a class="headerlink" href="#token-versions" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">v2 (default)</label><label for="__tabbed_1_2">v1 (legacy)</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p>NetBox 4.x issues v2 tokens in two parts: a <strong>key</strong> prefix and a <strong>secret</strong> suffix, combined as <code>nbt_&lt;key&gt;.&lt;secret&gt;</code>.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">netbox_sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://netbox.example.com&quot;</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">token_version</span><span class="o">=</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">token_key</span><span class="o">=</span><span class="s2">&quot;abc123&quot;</span><span class="p">,</span>         <span class="c1"># the part after &quot;nbt_&quot;</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">token_secret</span><span class="o">=</span><span class="s2">&quot;def456xyz&quot;</span><span class="p">,</span>   <span class="c1"># the secret suffix</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">)</span>
-</span></code></pre></div>
-<p>The <code>Authorization</code> header sent to NetBox will be:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Bearer nbt_abc123.def456xyz
-</span></code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<p>Older NetBox instances use a single opaque token:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;https://netbox.example.com&quot;</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">token_version</span><span class="o">=</span><span class="s2">&quot;v1&quot;</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">token_secret</span><span class="o">=</span><span class="s2">&quot;abcdef1234567890abcdef1234567890abcdef12&quot;</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">)</span>
-</span></code></pre></div>
-<p>The <code>Authorization</code> header will be:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Token abcdef1234567890abcdef1234567890abcdef12
-</span></code></pre></div></p>
-</div>
-</div>
-</div>
-<hr />
-<h2 id="automatic-v2-v1-fallback">Automatic v2 → v1 fallback<a class="headerlink" href="#automatic-v2-v1-fallback" title="Permanent link">&para;</a></h2>
-<p>If your configuration specifies v2 but the NetBox instance rejects the Bearer token with <code>"Invalid v2 token"</code>, the client automatically retries with the v1 <code>Token &lt;secret&gt;</code> header. This handles instances that have v1 tokens stored but are accessed with v2 config.</p>
-<hr />
-<h2 id="auth-header-helpers">Auth header helpers<a class="headerlink" href="#auth-header-helpers" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">netbox_sdk.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">authorization_header_value</span><span class="p">,</span> <span class="n">resolved_token</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="n">token_version</span><span class="o">=</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span> <span class="n">token_key</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">token_secret</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">resolved_token</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>              <span class="c1"># &quot;nbt_k.s&quot;</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">authorization_header_value</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>  <span class="c1"># &quot;Bearer nbt_k.s&quot;</span>
-</span></code></pre></div>
-<hr />
-<h2 id="profile-storage">Profile storage<a class="headerlink" href="#profile-storage" title="Permanent link">&para;</a></h2>
-<p>The SDK stores named connection profiles at <code>~/.config/netbox-sdk/config.json</code>
-(or <code>$XDG_CONFIG_HOME/netbox-sdk/config.json</code>).</p>
-<p>If you already have a historical <code>netbox-cli</code> config file, the SDK still reads
-it automatically until a new NetBox SDK config is written.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">netbox_sdk.config</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">load_profile_config</span><span class="p">,</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">save_profile_config</span><span class="p">,</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">clear_profile_config</span><span class="p">,</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">DEFAULT_PROFILE</span><span class="p">,</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">)</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># Load the &quot;default&quot; profile (applies env var overrides automatically)</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">cfg</span> <span class="o">=</span> <span class="n">load_profile_config</span><span class="p">()</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">cfg</span> <span class="o">=</span> <span class="n">load_profile_config</span><span class="p">(</span><span class="n">DEFAULT_PROFILE</span><span class="p">)</span>   <span class="c1"># same thing</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1"># Save a custom profile</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="n">save_profile_config</span><span class="p">(</span><span class="s2">&quot;production&quot;</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="n">save_profile_config</span><span class="p">(</span><span class="s2">&quot;staging&quot;</span><span class="p">,</span> <span class="n">staging_cfg</span><span class="p">)</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="c1"># Load a named profile (no env var overrides applied)</span>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="n">staging</span> <span class="o">=</span> <span class="n">load_profile_config</span><span class="p">(</span><span class="s2">&quot;staging&quot;</span><span class="p">)</span>
-</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
-</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="c1"># Remove a profile</span>
-</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="n">clear_profile_config</span><span class="p">(</span><span class="s2">&quot;staging&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<h3 id="file-security">File security<a class="headerlink" href="#file-security" title="Permanent link">&para;</a></h3>
-<p>The config directory is created with mode <code>0o700</code> and the config file with <code>0o600</code> to prevent other users on the same system from reading your credentials.</p>
-<hr />
-<h2 id="environment-variable-overrides">Environment variable overrides<a class="headerlink" href="#environment-variable-overrides" title="Permanent link">&para;</a></h2>
-<p>For the <strong>default profile only</strong>, these environment variables override values from disk:</p>
+<h1 id="package-integration">Package integration<a class="headerlink" href="#package-integration" title="Permanent link">&para;</a></h1>
+<p>This document describes how the installable artifact, import paths, and subsystems fit together.</p>
+<h2 id="pypi-project-and-optional-extras">PyPI project and optional extras<a class="headerlink" href="#pypi-project-and-optional-extras" title="Permanent link">&para;</a></h2>
+<p>The primary PyPI project is <code>netbox-sdk</code> (see <code>pyproject.toml</code>). The same distribution ships three top-level packages:</p>
 <table>
 <thead>
 <tr>
-<th>Variable</th>
-<th>Config field</th>
+<th>Import package</th>
+<th>Role</th>
+<th>Typical install</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>NETBOX_URL</code></td>
-<td><code>base_url</code></td>
+<td><code>netbox_sdk</code></td>
+<td>REST client, config, schema, services, typed API</td>
+<td><code>pip install netbox-sdk</code></td>
 </tr>
 <tr>
-<td><code>NETBOX_TOKEN_KEY</code></td>
-<td><code>token_key</code></td>
+<td><code>netbox_cli</code></td>
+<td>Typer <code>nbx</code> CLI</td>
+<td><code>pip install 'netbox-sdk[cli]'</code></td>
 </tr>
 <tr>
-<td><code>NETBOX_TOKEN_SECRET</code></td>
-<td><code>token_secret</code></td>
+<td><code>netbox_tui</code></td>
+<td>Textual TUIs</td>
+<td><code>pip install 'netbox-sdk[tui]'</code></td>
 </tr>
 </tbody>
 </table>
-<p>Environment variables take precedence over stored values. Useful for CI/CD:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">NETBOX_URL</span><span class="o">=</span>https://netbox.example.com<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nv">NETBOX_TOKEN_KEY</span><span class="o">=</span>mykey<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nv">NETBOX_TOKEN_SECRET</span><span class="o">=</span>mysecret<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>python<span class="w"> </span>your_script.py
-</span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">netbox_sdk.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_config</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">cfg</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">()</span>   <span class="c1"># picks up the environment variables</span>
-</span></code></pre></div>
-<hr />
-<h2 id="validating-configuration">Validating configuration<a class="headerlink" href="#validating-configuration" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">netbox_sdk.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_runtime_config_complete</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">is_runtime_config_complete</span><span class="p">(</span><span class="n">cfg</span><span class="p">):</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing base_url or token credentials&quot;</span><span class="p">)</span>
-</span></code></pre></div>
-<p>This checks that <code>base_url</code>, <code>token_secret</code>, and (for v2) <code>token_key</code> are all present.</p>
-<hr />
-<h2 id="url-normalization">URL normalization<a class="headerlink" href="#url-normalization" title="Permanent link">&para;</a></h2>
-<p>The <code>base_url</code> field is normalized on assignment:</p>
+<p>Use <code>pip install 'netbox-sdk[all]'</code> for CLI + TUI + demo tooling.</p>
+<h2 id="public-sdk-surface">Public SDK surface<a class="headerlink" href="#public-sdk-surface" title="Permanent link">&para;</a></h2>
+<p>Stable symbols for library use are exported from <code>netbox_sdk</code> (see <code>netbox_sdk/__init__.py</code>), including:</p>
 <ul>
-<li>Adds <code>https://</code> if no scheme is given</li>
-<li>Strips trailing slashes</li>
-<li>Rejects embedded credentials (<code>user:pass@host</code>)</li>
-<li>Rejects non-HTTP schemes (<code>ftp://</code>, <code>file://</code>)</li>
-<li>Rejects query strings and fragments</li>
+<li><code>NetBoxApiClient</code>, <code>ApiResponse</code>, <code>ConnectionProbe</code>, <code>RequestError</code></li>
+<li><code>Config</code>, <code>load_profile_config</code>, <code>save_config</code>, and related profile helpers</li>
+<li><code>SchemaIndex</code>, <code>load_openapi_schema</code>, <code>build_schema_index</code></li>
+<li><code>ResolvedRequest</code>, <code>resolve_dynamic_request</code>, <code>run_dynamic_command</code></li>
+<li>Typed facade (<code>api</code>, <code>typed_api</code>, …) and version support types</li>
 </ul>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">netbox_sdk.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">normalize_base_url</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">normalize_base_url</span><span class="p">(</span><span class="s2">&quot;netbox.example.com&quot;</span><span class="p">)</span>         <span class="c1"># &quot;https://netbox.example.com&quot;</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">normalize_base_url</span><span class="p">(</span><span class="s2">&quot;http://netbox.example.com/&quot;</span><span class="p">)</span> <span class="c1"># &quot;http://netbox.example.com&quot;</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">normalize_base_url</span><span class="p">(</span><span class="s2">&quot;ftp://netbox.example.com&quot;</span><span class="p">)</span>   <span class="c1"># raises ValueError</span>
+<p>Everything outside that <code>__all__</code> is considered internal unless documented otherwise.</p>
+<h2 id="layer-diagram">Layer diagram<a class="headerlink" href="#layer-diagram" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>flowchart TB
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  subgraph sdk [netbox_sdk]
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    config[config.py]
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    schema[schema.py]
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    services[services.py]
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    client[client.py]
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    config --&gt; client
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    schema --&gt; services
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    client --&gt; services
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  end
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  subgraph cli [netbox_cli]
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    runtime[runtime.py]
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    dynamic[dynamic.py]
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    runtime --&gt; client
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    runtime --&gt; schema
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    dynamic --&gt; runtime
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    dynamic --&gt; services
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>  end
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>  subgraph tui [netbox_tui]
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    app[app.py]
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>  end
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>  cli --&gt; sdk
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>  tui --&gt; sdk
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>  cli -. lazy launch .-&gt; tui
 </span></code></pre></div>
+<h2 id="allowed-import-edges">Allowed import edges<a class="headerlink" href="#allowed-import-edges" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>From</th>
+<th>May import</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>netbox_sdk</code></td>
+<td>stdlib + declared deps only</td>
+<td>Must <strong>not</strong> import <code>netbox_cli</code> or <code>netbox_tui</code>.</td>
+</tr>
+<tr>
+<td><code>netbox_cli</code></td>
+<td><code>netbox_sdk</code>, then <code>netbox_tui</code> only via lazy helpers (<code>support.load_tui_callables</code>)</td>
+<td>Entry: <code>netbox_cli:main</code> → <code>nbx</code>.</td>
+</tr>
+<tr>
+<td><code>netbox_tui</code></td>
+<td><code>netbox_sdk</code></td>
+<td>Receives <code>NetBoxApiClient</code> and <code>SchemaIndex</code> from the caller or CLI.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="in-process-runtime-state-netbox_cliruntime">In-process runtime state (<code>netbox_cli.runtime</code>)<a class="headerlink" href="#in-process-runtime-state-netbox_cliruntime" title="Permanent link">&para;</a></h2>
+<p><code>netbox_cli.runtime</code> holds <code>_RUNTIME_CONFIGS</code>, <code>_cache_profile</code>, <code>_get_client</code>, <code>_get_index</code>, and related helpers. Demo token refresh updates the cached profile via <code>_cache_profile</code> so the CLI process stays consistent without the SDK client importing Typer.</p>
+<h2 id="cli-command-registration">CLI command registration<a class="headerlink" href="#cli-command-registration" title="Permanent link">&para;</a></h2>
+<p>Commands are registered on the root <code>Typer</code> app in <code>netbox_cli/__init__.py</code>. Dynamic OpenAPI commands are built in <code>netbox_cli/dynamic.py</code>; <code>_runtime_get_client</code> / <code>_runtime_get_index</code> resolve through <code>netbox_cli.runtime</code> at call time so tests can patch those factories.</p>
+<h2 id="entry-point">Entry point<a class="headerlink" href="#entry-point" title="Permanent link">&para;</a></h2>
+<p>Console script <code>nbx</code> maps to <code>netbox_cli:main</code>.</p>
+<p>See also: <a href="../architecture/">Architecture</a>, <a href="../design-principles/">Design principles</a>.</p>
 
 
 
