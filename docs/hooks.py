@@ -68,7 +68,9 @@ def _write_placeholder_indexes() -> None:
         )
 
 
-def _render_section(section: str, runs: list[dict], stdout_map: dict[tuple[str, str, str], dict]) -> str:
+def _render_section(
+    section: str, runs: list[dict], stdout_map: dict[tuple[str, str, str], dict]
+) -> str:
     lines: list[str] = [f"# {section}", ""]
 
     for run in runs:

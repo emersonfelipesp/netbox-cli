@@ -146,9 +146,7 @@ def truncate(text: str, max_lines: int, max_chars: int) -> tuple[str, bool]:
 
 def build_slug(surface: str, section: str, title: str, max_len: int = 96) -> str:
     """Create a filesystem-safe slug from surface + section + title."""
-    raw = (
-        f"{surface}-{section}-{title}"[:max_len].lower().replace(" ", "-").replace("/", "-")
-    )
+    raw = f"{surface}-{section}-{title}"[:max_len].lower().replace(" ", "-").replace("/", "-")
     slug = "".join(c if c.isalnum() or c == "-" else "-" for c in raw)
     while "--" in slug:
         slug = slug.replace("--", "-")
