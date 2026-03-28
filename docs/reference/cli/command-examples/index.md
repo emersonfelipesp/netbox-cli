@@ -6,7 +6,7 @@ These captures document the `netbox_cli` package. Any command that talks to a li
 
 !!! info "Machine-generated"
     These pages are generated from the command-capture artifacts.
-    Last updated: `2026-03-28T01:56:20.104708+00:00`
+    Last updated: `2026-03-28T02:54:01.319776+00:00`
 
 ??? note "Generation metadata"
     | Key | Value |
