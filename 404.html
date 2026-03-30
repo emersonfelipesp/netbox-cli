@@ -1,18 +1,22 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="pt" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="SDK-first NetBox toolkit with Python SDK, CLI, and Textual TUIs">
+        <meta name="description" content="Kit de ferramentas NetBox com SDK Python, CLI e TUIs Textual, priorizando o SDK.">
       
       
       
       
       
       
+        
+          <link rel="alternate" href="/netbox-sdk/tui/themes/" hreflang="en">
+        
+          <link rel="alternate" href="/netbox-sdk/pt/tui/themes/" hreflang="pt">
         
       
       
@@ -84,8 +88,8 @@
   
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/netbox-sdk/." title="NetBox SDK" class="md-header__button md-logo" aria-label="NetBox SDK" data-md-component="logo">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="/netbox-sdk/pt/" title="NetBox SDK" class="md-header__button md-logo" aria-label="NetBox SDK" data-md-component="logo">
       
   <img src="/netbox-sdk/assets/logo.svg" alt="logo">
 
@@ -117,9 +121,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Mudar para o modo claro"  type="radio" name="__palette" id="__palette_0">
     
-      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+      <label class="md-header__button md-icon" title="Mudar para o modo claro" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
       </label>
     
@@ -127,9 +131,9 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Mudar para o modo escuro"  type="radio" name="__palette" id="__palette_1">
     
-      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+      <label class="md-header__button md-icon" title="Mudar para o modo escuro" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
       </label>
     
@@ -140,6 +144,32 @@
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Selecione o idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/netbox-sdk/tui/themes/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/netbox-sdk/pt/tui/themes/" hreflang="pt" class="md-select__link">
+              Português (Brasil)
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
     
     
       
@@ -152,16 +182,16 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="Pesquisar">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
@@ -174,7 +204,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            Inicializando a pesquisa
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -186,7 +216,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/emersonfelipesp/netbox-sdk" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/emersonfelipesp/netbox-sdk" title="Ir ao repositório" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -201,7 +231,7 @@
   
     
       
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       
@@ -211,13 +241,13 @@
   
   
     <li class="md-tabs__item">
-      <a href="/netbox-sdk/." class="md-tabs__link">
+      <a href="/netbox-sdk/pt/" class="md-tabs__link">
         
   
   
     
   
-  Home
+  Início
 
       </a>
     </li>
@@ -232,13 +262,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="/netbox-sdk/getting-started/" class="md-tabs__link">
+        <a href="/netbox-sdk/pt/getting-started/" class="md-tabs__link">
           
   
   
     
   
-  Getting Started
+  Primeiros passos
 
         </a>
       </li>
@@ -254,7 +284,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/netbox-sdk/sdk/" class="md-tabs__link">
+        <a href="/netbox-sdk/pt/sdk/" class="md-tabs__link">
           
   
   
@@ -276,7 +306,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/netbox-sdk/cli/" class="md-tabs__link">
+        <a href="/netbox-sdk/pt/cli/" class="md-tabs__link">
           
   
   
@@ -298,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/netbox-sdk/tui/" class="md-tabs__link">
+        <a href="/netbox-sdk/pt/tui/" class="md-tabs__link">
           
   
   
@@ -320,13 +350,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="/netbox-sdk/developer/" class="md-tabs__link">
+        <a href="/netbox-sdk/pt/developer/" class="md-tabs__link">
           
   
   
     
   
-  Developer Guide
+  Guia do desenvolvedor
 
         </a>
       </li>
@@ -360,9 +390,9 @@
   
 
 
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/netbox-sdk/." title="NetBox SDK" class="md-nav__button md-logo" aria-label="NetBox SDK" data-md-component="logo">
+    <a href="/netbox-sdk/pt/" title="NetBox SDK" class="md-nav__button md-logo" aria-label="NetBox SDK" data-md-component="logo">
       
   <img src="/netbox-sdk/assets/logo.svg" alt="logo">
 
@@ -371,7 +401,7 @@
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/emersonfelipesp/netbox-sdk" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/emersonfelipesp/netbox-sdk" title="Ir ao repositório" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
@@ -391,14 +421,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/." class="md-nav__link">
+      <a href="/netbox-sdk/pt/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Home
+    Início
   
 
     
@@ -449,14 +479,14 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="/netbox-sdk/getting-started/" class="md-nav__link ">
+            <a href="/netbox-sdk/pt/getting-started/" class="md-nav__link ">
               
   
   
   <span class="md-ellipsis">
     
   
-    Getting Started
+    Primeiros passos
   
 
     
@@ -478,7 +508,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Getting Started
+    Primeiros passos
   
 
           </label>
@@ -493,14 +523,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/getting-started/installation/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/getting-started/installation/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Installation
+    Instalação
   
 
     
@@ -521,14 +551,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/getting-started/configuration/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/getting-started/configuration/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Configuration
+    Configuração
   
 
     
@@ -549,14 +579,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/getting-started/quickstart/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/getting-started/quickstart/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Quick Start
+    Início rápido
   
 
     
@@ -621,7 +651,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="/netbox-sdk/sdk/" class="md-nav__link ">
+            <a href="/netbox-sdk/pt/sdk/" class="md-nav__link ">
               
   
   
@@ -665,14 +695,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/sdk/authentication/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/sdk/authentication/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Authentication
+    Autenticação
   
 
     
@@ -693,14 +723,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/sdk/making-requests/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/sdk/making-requests/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Requests and Transport
+    Requisições e transporte
   
 
     
@@ -721,14 +751,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/sdk/facade/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/sdk/facade/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Facade API
+    API de fachada
   
 
     
@@ -749,14 +779,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/sdk/typed/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/sdk/typed/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Typed API
+    API tipada
   
 
     
@@ -777,14 +807,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/sdk/schema/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/sdk/schema/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Schema Indexing
+    Indexação de esquema
   
 
     
@@ -805,14 +835,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/sdk/error-handling/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/sdk/error-handling/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Error Handling
+    Tratamento de erros
   
 
     
@@ -877,7 +907,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="/netbox-sdk/cli/" class="md-nav__link ">
+            <a href="/netbox-sdk/pt/cli/" class="md-nav__link ">
               
   
   
@@ -921,14 +951,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/cli/commands/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/cli/commands/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Commands
+    Comandos
   
 
     
@@ -949,14 +979,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/cli/dynamic-commands/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/cli/dynamic-commands/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Dynamic Commands
+    Comandos dinâmicos
   
 
     
@@ -977,7 +1007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/cli/graphql/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/cli/graphql/" class="md-nav__link">
         
   
   
@@ -1005,14 +1035,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/cli/demo-profile/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/cli/demo-profile/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Demo Profile
+    Perfil demo
   
 
     
@@ -1037,10 +1067,6 @@
       
         
           
-        
-      
-        
-      
         
       
         
@@ -1074,14 +1100,14 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="/netbox-sdk/reference/cli/command-examples/" class="md-nav__link ">
+            <a href="/netbox-sdk/pt/reference/cli/command-examples/" class="md-nav__link ">
               
   
   
   <span class="md-ellipsis">
     
   
-    Captured Command Output
+    Saída de comandos capturados
   
 
     
@@ -1103,7 +1129,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Captured Command Output
+    Saída de comandos capturados
   
 
           </label>
@@ -1118,14 +1144,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/cli/command-examples/core-commands/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/cli/command-examples/core-commands/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Core Commands
+    Comandos principais
   
 
     
@@ -1146,14 +1172,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/cli/command-examples/schema-discovery/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/cli/command-examples/schema-discovery/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Schema Discovery
+    Descoberta de esquema
   
 
     
@@ -1174,14 +1200,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/cli/command-examples/graphql-and-http/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/cli/command-examples/graphql-and-http/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    GraphQL and HTTP
+    GraphQL e HTTP
   
 
     
@@ -1202,14 +1228,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/cli/command-examples/dynamic-commands/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/cli/command-examples/dynamic-commands/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Dynamic Commands
+    Comandos dinâmicos
   
 
     
@@ -1230,14 +1256,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/cli/command-examples/developer-tools/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/cli/command-examples/developer-tools/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Developer Tools
+    Ferramentas de desenvolvimento
   
 
     
@@ -1258,70 +1284,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/cli/command-examples/demo-profile/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/cli/command-examples/demo-profile/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Demo Profile
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/cli/command-examples/live-api/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Live API
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/cli/command-examples/cable-trace/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Cable Trace
+    Perfil demo
   
 
     
@@ -1350,14 +1320,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/generated/nbx-command-capture/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/generated/nbx-command-capture/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Raw Capture Artifact
+    Artefato bruto de captura
   
 
     
@@ -1389,6 +1359,8 @@
       
         
           
+        
+      
         
       
         
@@ -1428,7 +1400,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="/netbox-sdk/tui/" class="md-nav__link ">
+            <a href="/netbox-sdk/pt/tui/" class="md-nav__link ">
               
   
   
@@ -1474,14 +1446,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/dev-workbench/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/dev-workbench/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Developer Workbench
+    Bancada do desenvolvedor
   
 
     
@@ -1502,14 +1474,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/cli-builder/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/graphql/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    CLI Builder
+    TUI GraphQL
   
 
     
@@ -1530,14 +1502,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/logs/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/cli-builder/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Logs Viewer
+    Construtor de CLI
   
 
     
@@ -1558,14 +1530,42 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/django-models/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/logs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Django Models Browser
+    Visualizador de logs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/netbox-sdk/pt/tui/django-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navegador de modelos Django
   
 
     
@@ -1590,6 +1590,8 @@
       
         
           
+        
+      
         
       
         
@@ -1617,18 +1619,18 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_7" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_8" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="/netbox-sdk/reference/tui/launch-examples/" class="md-nav__link ">
+            <a href="/netbox-sdk/pt/reference/tui/launch-examples/" class="md-nav__link ">
               
   
   
   <span class="md-ellipsis">
     
   
-    Launch Command Output
+    Saída de comandos de lançamento
   
 
     
@@ -1639,18 +1641,18 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_7">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Launch Command Output
+    Saída de comandos de lançamento
   
 
           </label>
@@ -1665,14 +1667,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/tui/launch-examples/main-browser/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/tui/launch-examples/main-browser/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Main Browser
+    Navegador principal
   
 
     
@@ -1693,14 +1695,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/tui/launch-examples/logs-viewer/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/tui/launch-examples/logs-viewer/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Logs Viewer
+    Visualizador de logs
   
 
     
@@ -1721,14 +1723,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/tui/launch-examples/developer-workbench/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/tui/launch-examples/developer-workbench/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Developer Workbench
+    Bancada do desenvolvedor
   
 
     
@@ -1749,14 +1751,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/tui/launch-examples/cli-builder/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/tui/launch-examples/graphql-tui/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    CLI Builder
+    TUI GraphQL
   
 
     
@@ -1777,14 +1779,42 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/reference/tui/launch-examples/django-models-browser/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/reference/tui/launch-examples/cli-builder/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Django Models Browser
+    Construtor de CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/netbox-sdk/pt/reference/tui/launch-examples/django-models-browser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navegador de modelos Django
   
 
     
@@ -1813,14 +1843,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/themes/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/themes/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Themes
+    Temas
   
 
     
@@ -1841,14 +1871,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/keybindings/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/keybindings/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Keyboard Shortcuts
+    Atalhos de teclado
   
 
     
@@ -1870,6 +1900,8 @@
   
     
     
+      
+        
       
         
       
@@ -1898,17 +1930,17 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_10" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_11" >
         
           
-          <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_11" id="__nav_5_11_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Screenshot Gallery
+    Galeria de capturas de tela
   
 
     
@@ -1919,12 +1951,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_10">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_11">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Screenshot Gallery
+    Galeria de capturas de tela
   
 
           </label>
@@ -1937,14 +1969,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/screenshots/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/screenshots/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    TUI Screenshots
+    Capturas de tela da TUI
   
 
     
@@ -1965,14 +1997,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/screenshots-default/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/screenshots-default/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Main Browser
+    Navegador principal
   
 
     
@@ -1993,14 +2025,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/screenshots-dev/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/screenshots-dev/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Developer Workbench
+    Bancada do desenvolvedor
   
 
     
@@ -2021,14 +2053,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/screenshots-logs/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/screenshots-graphql/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Logs Viewer
+    TUI GraphQL
   
 
     
@@ -2049,14 +2081,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/screenshots-cli/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/screenshots-logs/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    CLI Builder
+    Visualizador de logs
   
 
     
@@ -2077,14 +2109,42 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/tui/screenshots-django/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/tui/screenshots-cli/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Django Models Browser
+    Construtor de CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="/netbox-sdk/pt/tui/screenshots-django/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navegador de modelos Django
   
 
     
@@ -2159,14 +2219,14 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="/netbox-sdk/developer/" class="md-nav__link ">
+            <a href="/netbox-sdk/pt/developer/" class="md-nav__link ">
               
   
   
   <span class="md-ellipsis">
     
   
-    Developer Guide
+    Guia do desenvolvedor
   
 
     
@@ -2188,7 +2248,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Developer Guide
+    Guia do desenvolvedor
   
 
           </label>
@@ -2203,14 +2263,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/developer/architecture/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/developer/architecture/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Architecture
+    Arquitetura
   
 
     
@@ -2231,14 +2291,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/developer/package-integration/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/developer/package-integration/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Package integration
+    Integração de pacotes
   
 
     
@@ -2259,14 +2319,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/developer/design-principles/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/developer/design-principles/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Design principles
+    Princípios de design
   
 
     
@@ -2287,14 +2347,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/developer/textual-composition/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/developer/textual-composition/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Textual Composition Pattern
+    Padrão de composição Textual
   
 
     
@@ -2315,14 +2375,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/developer/docgen/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/developer/docgen/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Documentation Generation
+    Geração de documentação
   
 
     
@@ -2343,14 +2403,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/command-capture-guide/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/command-capture-guide/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Command Capture Guide
+    Guia de captura de comandos
   
 
     
@@ -2371,14 +2431,14 @@
   
   
     <li class="md-nav__item">
-      <a href="/netbox-sdk/NETBOX_UI_TO_TEXTUAL_GUIDELINES/" class="md-nav__link">
+      <a href="/netbox-sdk/pt/NETBOX_UI_TO_TEXTUAL_GUIDELINES/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    NetBox UI Guidelines
+    Diretrizes de UI do NetBox
   
 
     
@@ -2412,7 +2472,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
   
   
   
@@ -2450,7 +2510,7 @@
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  Back to top
+  Voltar ao topo
 </button>
         
       </main>
@@ -2498,7 +2558,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "/netbox-sdk/", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.path", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "/netbox-sdk/assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "/netbox-sdk/", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.path", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "/netbox-sdk/assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
     
     
       <script src="/netbox-sdk/assets/javascripts/bundle.79ae519e.min.js"></script>
