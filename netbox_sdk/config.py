@@ -1,7 +1,15 @@
-"""Configuration loading, profile persistence, and private config file handling."""
+"""Configuration loading, profile persistence, and private config file handling.
+
+Security considerations:
+- Token values have CR/LF/null bytes stripped to prevent HTTP header injection
+- Config files are written with restrictive permissions (0o600)
+- URLs are validated to reject non-HTTP schemes and embedded credentials
+- Cache keys use SHA-256 fingerprints of tokens, never raw tokens
+"""
 
 from __future__ import annotations
 
+import hmac
 import json
 import logging
 import os
@@ -353,3 +361,23 @@ def is_runtime_config_complete(cfg: Config) -> bool:
     if cfg.token_version == "v1":
         return True
     return bool(cfg.token_key)
+
+
+def timing_safe_token_compare(a: str | None, b: str | None) -> bool:
+    """Compare two tokens in timing-safe manner to prevent timing attacks.
+
+    Uses hmac.compare_digest() for constant-time comparison to avoid
+    leaking information about token contents via timing side channels.
+
+    Args:
+        a: First token or None
+        b: Second token or None
+
+    Returns:
+        True if both are None or tokens are equal, False otherwise
+    """
+    if a is None and b is None:
+        return True
+    if a is None or b is None:
+        return False
+    return hmac.compare_digest(a, b)
