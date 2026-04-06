@@ -1,4 +1,13 @@
-"""Data models and HTTP client logic for authenticated NetBox API requests."""
+"""Data models and HTTP client logic for authenticated NetBox API requests.
+
+Security considerations:
+- Authorization headers are constructed from sanitized token values
+- Request paths must be relative to base URL (no SSRF via absolute URLs)
+- Query parameters and fragments are rejected in request paths
+- TLS certificate verification can be disabled via ssl_verify=False (logged at WARNING)
+- HTTP cache entries use private file permissions (0o600)
+- Cache keys are SHA-256 fingerprints, never raw tokens or credentials
+"""
 
 from __future__ import annotations
 

@@ -1,7 +1,8 @@
 """SDK-specific errors raised by the NetBox HTTP client and high-level ``api()`` facade.
 
-Callers can import these types from ``netbox_sdk`` or ``netbox_sdk.exceptions`` to branch on
-failures without parsing exception messages.
+Security note: All token handling strips CR/LF/null bytes to prevent HTTP header injection.
+URL validation rejects non-HTTP schemes, embedded credentials, and control characters.
+Cache keys use SHA-256 fingerprints rather than raw tokens.
 """
 
 from __future__ import annotations
