@@ -8,7 +8,7 @@ import logging
 from collections.abc import Callable
 from enum import StrEnum
 from importlib import import_module
-from typing import Any
+from typing import Any, NoReturn
 
 import click
 import typer
@@ -149,7 +149,7 @@ def load_tui_callables(module_path: str, *names: str) -> tuple[Any, ...]:
     return tuple(getattr(module, name) for name in names)
 
 
-def rethrow_theme_catalog_error(exc: Exception) -> None:
+def rethrow_theme_catalog_error(exc: Exception) -> NoReturn:
     if exc.__class__.__name__ == "ThemeCatalogError":
         raise typer.BadParameter(f"Theme configuration error: {exc}") from exc
     raise exc

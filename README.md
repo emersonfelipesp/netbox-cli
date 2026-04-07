@@ -108,6 +108,7 @@ nbx logs
 uv sync --dev --extra cli --extra tui --extra demo
 uv run pre-commit install --hook-type pre-commit --hook-type pre-push
 uv run pre-commit run --all-files
+uv run ty check netbox_sdk netbox_cli netbox_tui tests
 uv run pytest
 ```
 

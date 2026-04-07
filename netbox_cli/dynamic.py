@@ -10,6 +10,7 @@ from __future__ import annotations
 import logging
 from collections.abc import Callable
 from importlib import import_module
+from typing import Any
 
 import typer
 
@@ -50,7 +51,7 @@ def _run_dynamic_command(
     query_pairs: list[str],
     body_json: str | None,
     body_file: str | None,
-) -> ApiResponse:
+) -> Any:
     """Invoke :func:`netbox_sdk.services.run_dynamic_command` (or patched CLI hook)."""
     cli_module = import_module("netbox_cli")
     fn = getattr(cli_module, "run_dynamic_command", None)
@@ -474,7 +475,7 @@ def _build_action_command(
                 resource=resource,
                 action=action,
                 object_id=object_id,
-                client=client,
+                client=client or _runtime_get_client(),
                 index=index,
             )
 

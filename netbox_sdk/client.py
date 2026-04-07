@@ -58,7 +58,7 @@ class ApiResponse(BaseModel):
     text: str
     headers: dict[str, str] = Field(default_factory=dict)
 
-    def json(self) -> JSONValue:
+    def json(self) -> JSONValue:  # ty: ignore[invalid-method-override]
         """Parse the response body as JSON (scalar, object, or array)."""
         return json.loads(self.text)
 

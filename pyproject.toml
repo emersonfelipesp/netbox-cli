@@ -56,6 +56,7 @@ dev = [
   "pytest-timeout>=2.4.0",
   "pytest-xdist>=3.8.0",
   "ruff>=0.15.8",
+  "ty>=0.0.1a16",
   "textual>=8.2.0",
   "typer>=0.24.1",
   "playwright>=1.58.0",
@@ -73,6 +74,7 @@ dev = [
   "pytest-timeout>=2.4.0",
   "pytest-xdist>=3.8.0",
   "ruff>=0.15.8",
+  "ty>=0.0.1a16",
   "textual>=8.2.0",
   "typer>=0.24.1",
   "playwright>=1.58.0",
@@ -142,3 +144,20 @@ known-first-party = ["netbox_sdk", "netbox_tui", "netbox_cli"]
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+[tool.ty.src]
+exclude = [
+  "netbox_sdk/models/**",
+  "netbox_sdk/typed_versions/**",
+]
+
+[tool.ty.rules]
+invalid-argument-type = "ignore"
+invalid-assignment = "ignore"
+unresolved-attribute = "ignore"
+
+[[tool.ty.overrides]]
+include = ["tests/**"]
+
+[tool.ty.overrides.rules]
+all = "ignore"
