@@ -71,7 +71,36 @@ class ConnectionProbe(BaseModel):
 
 
 class NetBoxApiClient:
-    """Async NetBox REST client with optional HTTP cache, TLS options, and demo token refresh."""
+    """Async NetBox REST client with connection pooling and lifecycle management.
+
+    Thread Safety:
+        This class is NOT thread-safe. Use one client instance per coroutine/event loop.
+        For multi-threaded code, create separate client instances per thread, or use
+        proper synchronization.
+
+    Usage:
+        # Context manager (recommended):
+        async with NetBoxApiClient(config) as client:
+            response = await client.request("GET", "/api/dcim/devices/")
+
+        # Manual lifecycle:
+        client = NetBoxApiClient(config)
+        try:
+            response = await client.request("GET", "/api/dcim/devices/")
+        finally:
+            await client.close()
+
+        # Connection reuse (automatic):
+        client = NetBoxApiClient(config)
+        # Multiple requests reuse the same underlying aiohttp.ClientSession
+        await client.request("GET", "/api/dcim/devices/")
+        await client.request("GET", "/api/ipam/ip-addresses/")
+        await client.close()
+
+    Note:
+        Sessions are created lazily on first request and reused across subsequent requests.
+        Use the `session_active` property to check if a session exists.
+    """
 
     def __init__(
         self,
@@ -85,7 +114,9 @@ class NetBoxApiClient:
         self._default_headers: dict[str, str] = {}
         self._openapi_cache: dict[str, JSONValue] | None = None
         self._session: aiohttp.ClientSession | None = None
-        self._session_loop: asyncio.AbstractEventLoop | None = None
+        self._session_loop_id: int | None = None
+        self._session_lock: asyncio.Lock | None = None
+        self._context_depth: int = 0
         logger.debug("initialized api client for %s", self.config.base_url or "<unset>")
         bu = self.config.base_url or ""
         if bu and urlsplit(bu).scheme.lower() == "https" and self.config.ssl_verify is False:
@@ -105,8 +136,18 @@ class NetBoxApiClient:
 
         return _refresh
 
-    async def _get_session(self) -> "aiohttp.ClientSession":
-        """Get or create a reusable aiohttp session with connection pooling."""
+    def _get_lock(self) -> asyncio.Lock:
+        """Get or create the session lock (must be called from async context)."""
+        if self._session_lock is None:
+            self._session_lock = asyncio.Lock()
+        return self._session_lock
+
+    async def _get_session(self) -> aiohttp.ClientSession:
+        """Get or create a reusable aiohttp session with connection pooling.
+
+        Thread-safe via internal lock. If the session was created for a different
+        event loop, it is closed and a new one is created.
+        """
         try:
             import aiohttp
         except ModuleNotFoundError as exc:
@@ -117,31 +158,54 @@ class NetBoxApiClient:
         current_loop = asyncio.get_running_loop()
         current_loop_id = id(current_loop)
 
-        if self._session is None or self._session.closed or self._session_loop != current_loop_id:
-            if self._session is not None and not self._session.closed:
-                await self._session.close()
-            timeout = aiohttp.ClientTimeout(total=self.config.timeout)
-            connector = connector_for_config(self.config)
-            session_kwargs: dict[str, Any] = {"timeout": timeout}
-            if connector is not None:
-                session_kwargs["connector"] = connector
-            self._session = aiohttp.ClientSession(**session_kwargs)
-            self._session_loop = current_loop_id
+        async with self._get_lock():
+            if (
+                self._session is None
+                or self._session.closed
+                or self._session_loop_id != current_loop_id
+            ):
+                if self._session is not None and not self._session.closed:
+                    await self._session.close()
+                timeout = aiohttp.ClientTimeout(total=self.config.timeout)
+                connector = connector_for_config(self.config)
+                session_kwargs: dict[str, Any] = {"timeout": timeout}
+                if connector is not None:
+                    session_kwargs["connector"] = connector
+                self._session = aiohttp.ClientSession(**session_kwargs)
+                self._session_loop_id = current_loop_id
 
-        return self._session
+            return self._session
 
     async def close(self) -> None:
         """Close the underlying HTTP session and release resources."""
-        if self._session is not None and not self._session.closed:
-            await self._session.close()
-        self._session = None
-        self._session_loop = None
+        async with self._get_lock():
+            if self._session is not None and not self._session.closed:
+                await self._session.close()
+            self._session = None
+            self._session_loop_id = None
 
-    async def __aenter__(self) -> "NetBoxApiClient":
+    async def reset_session(self) -> None:
+        """Force close and recreate the session on next request."""
+        await self.close()
+
+    @property
+    def session_active(self) -> bool:
+        """Return True if a session exists and is not closed."""
+        return self._session is not None and not self._session.closed
+
+    @property
+    def current_loop_id(self) -> int | None:
+        """Return the event loop ID the session was created for, if any."""
+        return self._session_loop_id
+
+    async def __aenter__(self) -> NetBoxApiClient:
+        self._context_depth += 1
         return self
 
     async def __aexit__(self, *args: object) -> None:
-        await self.close()
+        self._context_depth -= 1
+        if self._context_depth == 0:
+            await self.close()
 
     def build_url(self, path: str) -> str:
         if not self.config.base_url:
@@ -171,13 +235,6 @@ class NetBoxApiClient:
         headers: dict[str, str] | None = None,
         expect_json: bool = True,
     ) -> ApiResponse:
-        try:
-            import aiohttp
-        except ModuleNotFoundError as exc:
-            raise RuntimeError(
-                "aiohttp is required for HTTP requests. Install project dependencies first."
-            ) from exc
-
         authorization = authorization_header_value(self.config)
         cache_policy = self._cache_policy(
             method=method,
