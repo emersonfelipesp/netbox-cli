@@ -142,6 +142,16 @@ class NetBoxApiClient:
             self._session_lock = asyncio.Lock()
         return self._session_lock
 
+    def _session_closed(self) -> bool:
+        """Return True when the current session is closed.
+
+        Some test doubles emulate only the subset of aiohttp.ClientSession used
+        by request execution and do not expose ``closed``.
+        """
+        if self._session is None:
+            return True
+        return bool(getattr(self._session, "closed", False))
+
     async def _get_session(self) -> aiohttp.ClientSession:
         """Get or create a reusable aiohttp session with connection pooling.
 
@@ -161,10 +171,10 @@ class NetBoxApiClient:
         async with self._get_lock():
             if (
                 self._session is None
-                or self._session.closed
+                or self._session_closed()
                 or self._session_loop_id != current_loop_id
             ):
-                if self._session is not None and not self._session.closed:
+                if self._session is not None and not self._session_closed():
                     await self._session.close()
                 timeout = aiohttp.ClientTimeout(total=self.config.timeout)
                 connector = connector_for_config(self.config)
@@ -179,7 +189,7 @@ class NetBoxApiClient:
     async def close(self) -> None:
         """Close the underlying HTTP session and release resources."""
         async with self._get_lock():
-            if self._session is not None and not self._session.closed:
+            if self._session is not None and not self._session_closed():
                 await self._session.close()
             self._session = None
             self._session_loop_id = None
@@ -191,7 +201,7 @@ class NetBoxApiClient:
     @property
     def session_active(self) -> bool:
         """Return True if a session exists and is not closed."""
-        return self._session is not None and not self._session.closed
+        return self._session is not None and not self._session_closed()
 
     @property
     def current_loop_id(self) -> int | None:
