@@ -13,6 +13,7 @@ uv run mkdocs serve
 uv sync --group docs --group dev --extra cli --extra tui --extra demo
 uv run pre-commit install --hook-type pre-commit --hook-type pre-push
 uv run pre-commit run --all-files
+uv run ty check netbox_sdk netbox_cli netbox_tui tests
 ```
 
 When updating TUI documentation, keep the theme contract explicit: all Textual components and their subcomponents must follow the active theme, and runtime styling must never be hardcoded outside `netbox_tui/themes/*.json`.

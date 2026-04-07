@@ -31,7 +31,9 @@ _LOGGING_INITIALIZED = False
 
 
 class JsonLogFormatter(logging.Formatter):
-    converter = time.gmtime
+    def __init__(self) -> None:
+        super().__init__()
+        self.converter = time.gmtime
 
     def format(self, record: logging.LogRecord) -> str:
         payload: dict[str, Any] = {
