@@ -154,6 +154,48 @@
         <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/getting-started/quickstart/"/>
     </url>
     <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/mock-api/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/mock-api/bulk-operations/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/bulk-operations/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/bulk-operations/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/mock-api/crud/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/crud/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/crud/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/mock-api/pagination-filtering/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/pagination-filtering/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/pagination-filtering/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/mock-api/pytest-integration/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/pytest-integration/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/pytest-integration/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/mock-api/standalone-server/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/standalone-server/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/standalone-server/"/>
+    </url>
+    <url>
         <loc>https://emersonfelipesp.github.io/netbox-sdk/reference/cli/command-examples/</loc>
         <lastmod>2026-04-10</lastmod>
         <changefreq>daily</changefreq>
@@ -563,6 +605,48 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/getting-started/quickstart/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/getting-started/quickstart/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/bulk-operations/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/bulk-operations/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/bulk-operations/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/crud/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/crud/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/crud/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/pagination-filtering/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/pagination-filtering/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/pagination-filtering/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/pytest-integration/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/pytest-integration/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/pytest-integration/"/>
+    </url>
+    <url>
+        <loc>https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/standalone-server/</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://emersonfelipesp.github.io/netbox-sdk/pt/mock-api/standalone-server/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://emersonfelipesp.github.io/netbox-sdk/mock-api/standalone-server/"/>
     </url>
     <url>
         <loc>https://emersonfelipesp.github.io/netbox-sdk/pt/reference/cli/command-examples/core-commands/</loc>
