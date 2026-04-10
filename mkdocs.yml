@@ -107,6 +107,8 @@ plugins:
             Screenshot Gallery: Galeria de capturas de tela
             Developer Guide: Guia do desenvolvedor
             Architecture: Arquitetura
+            SDK Internals: Internos do SDK
+            Integration with proxbox-api: Integração com proxbox-api
             Package integration: Integração de pacotes
             Design principles: Princípios de design
             Textual Composition Pattern: Padrão de composição Textual
@@ -214,6 +216,8 @@ nav:
   - Developer Guide:
     - developer/index.md
     - Architecture: developer/architecture.md
+    - SDK Internals: developer/sdk-internals.md
+    - Integration with proxbox-api: developer/integration-with-proxbox-api.md
     - Package integration: developer/package-integration.md
     - Design principles: developer/design-principles.md
     - Textual Composition Pattern: developer/textual-composition.md
