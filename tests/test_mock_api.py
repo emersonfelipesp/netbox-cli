@@ -129,9 +129,9 @@ def test_get_detail_after_create(client):
 
 
 def test_patch_site(client):
-    site_id = client.post(
-        "/api/dcim/sites/", json={"name": "Before", "slug": "before"}
-    ).json()["id"]
+    site_id = client.post("/api/dcim/sites/", json={"name": "Before", "slug": "before"}).json()[
+        "id"
+    ]
     resp = client.patch(f"/api/dcim/sites/{site_id}/", json={"name": "After"})
     assert resp.status_code == 200
     assert resp.json()["name"] == "After"
@@ -139,9 +139,9 @@ def test_patch_site(client):
 
 
 def test_put_site(client):
-    site_id = client.post(
-        "/api/dcim/sites/", json={"name": "Old Name", "slug": "old-name"}
-    ).json()["id"]
+    site_id = client.post("/api/dcim/sites/", json={"name": "Old Name", "slug": "old-name"}).json()[
+        "id"
+    ]
     resp = client.put(
         f"/api/dcim/sites/{site_id}/",
         json={"name": "New Name", "slug": "new-name"},
@@ -159,17 +159,15 @@ def test_delete_site(client):
 
 
 def test_get_deleted_site_returns_404(client):
-    site_id = client.post(
-        "/api/dcim/sites/", json={"name": "Gone", "slug": "gone"}
-    ).json()["id"]
+    site_id = client.post("/api/dcim/sites/", json={"name": "Gone", "slug": "gone"}).json()["id"]
     client.delete(f"/api/dcim/sites/{site_id}/")
     assert client.get(f"/api/dcim/sites/{site_id}/").status_code == 404
 
 
 def test_detail_not_in_list_after_delete(client):
-    site_id = client.post(
-        "/api/dcim/sites/", json={"name": "Goodbye", "slug": "goodbye"}
-    ).json()["id"]
+    site_id = client.post("/api/dcim/sites/", json={"name": "Goodbye", "slug": "goodbye"}).json()[
+        "id"
+    ]
     client.delete(f"/api/dcim/sites/{site_id}/")
     ids_in_list = [s["id"] for s in client.get("/api/dcim/sites/").json()["results"]]
     assert site_id not in ids_in_list
@@ -346,9 +344,7 @@ def test_create_resource_smoke(client, path, payload):
 def test_sequential_ids(client):
     ids = []
     for i in range(5):
-        resp = client.post(
-            "/api/dcim/sites/", json={"name": f"Seq-{i}", "slug": f"seq-{i}"}
-        )
+        resp = client.post("/api/dcim/sites/", json={"name": f"Seq-{i}", "slug": f"seq-{i}"})
         ids.append(resp.json()["id"])
     assert len(set(ids)) == 5, f"Expected unique IDs, got: {ids}"
     assert ids == sorted(ids), f"Expected ascending IDs, got: {ids}"

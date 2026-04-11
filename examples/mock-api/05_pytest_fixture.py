@@ -15,8 +15,6 @@ import pytest
 from fastapi.testclient import TestClient
 
 from netbox_sdk.mock import create_mock_app
-from netbox_sdk.mock.state import reset_mock_state
-
 
 # ---------------------------------------------------------------------------
 # Shared fixtures
