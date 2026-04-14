@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Literal, cast, get_args
 
-SupportedNetBoxVersion = Literal["4.5", "4.4", "4.3"]
+SupportedNetBoxVersion = Literal["4.6", "4.5", "4.4", "4.3"]
 SUPPORTED_NETBOX_VERSIONS: tuple[SupportedNetBoxVersion, ...] = get_args(SupportedNetBoxVersion)
 
 _DEFAULT_VERSION: SupportedNetBoxVersion = "4.5"
@@ -33,9 +33,13 @@ def normalize_netbox_version(version: str | None) -> SupportedNetBoxVersion:
 
 
 def bundled_openapi_path(version: SupportedNetBoxVersion) -> Path:
-    return (
+    candidate = (
         Path(__file__).resolve().parent / "reference" / "openapi" / f"netbox-openapi-{version}.json"
     )
+    if not candidate.exists() and version == "4.6":
+        # Fall back to the 4.5 bundled spec when 4.6 is not yet available.
+        return Path(__file__).resolve().parent / "reference" / "openapi" / "netbox-openapi-4.5.json"
+    return candidate
 
 
 def version_module_suffix(version: SupportedNetBoxVersion) -> str:
