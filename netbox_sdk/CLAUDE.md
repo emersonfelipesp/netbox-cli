@@ -53,7 +53,7 @@ netbox_sdk/
 ## Validation Expectations
 
 - `python -c 'import netbox_sdk'` must work without CLI or TUI extras.
-- `typed_api()` currently supports NetBox release lines `4.5`, `4.4`, and `4.3`.
+- `typed_api()` currently supports NetBox release lines `4.6`, `4.5`, `4.4`, and `4.3`.
 - SDK tests should import from `netbox_sdk`, not `sdk`.
 - Consult [`reference/PYNETBOX.md`](../reference/PYNETBOX.md) when comparing SDK ergonomics to historical NetBox Python client behavior or prior-art feature patterns.
 

@@ -20,6 +20,7 @@ TYPED_ROOT = SDK_ROOT / "typed_versions"
 OPENAPI_ROOT = SDK_ROOT / "reference" / "openapi"
 
 SCHEMA_SOURCES = {
+    "4.6": Path("/tmp/netbox-v4.6-openapi.json"),
     "4.5": Path("/tmp/netbox-v4.5.5/contrib/openapi.json"),
     "4.4": Path("/tmp/netbox-v4.4.10/contrib/openapi.json"),
     "4.3": Path("/tmp/go-netbox-v4.3.0/api/openapi.yaml"),

@@ -33,13 +33,9 @@ def normalize_netbox_version(version: str | None) -> SupportedNetBoxVersion:
 
 
 def bundled_openapi_path(version: SupportedNetBoxVersion) -> Path:
-    candidate = (
+    return (
         Path(__file__).resolve().parent / "reference" / "openapi" / f"netbox-openapi-{version}.json"
     )
-    if not candidate.exists() and version == "4.6":
-        # Fall back to the 4.5 bundled spec when 4.6 is not yet available.
-        return Path(__file__).resolve().parent / "reference" / "openapi" / "netbox-openapi-4.5.json"
-    return candidate
 
 
 def version_module_suffix(version: SupportedNetBoxVersion) -> str:
