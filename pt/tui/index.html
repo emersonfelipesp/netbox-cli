@@ -3031,10 +3031,11 @@ exploração GraphQL e inspeção de modelos Django:</p>
 <li><code>nbx logs</code> para o tail de log simples na CLI</li>
 <li><code>nbx dev django-model tui</code> para inspeção de modelos voltada a contribuidores</li>
 </ul>
-<p>A TUI principal também descobre recursos de plugins dinamicamente. Se um plugin NetBox
-expõe uma API REST sob <code>/api/plugins/</code>, <code>nbx tui</code> e <code>nbx dev tui</code> podem adicionar
-esses recursos à barra lateral automaticamente e carregar seus dados como qualquer
-recurso NetBox integrado.</p>
+<p>A TUI principal também descobre recursos de plugins e objetos customizados
+dinamicamente. Se um plugin NetBox expõe uma API REST sob <code>/api/plugins/</code>, ou
+um ObjectType público anuncia um endpoint REST, <code>nbx tui</code> e <code>nbx dev tui</code> podem
+adicionar esses recursos à barra lateral automaticamente e carregar seus dados
+como qualquer recurso NetBox integrado.</p>
 <hr />
 <h2 id="lancar-a-tui">Lançar a TUI<a class="headerlink" href="#lancar-a-tui" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>nbx<span class="w"> </span>tui<span class="w">                    </span><span class="c1"># perfil default</span>
@@ -3095,11 +3096,12 @@ recurso NetBox integrado.</p>
 <li><code>Enter</code> — seleciona / expande um nó</li>
 </ul>
 <h3 id="recursos-de-plugin">Recursos de plugin<a class="headerlink" href="#recursos-de-plugin" title="Permanent link">&para;</a></h3>
-<p>Recursos REST de plugin são anexados sob um menu <code>Plugins</code> automaticamente quando a instância NetBox conectada os expõe sob <code>/api/plugins/</code>.</p>
+<p>Recursos REST de plugins / objetos customizados são anexados sob um menu <code>Plugins</code> automaticamente quando a instância NetBox conectada os expõe sob <code>/api/plugins/</code> ou os informa por <code>/api/core/object-types/</code>.</p>
 <ul>
 <li>não é necessária lista hardcoded de plugins</li>
 <li>recursos de plugin aparecem em <code>nbx tui</code> e <code>nbx dev tui</code></li>
 <li>se o plugin expõe endpoints REST de lista/detalhe, a TUI pode navegar e renderizar os dados retornados como recursos integrados</li>
+<li>modelos privados ou dados de plugins sem endpoints REST são ignorados</li>
 </ul>
 <hr />
 <h2 id="pesquisa">Pesquisa<a class="headerlink" href="#pesquisa" title="Permanent link">&para;</a></h2>

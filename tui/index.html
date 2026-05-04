@@ -3031,10 +3031,11 @@ composition, GraphQL exploration, and Django model inspection:</p>
 <li><code>nbx logs</code> for the plain CLI log tail</li>
 <li><code>nbx dev django-model tui</code> for contributor-facing model inspection</li>
 </ul>
-<p>The main TUI also discovers plugin resources dynamically. If a NetBox plugin
-exposes a REST API under <code>/api/plugins/</code>, <code>nbx tui</code> and <code>nbx dev tui</code> can add
-those resources to the sidebar automatically and load their data like any
-built-in NetBox resource.</p>
+<p>The main TUI also discovers plugin and custom-object resources dynamically. If
+a NetBox plugin exposes a REST API under <code>/api/plugins/</code>, or a public ObjectType
+advertises a REST endpoint, <code>nbx tui</code> and <code>nbx dev tui</code> can add those resources
+to the sidebar automatically and load their data like any built-in NetBox
+resource.</p>
 <hr />
 <h2 id="launching-the-tui">Launching the TUI<a class="headerlink" href="#launching-the-tui" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>nbx<span class="w"> </span>tui<span class="w">                    </span><span class="c1"># default profile</span>
@@ -3095,11 +3096,12 @@ built-in NetBox resource.</p>
 <li><code>Enter</code> — select / expand a node</li>
 </ul>
 <h3 id="plugin-resources">Plugin resources<a class="headerlink" href="#plugin-resources" title="Permanent link">&para;</a></h3>
-<p>Plugin REST resources are appended under a <code>Plugins</code> menu automatically when the connected NetBox instance exposes them under <code>/api/plugins/</code>.</p>
+<p>Plugin/custom-object REST resources are appended under a <code>Plugins</code> menu automatically when the connected NetBox instance exposes them under <code>/api/plugins/</code> or reports them through <code>/api/core/object-types/</code>.</p>
 <ul>
 <li>no hardcoded plugin list is required</li>
 <li>plugin resources appear in both <code>nbx tui</code> and <code>nbx dev tui</code></li>
 <li>if the plugin exposes list/detail REST endpoints, the TUI can browse and render the returned data just like built-in resources</li>
+<li>private models or plugin data without REST endpoints are skipped</li>
 </ul>
 <hr />
 <h2 id="search">Search<a class="headerlink" href="#search" title="Permanent link">&para;</a></h2>

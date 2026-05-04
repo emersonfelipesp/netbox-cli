@@ -3213,10 +3213,13 @@
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>nbx<span class="w"> </span>resources<span class="w"> </span>dcim
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># → cable-terminations, cables, console-ports, device-bays, device-roles, devices, …</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Help at any level</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>nbx<span class="w"> </span>dcim<span class="w"> </span>--help
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>nbx<span class="w"> </span>dcim<span class="w"> </span>devices<span class="w"> </span>--help
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>nbx<span class="w"> </span>dcim<span class="w"> </span>devices<span class="w"> </span>list<span class="w"> </span>--help
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Include plugin/custom-object resources from the configured NetBox instance</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>nbx<span class="w"> </span>resources<span class="w"> </span>plugins<span class="w"> </span>--live
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1"># Help at any level</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>nbx<span class="w"> </span>dcim<span class="w"> </span>--help
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>nbx<span class="w"> </span>dcim<span class="w"> </span>devices<span class="w"> </span>--help
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>nbx<span class="w"> </span>dcim<span class="w"> </span>devices<span class="w"> </span>list<span class="w"> </span>--help
 </span></code></pre></div>
 <hr />
 <h2 id="actions">Actions<a class="headerlink" href="#actions" title="Permanent link">&para;</a></h2>
@@ -3434,7 +3437,7 @@
 <hr />
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>At startup, <code>_register_openapi_subcommands()</code> in <code>cli.py</code> reads <code>reference/openapi/netbox-openapi.json</code>, builds a <code>SchemaIndex</code>, then creates a Typer sub-app for every group, a nested sub-app for every resource, and a command for every supported action. The same registration runs twice — once for the root <code>app</code> and once for <code>demo_app</code> with <code>_get_demo_client</code> as the client factory.</p>
-<p>For plugin resources, the bundled schema gives <code>nbx</code> the static command tree it knows about, and the TUI layer can additionally augment that view at runtime by discovering live <code>/api/plugins/</code> REST endpoints from the connected NetBox instance.</p>
+<p>For plugin/custom-object resources, the bundled schema gives <code>nbx</code> the static command tree it knows about. Use <code>--live</code> with <code>groups</code>, <code>resources</code>, or <code>ops</code> to enrich that index from the configured NetBox instance via <code>/api/plugins/</code> and <code>/api/core/object-types/</code>. Free-form dynamic invocations also try live enrichment when the requested resource is missing from the bundled schema.</p>
 
 
 
