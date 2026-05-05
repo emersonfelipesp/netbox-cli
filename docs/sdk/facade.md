@@ -235,6 +235,36 @@ Unknown filters raise `ParameterValidationError`.
 
 ---
 
+## Pagination
+
+The facade transparently paginates list iteration. NetBox 4.6 introduced cursor-based
+pagination over a `start=<pk>&limit=<n>` query, which is significantly faster than
+offset-based pagination on large result sets. The SDK auto-detects the running NetBox
+version and selects the right strategy:
+
+- NetBox `>= 4.6`: cursor mode (default).
+- NetBox `< 4.6`: offset mode (legacy).
+
+Override the default explicitly:
+
+```python
+nb = api("https://netbox.example.com", token="my-token", pagination_mode="offset")
+
+# Or per query — pass start= to force cursor mode and seed the first cursor:
+async for device in nb.dcim.devices.all(limit=100, start=0):
+    print(device.id)
+
+# Or pass mode= via filter():
+devices = nb.dcim.devices.filter(role="leaf-switch", mode="cursor")
+```
+
+The environment variable `NETBOX_SDK_PAGINATION_MODE` (`cursor` / `offset` / `auto`)
+overrides the constructor default, useful when bisecting issues against a specific
+NetBox release. In cursor mode the server returns `count: null` for performance, so
+`Endpoint.count()` issues an explicit offset-mode probe to obtain the total.
+
+---
+
 ## Notes
 
 - The facade is async-first. Use it inside `async def` functions.

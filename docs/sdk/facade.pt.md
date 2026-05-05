@@ -235,6 +235,36 @@ Filtros desconhecidos levantam `ParameterValidationError`.
 
 ---
 
+## Paginação
+
+A fachada pagina iterações de lista de forma transparente. O NetBox 4.6 introduziu
+paginação baseada em cursor com `start=<pk>&limit=<n>`, significativamente mais rápida
+que a paginação por offset em grandes conjuntos de resultados. O SDK detecta a versão
+do NetBox em execução e escolhe a estratégia adequada:
+
+- NetBox `>= 4.6`: modo cursor (padrão).
+- NetBox `< 4.6`: modo offset (legado).
+
+Sobrescreva o padrão explicitamente:
+
+```python
+nb = api("https://netbox.example.com", token="meu-token", pagination_mode="offset")
+
+# Ou por consulta — passe start= para forçar o modo cursor e semear o primeiro cursor:
+async for device in nb.dcim.devices.all(limit=100, start=0):
+    print(device.id)
+
+# Ou passe mode= via filter():
+devices = nb.dcim.devices.filter(role="leaf-switch", mode="cursor")
+```
+
+A variável de ambiente `NETBOX_SDK_PAGINATION_MODE` (`cursor` / `offset` / `auto`)
+sobrescreve o padrão do construtor — útil ao isolar problemas contra uma versão
+específica do NetBox. No modo cursor, o servidor retorna `count: null` por desempenho,
+então `Endpoint.count()` emite um probe explícito em modo offset para obter o total.
+
+---
+
 ## Notas
 
 - A fachada é async-first. Use-a dentro de funções `async def`.
