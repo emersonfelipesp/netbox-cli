@@ -937,6 +937,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#paginacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paginação
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paginação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#matriz-de-parametros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matriz de parâmetros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modo-cursor-padrao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo cursor (padrão)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usando-o-metodo-offset-legado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usando o método offset (legado)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3044,6 +3094,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#paginacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paginação
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Paginação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#matriz-de-parametros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matriz de parâmetros
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modo-cursor-padrao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo cursor (padrão)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usando-o-metodo-offset-legado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usando o método offset (legado)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3161,113 +3261,211 @@ orientados por esquema. Não é um clone síncrono do <code>pynetbox</code>.</p>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">async</span> <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">:</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </span></code></pre></div>
+<p><code>Endpoint.all()</code> aceita os mesmos argumentos nomeados de filtro que <code>filter()</code>,
+portanto as duas chamadas abaixo são equivalentes:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">async</span> <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;leaf-switch&quot;</span><span class="p">):</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="o">...</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">async</span> <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;leaf-switch&quot;</span><span class="p">):</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="o">...</span>
+</span></code></pre></div>
 <p>Contar linhas correspondentes:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">count</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s2">&quot;lon&quot;</span><span class="p">)</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">count</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s2">&quot;lon&quot;</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Criar:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">device</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sw-lon-01&quot;</span><span class="p">,</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">site</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">role</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">device_type</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">)</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">device</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sw-lon-01&quot;</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">site</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">role</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">device_type</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Atualização em massa:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="p">[</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sw-lon-10&quot;</span><span class="p">},</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sw-lon-11&quot;</span><span class="p">},</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="p">]</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="p">[</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sw-lon-10&quot;</span><span class="p">},</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;sw-lon-11&quot;</span><span class="p">},</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="p">]</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>Exclusão em massa:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">delete</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">delete</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
 </span></code></pre></div>
 <hr />
 <h2 id="auxiliares-de-registro">Auxiliares de registro<a class="headerlink" href="#auxiliares-de-registro" title="Permanent link">&para;</a></h2>
 <p>Objetos retornados pela fachada são registros leves com contexto de endpoint.</p>
 <p>Atualizar detalhes completos:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">device</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">await</span> <span class="n">device</span><span class="o">.</span><span class="n">full_details</span><span class="p">()</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">serial</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">device</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">await</span> <span class="n">device</span><span class="o">.</span><span class="n">full_details</span><span class="p">()</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">serial</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Salvar apenas campos alterados:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">device</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;sw-lon-01-renamed&quot;</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">updates</span><span class="p">())</span>  <span class="c1"># {&quot;name&quot;: &quot;sw-lon-01-renamed&quot;}</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">await</span> <span class="n">device</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">device</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;sw-lon-01-renamed&quot;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">updates</span><span class="p">())</span>  <span class="c1"># {&quot;name&quot;: &quot;sw-lon-01-renamed&quot;}</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">await</span> <span class="n">device</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </span></code></pre></div>
 <p>Excluir um único registro:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">await</span> <span class="n">device</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">await</span> <span class="n">device</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
 </span></code></pre></div>
 <hr />
 <h2 id="endpoints-de-detalhe">Endpoints de detalhe<a class="headerlink" href="#endpoints-de-detalhe" title="Permanent link">&para;</a></h2>
 <p>A fachada expõe sub-recursos comuns do NetBox diretamente a partir de registros.</p>
 <p>IPs e prefixos disponíveis:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">prefix</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">ipam</span><span class="o">.</span><span class="n">prefixes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">available_ips</span> <span class="o">=</span> <span class="k">await</span> <span class="n">prefix</span><span class="o">.</span><span class="n">available_ips</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">new_ip</span> <span class="o">=</span> <span class="k">await</span> <span class="n">prefix</span><span class="o">.</span><span class="n">available_ips</span><span class="o">.</span><span class="n">create</span><span class="p">({})</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="n">new_prefix</span> <span class="o">=</span> <span class="k">await</span> <span class="n">prefix</span><span class="o">.</span><span class="n">available_prefixes</span><span class="o">.</span><span class="n">create</span><span class="p">({</span><span class="s2">&quot;prefix_length&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">})</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">prefix</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">ipam</span><span class="o">.</span><span class="n">prefixes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">available_ips</span> <span class="o">=</span> <span class="k">await</span> <span class="n">prefix</span><span class="o">.</span><span class="n">available_ips</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">new_ip</span> <span class="o">=</span> <span class="k">await</span> <span class="n">prefix</span><span class="o">.</span><span class="n">available_ips</span><span class="o">.</span><span class="n">create</span><span class="p">({})</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="n">new_prefix</span> <span class="o">=</span> <span class="k">await</span> <span class="n">prefix</span><span class="o">.</span><span class="n">available_prefixes</span><span class="o">.</span><span class="n">create</span><span class="p">({</span><span class="s2">&quot;prefix_length&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">})</span>
 </span></code></pre></div>
 <p>Elevação de rack:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">rack</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">racks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">units</span> <span class="o">=</span> <span class="k">await</span> <span class="n">rack</span><span class="o">.</span><span class="n">elevation</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">svg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">rack</span><span class="o">.</span><span class="n">elevation</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">render</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">rack</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">racks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">units</span> <span class="o">=</span> <span class="k">await</span> <span class="n">rack</span><span class="o">.</span><span class="n">elevation</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">svg</span> <span class="o">=</span> <span class="k">await</span> <span class="n">rack</span><span class="o">.</span><span class="n">elevation</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">render</span><span class="o">=</span><span class="s2">&quot;svg&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>NAPALM e render-config:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">device</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">facts</span> <span class="o">=</span> <span class="k">await</span> <span class="n">device</span><span class="o">.</span><span class="n">napalm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;get_facts&quot;</span><span class="p">)</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">rendered</span> <span class="o">=</span> <span class="k">await</span> <span class="n">device</span><span class="o">.</span><span class="n">render_config</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">device</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">facts</span> <span class="o">=</span> <span class="k">await</span> <span class="n">device</span><span class="o">.</span><span class="n">napalm</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;get_facts&quot;</span><span class="p">)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">rendered</span> <span class="o">=</span> <span class="k">await</span> <span class="n">device</span><span class="o">.</span><span class="n">render_config</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 </span></code></pre></div>
 <hr />
 <h2 id="auxiliares-de-trace-e-path">Auxiliares de trace e path<a class="headerlink" href="#auxiliares-de-trace-e-path" title="Permanent link">&para;</a></h2>
 <p>Registros rastreáveis expõem <code>trace()</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">interface</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">trace</span> <span class="o">=</span> <span class="k">await</span> <span class="n">interface</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">interface</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">interfaces</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">trace</span> <span class="o">=</span> <span class="k">await</span> <span class="n">interface</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span>
 </span></code></pre></div>
 <p>Registros com path expõem <code>paths()</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">termination</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">circuits</span><span class="o">.</span><span class="n">circuit_terminations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">paths</span> <span class="o">=</span> <span class="k">await</span> <span class="n">termination</span><span class="o">.</span><span class="n">paths</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">termination</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">circuits</span><span class="o">.</span><span class="n">circuit_terminations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">paths</span> <span class="o">=</span> <span class="k">await</span> <span class="n">termination</span><span class="o">.</span><span class="n">paths</span><span class="p">()</span>
 </span></code></pre></div>
 <hr />
 <h2 id="plugins-e-config-de-app">Plugins e config de app<a class="headerlink" href="#plugins-e-config-de-app" title="Permanent link">&para;</a></h2>
 <p>Metadados de plugins instalados:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">plugins</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">installed_plugins</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">plugins</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">installed_plugins</span><span class="p">()</span>
 </span></code></pre></div>
 <p>Recursos de plugin:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">olts</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">gpon</span><span class="o">.</span><span class="n">olts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;active&quot;</span><span class="p">)</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="k">async</span> <span class="k">for</span> <span class="n">olt</span> <span class="ow">in</span> <span class="n">olts</span><span class="p">:</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">olt</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">olts</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">gpon</span><span class="o">.</span><span class="n">olts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;active&quot;</span><span class="p">)</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="k">async</span> <span class="k">for</span> <span class="n">olt</span> <span class="ow">in</span> <span class="n">olts</span><span class="p">:</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">olt</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Config por app:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">user_config</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">config</span><span class="p">()</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">user_config</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">config</span><span class="p">()</span>
 </span></code></pre></div>
 <hr />
 <h2 id="ativacao-de-branch">Ativação de branch<a class="headerlink" href="#ativacao-de-branch" title="Permanent link">&para;</a></h2>
 <p>Requisições com escopo de branch podem ser feitas com <code>activate_branch()</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">branch</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;Branch&quot;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{</span><span class="s2">&quot;schema_id&quot;</span><span class="p">:</span> <span class="s2">&quot;feature-x&quot;</span><span class="p">})()</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="k">with</span> <span class="n">nb</span><span class="o">.</span><span class="n">activate_branch</span><span class="p">(</span><span class="n">branch</span><span class="p">):</span>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="n">device</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">branch</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;Branch&quot;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{</span><span class="s2">&quot;schema_id&quot;</span><span class="p">:</span> <span class="s2">&quot;feature-x&quot;</span><span class="p">})()</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="k">with</span> <span class="n">nb</span><span class="o">.</span><span class="n">activate_branch</span><span class="p">(</span><span class="n">branch</span><span class="p">):</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="n">device</span> <span class="o">=</span> <span class="k">await</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Isso define <code>X-NetBox-Branch</code> nas requisições feitas dentro do contexto.</p>
 <hr />
 <h2 id="filtros-estritos">Filtros estritos<a class="headerlink" href="#filtros-estritos" title="Permanent link">&para;</a></h2>
 <p>Ative validação de filtros respaldada pelo OpenAPI na construção da API:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">nb</span> <span class="o">=</span> <span class="n">api</span><span class="p">(</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="s2">&quot;https://netbox.example.com&quot;</span><span class="p">,</span>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="n">token</span><span class="o">=</span><span class="s2">&quot;my-token&quot;</span><span class="p">,</span>
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="n">strict_filters</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">nb</span> <span class="o">=</span> <span class="n">api</span><span class="p">(</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    <span class="s2">&quot;https://netbox.example.com&quot;</span><span class="p">,</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">token</span><span class="o">=</span><span class="s2">&quot;my-token&quot;</span><span class="p">,</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="n">strict_filters</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>Ou substitua por consulta:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">devices</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s2">&quot;lon&quot;</span><span class="p">,</span> <span class="n">strict_filters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">devices</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="s2">&quot;lon&quot;</span><span class="p">,</span> <span class="n">strict_filters</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Filtros desconhecidos levantam <code>ParameterValidationError</code>.</p>
+<hr />
+<h2 id="paginacao">Paginação<a class="headerlink" href="#paginacao" title="Permanent link">&para;</a></h2>
+<p>A fachada pagina iterações de lista de forma transparente. O NetBox 4.6 introduziu
+paginação baseada em cursor com <code>start=&lt;pk&gt;&amp;limit=&lt;n&gt;</code>, significativamente mais rápida
+que a paginação por offset em grandes conjuntos de resultados. O SDK detecta a versão
+do NetBox em execução e escolhe a estratégia adequada:</p>
+<ul>
+<li>NetBox <code>&gt;= 4.6</code>: modo cursor (padrão).</li>
+<li>NetBox <code>&lt; 4.6</code>: modo offset (legado).</li>
+</ul>
+<h3 id="matriz-de-parametros">Matriz de parâmetros<a class="headerlink" href="#matriz-de-parametros" title="Permanent link">&para;</a></h3>
+<p>Todo método paginado aceita o conjunto completo de argumentos de paginação do
+NetBox, além de argumentos arbitrários de filtro:</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th style="text-align: center;"><code>limit</code></th>
+<th style="text-align: center;"><code>offset</code></th>
+<th style="text-align: center;"><code>start</code></th>
+<th style="text-align: center;"><code>mode</code></th>
+<th style="text-align: center;">filtros <code>**kwargs</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Endpoint.all(...)</code></td>
+<td style="text-align: center;">sim</td>
+<td style="text-align: center;">sim</td>
+<td style="text-align: center;">sim</td>
+<td style="text-align: center;">sim</td>
+<td style="text-align: center;">sim</td>
+</tr>
+<tr>
+<td><code>Endpoint.filter(...)</code></td>
+<td style="text-align: center;">sim</td>
+<td style="text-align: center;">sim</td>
+<td style="text-align: center;">sim</td>
+<td style="text-align: center;">sim</td>
+<td style="text-align: center;">sim</td>
+</tr>
+<tr>
+<td><code>Endpoint.get(...)</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">sim</td>
+</tr>
+<tr>
+<td><code>Endpoint.count(...)</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">sim</td>
+</tr>
+</tbody>
+</table>
+<p><code>mode</code> aceita <code>"cursor"</code>, <code>"offset"</code> ou <code>"auto"</code>. <code>start</code> e <code>offset</code> são mutuamente
+exclusivos; passar ambos levanta <code>ValueError</code>. <code>ordering</code> é rejeitado em modo
+cursor (o NetBox aplica essa restrição no servidor).</p>
+<h3 id="modo-cursor-padrao">Modo cursor (padrão)<a class="headerlink" href="#modo-cursor-padrao" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">nb</span> <span class="o">=</span> <span class="n">api</span><span class="p">(</span><span class="s2">&quot;https://netbox.example.com&quot;</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="s2">&quot;meu-token&quot;</span><span class="p">)</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="c1"># Cursor por padrão no NetBox &gt;= 4.6 (filtros e paginação combinam livremente):</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="k">async</span> <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;leaf-switch&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># Iniciar em um cursor explícito:</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="k">async</span> <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="usando-o-metodo-offset-legado">Usando o método offset (legado)<a class="headerlink" href="#usando-o-metodo-offset-legado" title="Permanent link">&para;</a></h3>
+<p>O paginador offset legado continua totalmente suportado. Force-o para o cliente
+inteiro ou para uma consulta específica:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Cliente inteiro:</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">nb</span> <span class="o">=</span> <span class="n">api</span><span class="p">(</span><span class="s2">&quot;https://netbox.example.com&quot;</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="s2">&quot;meu-token&quot;</span><span class="p">,</span> <span class="n">pagination_mode</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">)</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># Por consulta:</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="k">async</span> <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="n">devices</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">dcim</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;leaf-switch&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>A variável de ambiente <code>NETBOX_SDK_PAGINATION_MODE</code> (<code>cursor</code> / <code>offset</code> / <code>auto</code>)
+sobrescreve o padrão do construtor — útil ao isolar problemas contra uma versão
+específica do NetBox. No modo cursor, o servidor retorna <code>count: null</code> por desempenho,
+então <code>Endpoint.count()</code> emite um probe explícito em modo offset para obter o total —
+<code>count()</code> funciona independente do modo configurado.</p>
 <hr />
 <h2 id="notas">Notas<a class="headerlink" href="#notas" title="Permanent link">&para;</a></h2>
 <ul>
