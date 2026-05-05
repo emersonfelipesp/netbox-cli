@@ -281,7 +281,9 @@ jobs:
           set -euo pipefail
 
           image="ghcr.io/netbox-community/netbox:${{ matrix.netbox-version }}"
+          token_key="ci1234567890"
           token="0123456789abcdef0123456789abcdef01234567"
+          token_pepper="ci-token-pepper-for-testing-only-not-for-production-use-12345"
 
           if docker pull "$image"; then
             echo "Starting NetBox from $image"
@@ -289,6 +291,7 @@ jobs:
               --name netbox-ci \
               --network host \
               -e SECRET_KEY="ci-secret-key-for-testing-only-not-for-production-use" \
+              -e API_TOKEN_PEPPER_1="$token_pepper" \
               -e ALLOWED_HOSTS="*" \
               -e DB_HOST=127.0.0.1 \
               -e DB_PORT=5432 \
@@ -358,6 +361,7 @@ jobs:
           from users.choices import TokenVersionChoices
           from users.models import Token, User
 
+          token_key = "$token_key"
           token = "$token"
           user, _ = User.objects.get_or_create(username="admin", defaults={"email": "admin@example.com"})
           user.email = "admin@example.com"
@@ -366,10 +370,12 @@ jobs:
           user.set_password("netbox-test-password")
           user.save()
           Token.objects.filter(user=user, description="CI live-test token").delete()
+          Token.objects.filter(key=token_key).delete()
           Token.objects.create(
               user=user,
               description="CI live-test token",
-              version=TokenVersionChoices.V1,
+              version=TokenVersionChoices.V2,
+              key=token_key,
               token=token,
               write_enabled=True,
           )
@@ -381,15 +387,16 @@ jobs:
 
       - name: Wait for NetBox to be ready
         run: |
+          set -euo pipefail
           echo "Waiting for NetBox to be ready..."
-          for i in $(seq 1 30); do
-            status=$(curl -sf http://localhost:8080/api/status/ 2>/dev/null \
-              | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('netbox-version',''))" 2>/dev/null || echo "")
-            if [ -n "$status" ]; then
-              echo "NetBox $status is ready"
-              break
+          for i in $(seq 1 60); do
+            code=$(curl -sS -o /tmp/netbox-ready-body -w "%{http_code}" \
+              http://localhost:8080/ 2>/dev/null || true)
+            if [ "$code" = "200" ] || [ "$code" = "302" ] || [ "$code" = "403" ]; then
+              echo "NetBox HTTP endpoint is ready with status $code"
+              exit 0
             fi
-            echo "  attempt $i/30 — not ready yet, sleeping 10s"
+            echo "  attempt $i/60 - not ready yet, sleeping 10s"
             sleep 10
           done
           echo "NetBox did not become ready"
@@ -397,9 +404,60 @@ jobs:
           tail -n 200 /tmp/netbox-source.log 2>/dev/null || true
           exit 1
 
+      - name: Ensure CI API token
+        run: |
+          set -euo pipefail
+
+          token_key="ci1234567890"
+          token_secret="0123456789abcdef0123456789abcdef01234567"
+          token_script=$(mktemp)
+          cat > "$token_script" <<PY
+          from users.choices import TokenVersionChoices
+          from users.models import Token, User
+
+          token_key = "$token_key"
+          token_secret = "$token_secret"
+          user, _ = User.objects.get_or_create(username="admin", defaults={"email": "admin@example.com"})
+          user.email = "admin@example.com"
+          user.is_staff = True
+          user.is_superuser = True
+          user.set_password("netbox-test-password")
+          user.save()
+          Token.objects.filter(user=user, description="CI live-test token").delete()
+          Token.objects.filter(key=token_key).delete()
+          Token.objects.create(
+              user=user,
+              description="CI live-test token",
+              version=TokenVersionChoices.V2,
+              key=token_key,
+              token=token_secret,
+              write_enabled=True,
+          )
+          PY
+
+          if [ "${NETBOX_CI_BACKEND:-}" = "docker" ]; then
+            docker exec -i netbox-ci /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py shell < "$token_script"
+          else
+            /tmp/netbox-source-venv/bin/python /tmp/netbox-source/netbox/manage.py shell < "$token_script"
+          fi
+
+          auth="Bearer nbt_${token_key}.${token_secret}"
+          status_code=$(curl -sS -o /tmp/netbox-status.json -w "%{http_code}" \
+            -H "Authorization: $auth" http://localhost:8080/api/status/ || true)
+          if [ "$status_code" != "200" ]; then
+            echo "Authenticated /api/status/ check failed with HTTP $status_code"
+            cat /tmp/netbox-status.json 2>/dev/null || true
+            docker logs --tail 200 netbox-ci 2>/dev/null || true
+            tail -n 200 /tmp/netbox-source.log 2>/dev/null || true
+            exit 1
+          fi
+
+          python3 -c "import json,sys; print('NetBox API status:', json.load(open('/tmp/netbox-status.json')).get('netbox-version', 'unknown'))"
+
       - name: Set NetBox connection env vars
         run: |
-          echo "NETBOX_TOKEN=0123456789abcdef0123456789abcdef01234567" >> $GITHUB_ENV
+          echo "NETBOX_TOKEN=nbt_ci1234567890.0123456789abcdef0123456789abcdef01234567" >> $GITHUB_ENV
+          echo "NETBOX_TOKEN_KEY=ci1234567890" >> $GITHUB_ENV
           echo "NETBOX_TOKEN_SECRET=0123456789abcdef0123456789abcdef01234567" >> $GITHUB_ENV
           echo "NETBOX_URL=http://localhost:8080" >> $GITHUB_ENV
 
@@ -407,6 +465,7 @@ jobs:
         env:
           NETBOX_URL: ${{ env.NETBOX_URL }}
           NETBOX_TOKEN: ${{ env.NETBOX_TOKEN }}
+          NETBOX_TOKEN_KEY: ${{ env.NETBOX_TOKEN_KEY }}
           NETBOX_TOKEN_SECRET: ${{ env.NETBOX_TOKEN_SECRET }}
           NETBOX_LIVE_TEST: "1"
         run: uv run pytest -v --tb=short -p no:randomly -m suite_sdk
