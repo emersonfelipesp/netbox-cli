@@ -4,10 +4,11 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Literal, cast
 from urllib.parse import parse_qsl, urlsplit
 
 from netbox_sdk.client import ApiResponse, NetBoxApiClient
@@ -21,6 +22,22 @@ from netbox_sdk.exceptions import (
 from netbox_sdk.schema import ResourcePaths, SchemaIndex, build_schema_index, parse_group_resource
 
 logger = logging.getLogger(__name__)
+
+PaginationMode = Literal["cursor", "offset", "auto"]
+ResolvedPaginationMode = Literal["cursor", "offset"]
+DEFAULT_CURSOR_PAGE_SIZE = 50
+_PAGINATION_MODE_ENV_VAR = "NETBOX_SDK_PAGINATION_MODE"
+_VALID_PAGINATION_MODES = ("cursor", "offset", "auto")
+
+
+def _normalize_pagination_mode(value: str | None) -> PaginationMode | None:
+    if value is None:
+        return None
+    normalized = value.strip().lower()
+    if normalized in _VALID_PAGINATION_MODES:
+        return cast(PaginationMode, normalized)
+    return None
+
 
 APP_NAMES = (
     "circuits",
@@ -47,6 +64,7 @@ def api(
     strict_filters: bool = False,
     client: NetBoxApiClient | None = None,
     schema: SchemaIndex | None = None,
+    pagination_mode: PaginationMode = "auto",
 ) -> Api:
     """Build a high-level async NetBox API wrapper (PyNetBox-style).
 
@@ -84,7 +102,12 @@ def api(
                 "strict_filters": strict_filters,
             },
         )
-    return Api(client=client, schema=schema, strict_filters=strict_filters)
+    return Api(
+        client=client,
+        schema=schema,
+        strict_filters=strict_filters,
+        pagination_mode=pagination_mode,
+    )
 
 
 async def async_api(
@@ -94,6 +117,7 @@ async def async_api(
     strict_filters: bool = False,
     client: NetBoxApiClient | None = None,
     discover_resources: bool = True,
+    pagination_mode: PaginationMode = "auto",
 ) -> Api:
     """Like :func:`api` but auto-detects the NetBox version and selects the right schema.
 
@@ -126,7 +150,12 @@ async def async_api(
         )
 
         await enrich_schema_index_with_runtime_resources(schema, client)
-    return Api(client=client, schema=schema, strict_filters=strict_filters)
+    return Api(
+        client=client,
+        schema=schema,
+        strict_filters=strict_filters,
+        pagination_mode=pagination_mode,
+    )
 
 
 class Api:
@@ -136,13 +165,37 @@ class Api:
         client: NetBoxApiClient,
         schema: SchemaIndex | None = None,
         strict_filters: bool = False,
+        pagination_mode: PaginationMode = "auto",
     ) -> None:
         self.client = client
         self.schema = schema or build_schema_index()
         self.strict_filters = strict_filters
+        env_override = _normalize_pagination_mode(os.environ.get(_PAGINATION_MODE_ENV_VAR))
+        self.pagination_mode: PaginationMode = env_override or pagination_mode
+        self._resolved_pagination_mode: ResolvedPaginationMode | None = (
+            self.pagination_mode if self.pagination_mode in ("cursor", "offset") else None  # type: ignore[assignment]
+        )
         for name in APP_NAMES:
             setattr(self, name, App(self, name))
         self.plugins = PluginsApp(self)
+
+    async def _resolve_pagination_mode(self) -> ResolvedPaginationMode:
+        if self._resolved_pagination_mode is not None:
+            return self._resolved_pagination_mode
+        try:
+            version = await self.client.get_version()
+            parts = version.split(".") if version else []
+            major = int(parts[0]) if len(parts) >= 1 else 0
+            minor = int(parts[1]) if len(parts) >= 2 else 0
+            self._resolved_pagination_mode = "cursor" if (major, minor) >= (4, 6) else "offset"
+        except Exception as exc:
+            logger.debug(
+                "pagination mode auto-detect failed; falling back to offset: %s",
+                exc,
+                extra={"nbx_event": "facade_pagination_mode_fallback"},
+            )
+            self._resolved_pagination_mode = "offset"
+        return self._resolved_pagination_mode
 
     async def status(self) -> dict[str, Any]:
         return await self.client.status()
@@ -283,23 +336,39 @@ class Endpoint:
             raise ValueError(f"Resource does not expose detail path: {self.group}/{self.resource}")
         return paths.detail_path
 
-    def all(self, limit: int = 0, offset: int | None = None) -> RecordSet:
+    def all(
+        self,
+        limit: int = 0,
+        offset: int | None = None,
+        *,
+        start: int | None = None,
+        mode: PaginationMode | None = None,
+    ) -> RecordSet:
         if limit == 0 and offset is not None:
             raise ValueError("offset requires a positive limit value")
-        return RecordSet(self, query={}, limit=limit, offset=offset)
+        if start is not None and offset is not None:
+            raise ValueError("'start' and 'offset' are mutually exclusive")
+        return RecordSet(self, query={}, limit=limit, offset=offset, start=start, mode=mode)
 
     def filter(self, *args: str, **kwargs: Any) -> RecordSet:
         limit = int(kwargs.pop("limit")) if "limit" in kwargs else 0
         offset = int(kwargs.pop("offset")) if "offset" in kwargs else None
+        start = int(kwargs.pop("start")) if "start" in kwargs else None
+        mode_arg = kwargs.pop("mode", None)
+        mode: PaginationMode | None = (
+            _normalize_pagination_mode(mode_arg) if isinstance(mode_arg, str) else None
+        )
         strict_filters = kwargs.pop("strict_filters", self.api.strict_filters)
         if args:
             kwargs["q"] = args[0]
         if limit == 0 and offset is not None:
             raise ValueError("offset requires a positive limit value")
+        if start is not None and offset is not None:
+            raise ValueError("'start' and 'offset' are mutually exclusive")
         query = {key: "null" if value is None else str(value) for key, value in kwargs.items()}
         if strict_filters:
             self._validate_filters(query)
-        return RecordSet(self, query=query, limit=limit, offset=offset)
+        return RecordSet(self, query=query, limit=limit, offset=offset, start=start, mode=mode)
 
     async def get(self, *args: Any, **kwargs: Any) -> Record | None:
         key = args[0] if args else None
@@ -446,20 +515,36 @@ class RecordSet:
         query: dict[str, str],
         limit: int = 0,
         offset: int | None = None,
+        start: int | None = None,
+        mode: PaginationMode | None = None,
     ) -> None:
+        if start is not None and offset is not None:
+            raise ValueError("'start' and 'offset' are mutually exclusive")
         self.endpoint = endpoint
         self.query = dict(query)
         self.limit = limit
         self.offset = offset
+        self.start = start
         self.count: int | None = None
+        # Mode resolution: explicit kwarg > Api.pagination_mode > "auto".
+        if mode is not None:
+            self._requested_mode: PaginationMode = mode
+        else:
+            self._requested_mode = endpoint.api.pagination_mode
+        # If the caller passed start=, force cursor mode.
+        if start is not None:
+            self._requested_mode = "cursor"
+        # If the caller passed offset=, force offset mode (preserve legacy).
+        elif offset is not None:
+            self._requested_mode = "offset"
+        self._mode: ResolvedPaginationMode | None = (
+            self._requested_mode if self._requested_mode in ("cursor", "offset") else None  # type: ignore[assignment]
+        )
         self._next_path: str | None = endpoint._list_path
         self._next_query: dict[str, str] = dict(query)
-        if limit:
-            self._next_query["limit"] = str(limit)
-        if offset is not None:
-            self._next_query["offset"] = str(offset)
         self._buffer: list[Record] = []
         self._started = False
+        self._last_pk: int | None = None
 
     def __aiter__(self) -> RecordSet:
         return self
@@ -469,11 +554,30 @@ class RecordSet:
             return self._buffer.pop(0)
         if self._started and self._next_path is None:
             raise StopAsyncIteration
-        self._started = True
+        if not self._started:
+            await self._initialize_first_page()
+            self._started = True
         await self._fetch_next_page()
         if not self._buffer:
             raise StopAsyncIteration
         return self._buffer.pop(0)
+
+    async def _initialize_first_page(self) -> None:
+        """Resolve auto mode and seed the first request's query parameters."""
+        if self._mode is None:
+            self._mode = await self.endpoint.api._resolve_pagination_mode()
+        if self._mode == "cursor":
+            if "ordering" in self._next_query:
+                raise ValueError(
+                    "Ordering cannot be specified in conjunction with cursor-based pagination"
+                )
+            self._next_query["start"] = str(self.start if self.start is not None else 0)
+            self._next_query["limit"] = str(self.limit or DEFAULT_CURSOR_PAGE_SIZE)
+        else:
+            if self.limit:
+                self._next_query["limit"] = str(self.limit)
+            if self.offset is not None:
+                self._next_query["offset"] = str(self.offset)
 
     async def _fetch_next_page(self) -> None:
         if self._next_path is None:
@@ -486,13 +590,38 @@ class RecordSet:
         if not isinstance(payload, dict):
             raise ContentError(response)
         results = payload.get("results", [])
-        self.count = payload.get("count") if isinstance(payload.get("count"), int) else self.count
         if not isinstance(results, list):
             raise ContentError(response)
+        raw_count = payload.get("count")
+        if isinstance(raw_count, int):
+            self.count = raw_count
         self._buffer = [
             self.endpoint._make_record(item, has_details=False) if isinstance(item, dict) else item
             for item in results
         ]
+        if self._mode == "cursor":
+            self._advance_cursor(results)
+        else:
+            self._advance_offset(payload)
+
+    def _advance_cursor(self, results: list[Any]) -> None:
+        page_limit = int(self._next_query.get("limit") or DEFAULT_CURSOR_PAGE_SIZE)
+        last_pk: int | None = None
+        if results:
+            last = results[-1]
+            if isinstance(last, dict):
+                value = last.get("id")
+                if isinstance(value, int):
+                    last_pk = value
+        # Stop when the page is short or we cannot derive a cursor.
+        if not results or len(results) < page_limit or last_pk is None:
+            self._next_path = None
+            self._next_query = {}
+            return
+        self._last_pk = last_pk
+        self._next_query = {**self._next_query, "start": str(last_pk + 1)}
+
+    def _advance_offset(self, payload: dict[str, Any]) -> None:
         next_value = payload.get("next")
         if isinstance(next_value, str) and next_value:
             split = urlsplit(next_value)
@@ -513,10 +642,17 @@ class RecordSet:
     async def total(self) -> int:
         if self.count is not None:
             return self.count
+        # Always probe with offset=0 — cursor responses set count: null for performance,
+        # so we explicitly use the offset-paginated representation here.
+        probe_query = {
+            key: value for key, value in self.query.items() if key not in ("start", "ordering")
+        }
+        probe_query["limit"] = "1"
+        probe_query["offset"] = "0"
         response = await self.endpoint.api.client.request(
             "GET",
             self.endpoint._list_path,
-            query={**self.query, "limit": "1"},
+            query=probe_query,
         )
         _raise_for_status(response)
         payload = _decode_json(response)
