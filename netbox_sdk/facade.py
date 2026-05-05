@@ -31,6 +31,15 @@ _VALID_PAGINATION_MODES = ("cursor", "offset", "auto")
 
 
 def _normalize_pagination_mode(value: str | None) -> PaginationMode | None:
+    """Normalize a user-supplied pagination mode string.
+
+    Args:
+        value: Free-form string such as ``"Cursor"``, ``" offset "``, or ``None``.
+
+    Returns:
+        One of ``"cursor"``, ``"offset"``, ``"auto"`` when the input is recognised,
+        otherwise ``None`` (caller decides whether the absence is fatal).
+    """
     if value is None:
         return None
     normalized = value.strip().lower()
@@ -180,6 +189,14 @@ class Api:
         self.plugins = PluginsApp(self)
 
     async def _resolve_pagination_mode(self) -> ResolvedPaginationMode:
+        """Resolve ``"auto"`` to a concrete pagination mode for the running server.
+
+        The result is cached on the :class:`Api` instance so the version probe
+        runs at most once. NetBox ``>= 4.6`` uses cursor pagination (``start=``);
+        older releases fall back to offset. Any error during the probe is logged
+        at debug level and the engine falls back to offset, since offset is
+        supported by every NetBox release the SDK targets.
+        """
         if self._resolved_pagination_mode is not None:
             return self._resolved_pagination_mode
         try:
@@ -345,6 +362,26 @@ class Endpoint:
         mode: PaginationMode | None = None,
         **filters: Any,
     ) -> RecordSet:
+        """Return a :class:`RecordSet` over every record in the resource.
+
+        Accepts the same filter keywords as :meth:`filter`, so callers can mix
+        pagination arguments with filter terms freely
+        (for example ``all(role="leaf-switch", limit=100)``).
+
+        Args:
+            limit: Page size. ``0`` (default) lets the SDK pick: the cursor
+                engine uses :data:`DEFAULT_CURSOR_PAGE_SIZE`; the offset engine
+                lets the server choose.
+            offset: Legacy offset seed. Mutually exclusive with ``start``.
+            start: Cursor seed (NetBox >= 4.6). Forces cursor mode when set.
+            mode: ``"cursor"``, ``"offset"``, ``"auto"`` or ``None`` (use the
+                client default). Mutually exclusive with the implicit forcing
+                that ``start`` and ``offset`` perform.
+            **filters: Arbitrary filter keywords forwarded to NetBox.
+
+        Returns:
+            A lazily-paginated :class:`RecordSet`.
+        """
         return self.filter(
             limit=limit,
             offset=offset,
@@ -354,6 +391,19 @@ class Endpoint:
         )
 
     def filter(self, *args: str, **kwargs: Any) -> RecordSet:
+        """Return a :class:`RecordSet` filtered by ``**kwargs``.
+
+        Recognised pagination keywords (popped before building the query):
+        ``limit``, ``offset``, ``start``, ``mode``, ``strict_filters``.
+        Any positional argument is mapped to NetBox's free-text ``q=`` filter.
+        Remaining keywords become filter parameters.
+
+        Raises:
+            ValueError: If ``offset`` is set without a positive ``limit``, or
+                if ``start`` and ``offset`` are passed together.
+            ParameterValidationError: When ``strict_filters`` is enabled and
+                an unknown filter key is supplied.
+        """
         raw_limit = kwargs.pop("limit", 0)
         limit = int(raw_limit) if raw_limit is not None else 0
         raw_offset = kwargs.pop("offset", None)
@@ -364,19 +414,32 @@ class Endpoint:
         mode: PaginationMode | None = (
             _normalize_pagination_mode(mode_arg) if isinstance(mode_arg, str) else None
         )
-        strict_filters = kwargs.pop("strict_filters", self.api.strict_filters)
+        strict_filters = bool(kwargs.pop("strict_filters", self.api.strict_filters))
         if args:
             kwargs["q"] = args[0]
         if limit == 0 and offset is not None:
             raise ValueError("offset requires a positive limit value")
         if start is not None and offset is not None:
             raise ValueError("'start' and 'offset' are mutually exclusive")
-        query = {key: "null" if value is None else str(value) for key, value in kwargs.items()}
+        query: dict[str, str] = {
+            key: "null" if value is None else str(value) for key, value in kwargs.items()
+        }
         if strict_filters:
             self._validate_filters(query)
         return RecordSet(self, query=query, limit=limit, offset=offset, start=start, mode=mode)
 
     async def get(self, *args: Any, **kwargs: Any) -> Record | None:
+        """Return a single :class:`Record` by primary key or filter terms.
+
+        ``get(42)`` issues a detail request. ``get(role="leaf-switch")`` runs
+        a filtered list and asserts exactly one match.
+
+        Returns:
+            The matching :class:`Record`, or ``None`` when no record matches.
+
+        Raises:
+            ValueError: When the filter form returns more than one record.
+        """
         key = args[0] if args else None
         if key is None:
             matches = await self.filter(**kwargs).to_list(limit_override=2)
@@ -397,28 +460,63 @@ class Endpoint:
         payload = _decode_json(response)
         return self._make_record(payload, has_details=True)
 
-    async def create(self, *args: Any, **kwargs: Any) -> Any:
+    async def create(self, *args: Any, **kwargs: Any) -> Record | list[Record]:
+        """Create one or many records via ``POST`` to the list endpoint.
+
+        Calling ``create(name="sw-1", site={"id": 1})`` posts a single object;
+        calling ``create([{...}, {...}])`` posts a bulk list.
+
+        Returns:
+            A :class:`Record` for single-object creates, or a ``list[Record]``
+            for bulk creates.
+        """
         payload = _payload_from_args(*args, **kwargs)
         response = await self.api.client.request("POST", self._list_path, payload=payload)
         _raise_for_status(response)
         decoded = _decode_json(response)
         return self._wrap_result(decoded, has_details=True)
 
-    async def update(self, objects: list[Any]) -> Any:
+    async def update(self, objects: list[Any]) -> list[Record]:
+        """Bulk-update records via ``PATCH`` to the list endpoint.
+
+        Args:
+            objects: A list where each item is either a :class:`Record` or a
+                ``dict`` carrying the fields to update (each must include
+                ``id``).
+
+        Returns:
+            The list of updated records as returned by the server.
+        """
         response = await self.api.client.request(
             "PATCH", self._list_path, payload=_normalize_bulk_objects(objects)
         )
         _raise_for_status(response)
         decoded = _decode_json(response)
-        return self._wrap_result(decoded, has_details=True)
+        wrapped = self._wrap_result(decoded, has_details=True)
+        return wrapped if isinstance(wrapped, list) else [wrapped]
 
     async def delete(self, objects: Any) -> bool:
+        """Bulk-delete records via ``DELETE`` to the list endpoint.
+
+        Accepts a list of ids, a list of records/dicts, a single record, or a
+        :class:`RecordSet` (which is materialised before the call).
+
+        Returns:
+            ``True`` on success. The server returns ``204 No Content`` and the
+            facade does not surface a body.
+        """
         payload = _normalize_delete_objects(objects)
         response = await self.api.client.request("DELETE", self._list_path, payload=payload)
         _raise_for_status(response)
         return True
 
     async def choices(self) -> dict[str, Any]:
+        """Return the ``OPTIONS`` action map for the list endpoint.
+
+        Falls back from ``POST`` to ``PUT`` actions and to an empty mapping
+        when neither is present. Useful for introspecting writable fields and
+        their declared choices.
+        """
         response = await self.api.client.request("OPTIONS", self._list_path)
         _raise_for_status(response)
         payload = _decode_json(response)
@@ -434,6 +532,12 @@ class Endpoint:
         return put_actions if isinstance(put_actions, dict) else {}
 
     async def count(self, *args: str, **kwargs: Any) -> int:
+        """Return the total number of records matching the given filters.
+
+        Accepts the same arguments as :meth:`filter`. Works regardless of the
+        active pagination mode: cursor responses set ``count: null``, so this
+        method probes the offset representation under the hood when needed.
+        """
         records = self.filter(*args, **kwargs)
         return await records.total()
 
@@ -514,6 +618,26 @@ class ROMultiFormatDetailEndpoint(RODetailEndpoint):
 
 
 class RecordSet:
+    """Async-iterable, lazily-paginated view of a NetBox list endpoint.
+
+    Selects between cursor and offset pagination based on the resolved mode:
+
+    - ``"cursor"`` (NetBox >= 4.6) seeds ``start=`` / ``limit=`` and derives the
+      next cursor from the last result's ``id``.
+    - ``"offset"`` walks the server-provided ``next`` URL.
+    - ``"auto"`` defers the decision until the first fetch and resolves via a
+      cached ``Api.client.get_version()`` probe.
+
+    Public attributes:
+        endpoint: The :class:`Endpoint` that produced this record set.
+        query: The original filter query (read-only copy).
+        limit: Page size requested by the caller (``0`` means "let the SDK pick").
+        offset: Offset seed (offset mode), if any.
+        start: Cursor seed (cursor mode), if any.
+        count: Total row count, populated from ``count`` in offset responses or
+            via :meth:`total` in cursor mode.
+    """
+
     def __init__(
         self,
         endpoint: Endpoint,
@@ -526,11 +650,11 @@ class RecordSet:
     ) -> None:
         if start is not None and offset is not None:
             raise ValueError("'start' and 'offset' are mutually exclusive")
-        self.endpoint = endpoint
-        self.query = dict(query)
-        self.limit = limit
-        self.offset = offset
-        self.start = start
+        self.endpoint: Endpoint = endpoint
+        self.query: dict[str, str] = dict(query)
+        self.limit: int = limit
+        self.offset: int | None = offset
+        self.start: int | None = start
         self.count: int | None = None
         # Mode resolution: explicit kwarg > Api.pagination_mode > "auto".
         if mode is not None:
@@ -544,12 +668,14 @@ class RecordSet:
         elif offset is not None:
             self._requested_mode = "offset"
         self._mode: ResolvedPaginationMode | None = (
-            self._requested_mode if self._requested_mode in ("cursor", "offset") else None  # type: ignore[assignment]
+            cast(ResolvedPaginationMode, self._requested_mode)
+            if self._requested_mode in ("cursor", "offset")
+            else None
         )
         self._next_path: str | None = endpoint._list_path
         self._next_query: dict[str, str] = dict(query)
         self._buffer: list[Record] = []
-        self._started = False
+        self._started: bool = False
         self._last_pk: int | None = None
 
     def __aiter__(self) -> RecordSet:
@@ -569,7 +695,12 @@ class RecordSet:
         return self._buffer.pop(0)
 
     async def _initialize_first_page(self) -> None:
-        """Resolve auto mode and seed the first request's query parameters."""
+        """Resolve auto mode and seed the first request's query parameters.
+
+        In cursor mode this rejects an ``ordering`` filter (NetBox enforces
+        this server-side) and seeds ``start`` and ``limit``. In offset mode
+        this only adds ``limit`` / ``offset`` when the caller supplied them.
+        """
         if self._mode is None:
             self._mode = await self.endpoint.api._resolve_pagination_mode()
         if self._mode == "cursor":
@@ -586,6 +717,7 @@ class RecordSet:
                 self._next_query["offset"] = str(self.offset)
 
     async def _fetch_next_page(self) -> None:
+        """Fetch the next page and populate the internal record buffer."""
         if self._next_path is None:
             return
         response = await self.endpoint.api.client.request(
@@ -611,6 +743,11 @@ class RecordSet:
             self._advance_offset(payload)
 
     def _advance_cursor(self, results: list[Any]) -> None:
+        """Derive the next cursor from the last item's ``id``.
+
+        Pagination terminates when the page is empty, shorter than the
+        requested limit, or when the last item is missing a usable ``id``.
+        """
         page_limit = int(self._next_query.get("limit") or DEFAULT_CURSOR_PAGE_SIZE)
         last_pk: int | None = None
         if results:
@@ -628,16 +765,23 @@ class RecordSet:
         self._next_query = {**self._next_query, "start": str(last_pk + 1)}
 
     def _advance_offset(self, payload: dict[str, Any]) -> None:
+        """Follow the server-provided ``next`` URL for offset pagination."""
         next_value = payload.get("next")
         if isinstance(next_value, str) and next_value:
             split = urlsplit(next_value)
             self._next_path = split.path
-            self._next_query = {key: value for key, value in parse_qsl(split.query)}
+            self._next_query = dict(parse_qsl(split.query))
         else:
             self._next_path = None
             self._next_query = {}
 
     async def to_list(self, *, limit_override: int | None = None) -> list[Record]:
+        """Materialise the record set into a list.
+
+        Args:
+            limit_override: Stop after this many records. ``None`` (default)
+                drains the entire iterator.
+        """
         items: list[Record] = []
         async for item in self:
             items.append(item)
@@ -646,11 +790,20 @@ class RecordSet:
         return items
 
     async def total(self) -> int:
+        """Return the total row count for this filter, regardless of mode.
+
+        Cursor responses set ``count: null`` for performance, so this method
+        probes the offset representation (``?limit=1&offset=0``) once and
+        caches the result on :attr:`count`.
+
+        Raises:
+            ContentError: When the probe response is malformed.
+        """
         if self.count is not None:
             return self.count
         # Always probe with offset=0 — cursor responses set count: null for performance,
         # so we explicitly use the offset-paginated representation here.
-        probe_query = {
+        probe_query: dict[str, str] = {
             key: value for key, value in self.query.items() if key not in ("start", "ordering")
         }
         probe_query["limit"] = "1"
@@ -670,7 +823,15 @@ class RecordSet:
         self.count = count
         return count
 
-    async def update(self, **kwargs: Any) -> Any:
+    async def update(self, **kwargs: Any) -> list[Record] | None:
+        """Apply ``kwargs`` to every record in the set and bulk-update.
+
+        Iterates the record set, assigns the supplied fields, then issues a
+        single bulk PATCH for records whose state actually changed.
+
+        Returns:
+            The list of updated records, or ``None`` when no record changed.
+        """
         updates: list[dict[str, Any]] = []
         async for record in self:
             record.assign(kwargs)
@@ -683,6 +844,7 @@ class RecordSet:
         return await self.endpoint.update(updates)
 
     async def delete(self) -> bool:
+        """Bulk-delete every record in this set."""
         return await self.endpoint.delete(self)
 
 
