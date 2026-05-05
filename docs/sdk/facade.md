@@ -56,6 +56,17 @@ async for device in devices:
     print(device.name)
 ```
 
+`Endpoint.all()` accepts the same filter keyword arguments as `filter()`, so the
+two calls below are equivalent:
+
+```python
+async for device in nb.dcim.devices.all(role="leaf-switch"):
+    ...
+
+async for device in nb.dcim.devices.filter(role="leaf-switch"):
+    ...
+```
+
 Count matching rows:
 
 ```python
@@ -245,23 +256,57 @@ version and selects the right strategy:
 - NetBox `>= 4.6`: cursor mode (default).
 - NetBox `< 4.6`: offset mode (legacy).
 
-Override the default explicitly:
+### Parameter matrix
+
+Every paginated method accepts the full set of NetBox pagination arguments plus
+arbitrary filter keywords:
+
+| Method | `limit` | `offset` | `start` | `mode` | filter `**kwargs` |
+|---|:---:|:---:|:---:|:---:|:---:|
+| `Endpoint.all(...)` | yes | yes | yes | yes | yes |
+| `Endpoint.filter(...)` | yes | yes | yes | yes | yes |
+| `Endpoint.get(...)` | — | — | — | — | yes |
+| `Endpoint.count(...)` | — | — | — | — | yes |
+
+`mode` accepts `"cursor"`, `"offset"`, or `"auto"`. `start` and `offset` are mutually
+exclusive; passing both raises `ValueError`. `ordering` is rejected in cursor mode
+(NetBox enforces this server-side).
+
+### Cursor mode (default)
 
 ```python
-nb = api("https://netbox.example.com", token="my-token", pagination_mode="offset")
+nb = api("https://netbox.example.com", token="my-token")
 
-# Or per query — pass start= to force cursor mode and seed the first cursor:
-async for device in nb.dcim.devices.all(limit=100, start=0):
+# Cursor by default on NetBox >= 4.6 (filters and pagination compose freely):
+async for device in nb.dcim.devices.all(role="leaf-switch", limit=100):
     print(device.id)
 
-# Or pass mode= via filter():
-devices = nb.dcim.devices.filter(role="leaf-switch", mode="cursor")
+# Seed an explicit cursor:
+async for device in nb.dcim.devices.all(limit=100, start=0):
+    print(device.id)
+```
+
+### Using the legacy offset method
+
+The legacy offset paginator is fully supported. Force it for the whole client or
+for a single query:
+
+```python
+# Whole client:
+nb = api("https://netbox.example.com", token="my-token", pagination_mode="offset")
+
+# Per query:
+async for device in nb.dcim.devices.all(mode="offset", limit=100):
+    print(device.id)
+
+devices = nb.dcim.devices.filter(role="leaf-switch", mode="offset")
 ```
 
 The environment variable `NETBOX_SDK_PAGINATION_MODE` (`cursor` / `offset` / `auto`)
 overrides the constructor default, useful when bisecting issues against a specific
 NetBox release. In cursor mode the server returns `count: null` for performance, so
-`Endpoint.count()` issues an explicit offset-mode probe to obtain the total.
+`Endpoint.count()` issues an explicit offset-mode probe to obtain the total —
+`count()` works regardless of the configured mode.
 
 ---
 
