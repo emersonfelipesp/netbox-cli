@@ -86,6 +86,7 @@ nb = typed_api(
 
 Linhas de release suportadas:
 
+- `4.6`
 - `4.5`
 - `4.4`
 - `4.3`
