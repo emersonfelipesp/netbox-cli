@@ -268,28 +268,116 @@ jobs:
       - name: Sync development environment
         run: uv sync --dev --extra cli --extra tui --extra demo --extra mock --locked
 
+      - name: Set up Python 3.13 for source NetBox fallback
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
       - name: Start NetBox container
         # postgres and redis are healthy before this step runs (GitHub Actions
         # guarantees service container health before starting steps).
         # Use --network host so the container reaches localhost:5432 / :6379.
         run: |
-          docker run -d \
-            --name netbox-ci \
-            --network host \
-            -e SECRET_KEY="ci-secret-key-for-testing-only-not-for-production-use" \
-            -e ALLOWED_HOSTS="*" \
-            -e DB_HOST=127.0.0.1 \
-            -e DB_PORT=5432 \
-            -e DB_NAME=netbox \
-            -e DB_USER=netbox \
-            -e DB_PASSWORD=netbox \
-            -e REDIS_HOST=127.0.0.1 \
-            -e REDIS_PORT=6379 \
-            -e SUPERUSER_NAME=admin \
-            -e SUPERUSER_EMAIL=admin@example.com \
-            -e SUPERUSER_PASSWORD=netbox-test-password \
-            -e SUPERUSER_API_TOKEN=0123456789abcdef0123456789abcdef01234567 \
-            ghcr.io/netbox-community/netbox:${{ matrix.netbox-version }}
+          set -euo pipefail
+
+          image="ghcr.io/netbox-community/netbox:${{ matrix.netbox-version }}"
+          token="0123456789abcdef0123456789abcdef01234567"
+
+          if docker pull "$image"; then
+            echo "Starting NetBox from $image"
+            docker run -d \
+              --name netbox-ci \
+              --network host \
+              -e SECRET_KEY="ci-secret-key-for-testing-only-not-for-production-use" \
+              -e ALLOWED_HOSTS="*" \
+              -e DB_HOST=127.0.0.1 \
+              -e DB_PORT=5432 \
+              -e DB_NAME=netbox \
+              -e DB_USER=netbox \
+              -e DB_PASSWORD=netbox \
+              -e REDIS_HOST=127.0.0.1 \
+              -e REDIS_PORT=6379 \
+              -e SUPERUSER_NAME=admin \
+              -e SUPERUSER_EMAIL=admin@example.com \
+              -e SUPERUSER_PASSWORD=netbox-test-password \
+              -e SUPERUSER_API_TOKEN="$token" \
+              "$image"
+            echo "NETBOX_CI_BACKEND=docker" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
+          echo "Docker image $image is unavailable; falling back to source checkout"
+          git clone --depth 1 --branch "${{ matrix.netbox-version }}" \
+            https://github.com/netbox-community/netbox.git /tmp/netbox-source
+
+          cat > /tmp/netbox-source/netbox/netbox/configuration.py <<'PY'
+          ALLOWED_HOSTS = ['*']
+          DATABASES = {
+              'default': {
+                  'ENGINE': 'django.db.backends.postgresql',
+                  'NAME': 'netbox',
+                  'USER': 'netbox',
+                  'PASSWORD': 'netbox',
+                  'HOST': '127.0.0.1',
+                  'PORT': '5432',
+                  'CONN_MAX_AGE': 300,
+              }
+          }
+          REDIS = {
+              'tasks': {
+                  'HOST': '127.0.0.1',
+                  'PORT': 6379,
+                  'USERNAME': '',
+                  'PASSWORD': '',
+                  'DATABASE': 0,
+                  'SSL': False,
+              },
+              'caching': {
+                  'HOST': '127.0.0.1',
+                  'PORT': 6379,
+                  'USERNAME': '',
+                  'PASSWORD': '',
+                  'DATABASE': 1,
+                  'SSL': False,
+              },
+          }
+          SECRET_KEY = 'ci-secret-key-for-testing-only-not-for-production-use-12345'
+          API_TOKEN_PEPPERS = {
+              1: 'ci-token-pepper-for-testing-only-not-for-production-use-12345',
+          }
+          DEFAULT_PERMISSIONS = {}
+          LOGGING = {'version': 1, 'disable_existing_loggers': True}
+          RELEASE_CHECK_URL = None
+          PY
+
+          python3 -m venv /tmp/netbox-source-venv
+          /tmp/netbox-source-venv/bin/python -m pip install --upgrade pip wheel
+          /tmp/netbox-source-venv/bin/python -m pip install -r /tmp/netbox-source/requirements.txt
+          /tmp/netbox-source-venv/bin/python /tmp/netbox-source/netbox/manage.py migrate --no-input
+          /tmp/netbox-source-venv/bin/python /tmp/netbox-source/netbox/manage.py shell <<PY
+          from users.choices import TokenVersionChoices
+          from users.models import Token, User
+
+          token = "$token"
+          user, _ = User.objects.get_or_create(username="admin", defaults={"email": "admin@example.com"})
+          user.email = "admin@example.com"
+          user.is_staff = True
+          user.is_superuser = True
+          user.set_password("netbox-test-password")
+          user.save()
+          Token.objects.filter(user=user, description="CI live-test token").delete()
+          Token.objects.create(
+              user=user,
+              description="CI live-test token",
+              version=TokenVersionChoices.V1,
+              token=token,
+              write_enabled=True,
+          )
+          PY
+          /tmp/netbox-source-venv/bin/python /tmp/netbox-source/netbox/manage.py runserver \
+            0.0.0.0:8080 --insecure > /tmp/netbox-source.log 2>&1 &
+          echo "$!" > /tmp/netbox-source.pid
+          echo "NETBOX_CI_BACKEND=source" >> "$GITHUB_ENV"
 
       - name: Wait for NetBox to be ready
         run: |
@@ -304,15 +392,35 @@ jobs:
             echo "  attempt $i/30 — not ready yet, sleeping 10s"
             sleep 10
           done
+          echo "NetBox did not become ready"
+          docker logs --tail 200 netbox-ci 2>/dev/null || true
+          tail -n 200 /tmp/netbox-source.log 2>/dev/null || true
+          exit 1
 
       - name: Set NetBox connection env vars
         run: |
           echo "NETBOX_TOKEN=0123456789abcdef0123456789abcdef01234567" >> $GITHUB_ENV
+          echo "NETBOX_TOKEN_SECRET=0123456789abcdef0123456789abcdef01234567" >> $GITHUB_ENV
           echo "NETBOX_URL=http://localhost:8080" >> $GITHUB_ENV
 
       - name: Run live NetBox integration tests
         env:
           NETBOX_URL: ${{ env.NETBOX_URL }}
           NETBOX_TOKEN: ${{ env.NETBOX_TOKEN }}
+          NETBOX_TOKEN_SECRET: ${{ env.NETBOX_TOKEN_SECRET }}
           NETBOX_LIVE_TEST: "1"
         run: uv run pytest -v --tb=short -p no:randomly -m suite_sdk
+
+      - name: Dump NetBox logs on failure
+        if: failure()
+        run: |
+          docker logs --tail 200 netbox-ci 2>/dev/null || true
+          tail -n 200 /tmp/netbox-source.log 2>/dev/null || true
+
+      - name: Stop NetBox
+        if: always()
+        run: |
+          if [ -f /tmp/netbox-source.pid ]; then
+            kill "$(cat /tmp/netbox-source.pid)" 2>/dev/null || true
+          fi
+          docker rm -f netbox-ci 2>/dev/null || true
